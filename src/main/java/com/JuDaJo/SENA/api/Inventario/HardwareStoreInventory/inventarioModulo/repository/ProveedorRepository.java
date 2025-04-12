@@ -12,5 +12,6 @@ import java.util.Optional;
  * utilizando Spring Data JPA.
  */
 
-public interface ProveedorRepository {
+@Repository
+public interface ProveedorRepository extends JpaRepository<Proveedor, Integer> {
 }
