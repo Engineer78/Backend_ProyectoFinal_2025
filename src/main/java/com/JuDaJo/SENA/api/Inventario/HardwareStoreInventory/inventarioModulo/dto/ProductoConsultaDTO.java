@@ -26,4 +26,70 @@ public class ProductoConsultaDTO {
         this.nitProveedor = producto.getProveedor() != null ? producto.getProveedor().getNitProveedor() : null;
         this.imagen = producto.getImagen();
     }
+
+    // Getters y Setters
+
+    public Integer getIdProducto() {
+        return idProducto;
+    }
+
+    public void setIdProducto(Integer idProducto) {
+        this.idProducto = idProducto;
+    }
+
+    public String getNombreProducto() {
+        return nombreProducto;
+    }
+
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public Double getValorUnitarioProducto() {
+        return valorUnitarioProducto;
+    }
+
+    public void setValorUnitarioProducto(Double valorUnitarioProducto) {
+        this.valorUnitarioProducto = valorUnitarioProducto;
+    }
+
+    public Double getValorTotalProducto() {
+        return valorTotalProducto;
+    }
+
+    public void setValorTotalProducto(Double valorTotalProducto) {
+        this.valorTotalProducto = valorTotalProducto;
+    }
+
+    public String getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(String proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    public String getNitProveedor() {
+        return nitProveedor;
+    }
+
+    public void setNitProveedor(String nitProveedor) {
+        this.nitProveedor = nitProveedor;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
 }
