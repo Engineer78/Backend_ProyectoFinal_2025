@@ -30,4 +30,7 @@ public class ProductoProveedorController {
 
     // Repositorio para gestionar las operaciones relacionadas con productos
     private final ProductoRepository productoRepository;
+
+    // Repositorio para gestionar las operaciones relacionadas con proveedores
+    private final ProveedorRepository proveedorRepository;
 }
