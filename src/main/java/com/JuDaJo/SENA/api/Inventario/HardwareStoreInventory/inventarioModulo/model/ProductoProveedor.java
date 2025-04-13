@@ -24,4 +24,12 @@ public class ProductoProveedor {
     @ManyToOne
     @JoinColumn(name = "id_producto", nullable = false)
     private Producto producto;
+
+    /**
+     * Relación con el proveedor asociado.
+     * Utiliza una clave foránea que referencia el ID del proveedor.
+     */
+    @ManyToOne
+    @JoinColumn(name = "id_proveedor", nullable = false)
+    private Proveedor proveedor;
 }
