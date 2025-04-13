@@ -12,4 +12,7 @@ import java.util.stream.Collectors;
  * de mensajes simples que se pueden utilizar fácilmente en la capa de presentación.
  */
 public class ValidationErrorDTO {
+
+    // Lista que contiene los mensajes de error de validación en formato de texto.
+    private List<String> errores;
 }
