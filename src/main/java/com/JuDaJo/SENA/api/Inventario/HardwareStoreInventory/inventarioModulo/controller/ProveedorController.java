@@ -111,4 +111,25 @@ public class ProveedorController {
         return new ResponseEntity<>(nuevoProveedorDTO, HttpStatus.CREATED);
     }
 
+    // Actualizar un proveedor existente
+    @PutMapping("/{id}")
+    public ResponseEntity<ProveedorDTO> actualizarProveedor(@PathVariable int id, @Valid @RequestBody ProveedorDTO proveedorDTO) {
+        return proveedorRepository.findById(id)
+                .map(proveedor -> {
+                    proveedor.setNombreProveedor(proveedorDTO.getNombreProveedor());
+                    proveedor.setNitProveedor(proveedorDTO.getNitProveedor());
+                    proveedor.setTelefonoProveedor(proveedorDTO.getTelefonoProveedor());
+                    proveedor.setDireccionProveedor(proveedorDTO.getDireccionProveedor());
+
+                    Proveedor proveedorActualizado = proveedorRepository.save(proveedor);
+                    return ResponseEntity.ok(new ProveedorDTO(
+                            proveedorActualizado.getIdProveedor(),
+                            proveedorActualizado.getNombreProveedor(),
+                            proveedorActualizado.getNitProveedor(),
+                            proveedorActualizado.getTelefonoProveedor(),
+                            proveedorActualizado.getDireccionProveedor()));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
 }
