@@ -67,4 +67,13 @@ public class ProductoProveedor {
     public int getIdProductoProveedor() {
         return idProductoProveedor;
     }
+
+    /**
+     * Establece el identificador único de la relación Producto-Proveedor.
+     *
+     * @param idProductoProveedor ID de la relación.
+     */
+    public void setIdProductoProveedor(int idProductoProveedor) {
+        this.idProductoProveedor = idProductoProveedor;
+    }
 }
