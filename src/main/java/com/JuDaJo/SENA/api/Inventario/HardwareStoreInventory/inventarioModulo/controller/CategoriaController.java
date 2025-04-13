@@ -33,4 +33,13 @@ public class CategoriaController {
         return ResponseEntity.ok(categoriaDTOs);
     }
 
+    // Obtener una categoría por ID
+    @GetMapping("/{id}")
+    public ResponseEntity<CategoriaDTO> obtenerCategoria(@PathVariable Integer id) {
+        return categoriaRepository.findById(id)
+                .map(categoria -> new CategoriaDTO(categoria.getIdCategoria(), categoria.getNombreCategoria()))
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
 }
