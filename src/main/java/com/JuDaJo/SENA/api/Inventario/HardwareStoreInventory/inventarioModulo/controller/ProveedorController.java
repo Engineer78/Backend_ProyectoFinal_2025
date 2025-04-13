@@ -90,4 +90,25 @@ public class ProveedorController {
         }).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build()); // Si no existe, 404
     }
 
+    // Crear un nuevo proveedor
+    @PostMapping
+    public ResponseEntity<ProveedorDTO> crearProveedor(@Valid @RequestBody ProveedorDTO proveedorDTO) {
+        Proveedor proveedor = new Proveedor();
+        proveedor.setNombreProveedor(proveedorDTO.getNombreProveedor());
+        proveedor.setNitProveedor(proveedorDTO.getNitProveedor());
+        proveedor.setTelefonoProveedor(proveedorDTO.getTelefonoProveedor());
+        proveedor.setDireccionProveedor(proveedorDTO.getDireccionProveedor());
+
+        Proveedor nuevoProveedor = proveedorRepository.save(proveedor);
+
+        ProveedorDTO nuevoProveedorDTO = new ProveedorDTO(
+                nuevoProveedor.getIdProveedor(),
+                nuevoProveedor.getNombreProveedor(),
+                nuevoProveedor.getNitProveedor(),
+                nuevoProveedor.getTelefonoProveedor(),
+                nuevoProveedor.getDireccionProveedor());
+
+        return new ResponseEntity<>(nuevoProveedorDTO, HttpStatus.CREATED);
+    }
+
 }
