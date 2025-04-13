@@ -48,4 +48,16 @@ public class ProductoProveedorController {
         this.productoRepository = productoRepository;
         this.proveedorRepository = proveedorRepository;
     }
+
+    public ResponseEntity<List<ProductoProveedorDTO>> listarProductoProveedor() {
+        List<ProductoProveedorDTO> lista = productoProveedorRepository.findAll()
+                .stream()
+                .map(pp -> new ProductoProveedorDTO(
+                        pp.getIdProductoProveedor(), // Usamos idProductoProveedor según tu solicitud
+                        pp.getProducto().getIdProducto(),
+                        pp.getProveedor().getIdProveedor(),
+                        pp.getPrecioCompra()))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(lista);
+    }
 }
