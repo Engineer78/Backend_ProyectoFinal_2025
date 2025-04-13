@@ -22,4 +22,12 @@ public class ProductoProveedorDTO {
     // Constructor vacío
     public ProductoProveedorDTO() {}
 
+    // Constructor con parámetros
+    public ProductoProveedorDTO(int idProductoProveedor, int idProducto, int idProveedor, double precioCompra) {
+        this.idProductoProveedor = idProductoProveedor;
+        this.idProducto = idProducto;
+        this.idProveedor = idProveedor;
+        this.precioCompra = precioCompra;
+    }
+
 }
