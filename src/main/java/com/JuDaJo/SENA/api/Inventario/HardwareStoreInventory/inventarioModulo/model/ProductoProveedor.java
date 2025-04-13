@@ -16,4 +16,12 @@ public class ProductoProveedor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idProductoProveedor;
+
+    /**
+     * Relación con el producto asociado.
+     * Utiliza una clave foránea que referencia el ID del producto.
+     */
+    @ManyToOne
+    @JoinColumn(name = "id_producto", nullable = false)
+    private Producto producto;
 }
