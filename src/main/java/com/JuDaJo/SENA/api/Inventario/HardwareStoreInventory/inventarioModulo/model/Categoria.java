@@ -11,4 +11,11 @@ import java.util.List;
  */
 @Entity
 public class Categoria {
+
+    /**
+     * Identificador único de la categoría.
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idCategoria;
 }
