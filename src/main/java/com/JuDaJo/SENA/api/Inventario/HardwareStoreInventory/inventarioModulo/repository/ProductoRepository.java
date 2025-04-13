@@ -19,5 +19,13 @@ public interface ProductoRepository {
      * @return Un Optional que contiene el producto encontrado, o un Optional vacío si no se encuentra.
      */
     Optional<Producto> findByCodigoProducto(Integer codigoProducto);
+    /**
+     * Busca un producto por su nombre exacto.
+     *
+     * @param nombreProducto El nombre del producto.
+     * @return Un Optional que contiene el producto encontrado, o un Optional vacío si no se encuentra.
+     */
+    Optional<Producto> findByNombreProducto(String nombreProducto);
+
 
 }
