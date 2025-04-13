@@ -16,4 +16,6 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "http://localhost:5173") // Permite peticiones desde tu frontend
 @RequestMapping("/api/categorias")
 public class CategoriaController {
+
+    private final CategoriaRepository categoriaRepository;
 }
