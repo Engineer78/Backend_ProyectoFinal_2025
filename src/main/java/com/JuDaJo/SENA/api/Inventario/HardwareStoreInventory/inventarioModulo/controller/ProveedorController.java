@@ -17,5 +17,28 @@ import java.util.stream.Collectors;
 // @RestController indica que esta clase es un controlador REST y maneja las peticiones HTTP
 
 
+@RestController
+@CrossOrigin(origins = "http://localhost:5173") // Permite peticiones desde tu frontend
+@RequestMapping("/api/proveedores")
 public class ProveedorController {
+
+    private final ProveedorRepository proveedorRepository;
+
+    public ProveedorController(ProveedorRepository proveedorRepository) {
+        this.proveedorRepository = proveedorRepository;
+    }
+
+    // Obtener todos los proveedores
+    @GetMapping
+    public ResponseEntity<List<ProveedorDTO>> listarProveedores() {
+        List<ProveedorDTO> proveedores = proveedorRepository.findAll().stream()
+                .map(proveedor -> new ProveedorDTO(
+                        proveedor.getIdProveedor(),
+                        proveedor.getNombreProveedor(),
+                        proveedor.getNitProveedor(),
+                        proveedor.getTelefonoProveedor(),
+                        proveedor.getDireccionProveedor()))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(proveedores);
+    }
 }
