@@ -12,5 +12,10 @@ import java.util.Optional;
 
 @Repository
 public interface ProductoRepository {
-    
+    /**
+     * Busca un producto por su código exacto.
+     *
+     * @param codigoProducto El código del producto.
+     * @return Un Optional que contiene el producto encontrado, o un Optional vacío si no se encuentra.
+     */
 }
