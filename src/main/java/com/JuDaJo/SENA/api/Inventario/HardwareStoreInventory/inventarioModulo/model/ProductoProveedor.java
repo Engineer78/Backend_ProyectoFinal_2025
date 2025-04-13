@@ -94,4 +94,13 @@ public class ProductoProveedor {
     public void setProducto(Producto producto) {
         this.producto = producto;
     }
+
+    /**
+     * Obtiene el proveedor asociado a esta relación.
+     *
+     * @return Proveedor asociado.
+     */
+    public Proveedor getProveedor() {
+        return proveedor;
+    }
 }
