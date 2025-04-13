@@ -90,4 +90,30 @@ public class ProductoProveedorController {
 
         return new ResponseEntity<>(nuevoDTO, HttpStatus.CREATED);
     }
+
+    // Actualizar una relación existente
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductoProveedorDTO> actualizarProductoProveedor(@PathVariable int id, @Valid @RequestBody ProductoProveedorDTO dto) {
+        return productoProveedorRepository.findById(id)
+                .map(productoProveedor -> {
+                    // Validar la existencia del producto y proveedor
+                    Producto producto = productoRepository.findById(dto.getIdProducto())
+                            .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+                    Proveedor proveedor = proveedorRepository.findById(dto.getIdProveedor())
+                            .orElseThrow(() -> new RuntimeException("Proveedor no encontrado"));
+
+                    productoProveedor.setProducto(producto);
+                    productoProveedor.setProveedor(proveedor);
+                    productoProveedor.setPrecioCompra(dto.getPrecioCompra());
+
+                    ProductoProveedor actualizado = productoProveedorRepository.save(productoProveedor);
+
+                    return ResponseEntity.ok(new ProductoProveedorDTO(
+                            actualizado.getIdProductoProveedor(), // Usamos idProductoProveedor según tu solicitud
+                            actualizado.getProducto().getIdProducto(),
+                            actualizado.getProveedor().getIdProveedor(),
+                            actualizado.getPrecioCompra()));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
 }
