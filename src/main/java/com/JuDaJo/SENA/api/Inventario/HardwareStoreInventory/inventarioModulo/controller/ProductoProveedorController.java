@@ -60,4 +60,34 @@ public class ProductoProveedorController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(lista);
     }
+
+    // Crear una nueva relación producto-proveedor
+    @PostMapping
+    public ResponseEntity<ProductoProveedorDTO> crearProductoProveedor(@Valid @RequestBody ProductoProveedorDTO dto) {
+        // Validar la existencia del producto y proveedor
+        Optional<Producto> productoOpt = productoRepository.findById(dto.getIdProducto());
+        Optional<Proveedor> proveedorOpt = proveedorRepository.findById(dto.getIdProveedor());
+
+        if (productoOpt.isEmpty()) {
+            return ResponseEntity.badRequest().body(null); // Producto no encontrado
+        }
+        if (proveedorOpt.isEmpty()) {
+            return ResponseEntity.badRequest().body(null); // Proveedor no encontrado
+        }
+
+        ProductoProveedor productoProveedor = new ProductoProveedor();
+        productoProveedor.setProducto(productoOpt.get());
+        productoProveedor.setProveedor(proveedorOpt.get());
+        productoProveedor.setPrecioCompra(dto.getPrecioCompra());
+
+        ProductoProveedor nuevoProductoProveedor = productoProveedorRepository.save(productoProveedor);
+
+        ProductoProveedorDTO nuevoDTO = new ProductoProveedorDTO(
+                nuevoProductoProveedor.getIdProductoProveedor(), // Usamos idProductoProveedor según tu solicitud
+                nuevoProductoProveedor.getProducto().getIdProducto(),
+                nuevoProductoProveedor.getProveedor().getIdProveedor(),
+                nuevoProductoProveedor.getPrecioCompra());
+
+        return new ResponseEntity<>(nuevoDTO, HttpStatus.CREATED);
+    }
 }
