@@ -145,4 +145,19 @@ public class ProductoProveedor {
             proveedor.getProductoProveedores().removeIf(pp -> pp.getIdProductoProveedor() == this.idProductoProveedor);
         }
     }
+
+    /**
+     * Representación en forma de cadena de la relación Producto-Proveedor.
+     *
+     * @return Cadena con los datos de la relación.
+     */
+    @Override
+    public String toString() {
+        return "ProductoProveedor{" +
+                "idProductoProveedor=" + idProductoProveedor +
+                ", producto=" + producto +
+                ", proveedor=" + proveedor +
+                ", precioCompra=" + precioCompra +
+                '}';
+    }
 }
