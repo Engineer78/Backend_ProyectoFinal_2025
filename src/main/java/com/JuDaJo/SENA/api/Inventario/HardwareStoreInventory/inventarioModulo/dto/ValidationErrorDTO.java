@@ -29,4 +29,15 @@ public class ValidationErrorDTO {
                 .map(ObjectError::getDefaultMessage) // Extraigo el mensaje predeterminado de cada error.
                 .collect(Collectors.toList()); // Recolecto los mensajes en una lista.
     }
+
+    /**
+     * Método para obtener la lista de mensajes de error.
+     * Se he diseñado para que devuelva los errores en formato de texto ya procesados.
+     *
+     * @return Lista de cadenas de texto que representan los mensajes de error.
+     */
+    public List<String> getErrores() {
+        // Devuelve la lista de errores en forma de texto.
+        return errores;
+    }
 }
