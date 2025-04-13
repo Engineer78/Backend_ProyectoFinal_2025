@@ -32,4 +32,11 @@ public class ProductoProveedor {
     @ManyToOne
     @JoinColumn(name = "id_proveedor", nullable = false)
     private Proveedor proveedor;
+
+    /**
+     * Precio de compra del producto proporcionado por el proveedor.
+     * Es obligatorio y no puede ser nulo.
+     */
+    @Column(name = "precio_compra", nullable = false)
+    private double precioCompra;
 }
