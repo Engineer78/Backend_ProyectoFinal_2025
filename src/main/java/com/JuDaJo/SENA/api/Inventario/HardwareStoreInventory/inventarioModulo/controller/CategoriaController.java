@@ -54,4 +54,26 @@ public class CategoriaController {
         }).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build()); // Si no existe, 404
     }
 
+    // Crear una nueva categoría
+    @PostMapping
+    public ResponseEntity<?> crearCategoria(@Valid @RequestBody CategoriaDTO categoriaDTO) {
+        try {
+            // Mapea el DTO a la entidad
+            Categoria categoria = new Categoria();
+            categoria.setNombreCategoria(categoriaDTO.getNombreCategoria());
+
+            // Guarda la categoría en el repositorio
+            Categoria nuevaCategoria = categoriaRepository.save(categoria);
+
+            // Crea un nuevo DTO para devolver la respuesta
+            CategoriaDTO nuevaCategoriaDTO = new CategoriaDTO(nuevaCategoria.getIdCategoria(), nuevaCategoria.getNombreCategoria());
+
+            // Retorna la respuesta con HTTP 201
+            return new ResponseEntity<>(nuevaCategoriaDTO, HttpStatus.CREATED);
+        } catch (Exception e) {
+            // Maneja excepciones y retornamos error
+            return new ResponseEntity<>("Error al crear la categoría: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
