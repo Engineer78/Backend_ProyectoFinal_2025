@@ -132,4 +132,14 @@ public class ProveedorController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    // Eliminar un proveedor por ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarProveedor(@PathVariable int id) {
+        if (proveedorRepository.existsById(id)) {
+            proveedorRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
