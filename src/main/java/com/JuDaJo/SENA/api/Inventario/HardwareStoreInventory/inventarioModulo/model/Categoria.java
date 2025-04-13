@@ -48,4 +48,13 @@ public class Categoria {
         this.nombreCategoria = nombreCategoria;
     }
 
+    /**
+     * Obtiene el identificador de la categoría.
+     *
+     * @return Identificador de la categoría.
+     */
+    public Integer getIdCategoria() {
+        return idCategoria;
+    }
+
 }
