@@ -130,4 +130,19 @@ public class ProductoProveedor {
     public void setPrecioCompra(double precioCompra) {
         this.precioCompra = precioCompra;
     }
+
+    /**
+     * Método llamado automáticamente antes de eliminar la relación.
+     * Se utiliza para eliminar esta relación de las listas de `producto` y `proveedor` correspondientes,
+     * manteniendo la consistencia de los datos.
+     */
+    @PreRemove
+    private void removeRelationships() {
+        if (producto != null && producto.getProductoProveedores() != null) {
+            producto.getProductoProveedores().removeIf(pp -> pp.getIdProductoProveedor() == this.idProductoProveedor);
+        }
+        if (proveedor != null && proveedor.getProductoProveedores() != null) {
+            proveedor.getProductoProveedores().removeIf(pp -> pp.getIdProductoProveedor() == this.idProductoProveedor);
+        }
+    }
 }
