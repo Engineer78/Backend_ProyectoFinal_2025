@@ -175,4 +175,14 @@ public class ProductoProveedor {
         ProductoProveedor that = (ProductoProveedor) o;
         return producto.equals(that.producto) && proveedor.equals(that.proveedor);
     }
+
+    /**
+     * Calcula el código hash de la relación basado en los objetos `producto` y `proveedor`.
+     *
+     * @return Código hash de la relación.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(producto, proveedor);
+    }
 }
