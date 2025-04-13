@@ -71,4 +71,23 @@ public class ProveedorController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    // Obtener un proveedor por nombre
+    // Se utiliza para buscar un proveedor específico por su nombre
+    @GetMapping("/nombre/{nombre}")
+    public ResponseEntity<ProveedorDTO> getProveedorPorNombre(@PathVariable String nombre) {
+        Optional<Proveedor> proveedor = proveedorRepository.findByNombreProveedor(nombre);
+
+        // Convertir la entidad Proveedor a ProveedorDTO
+        return proveedor.map(prov -> {
+            ProveedorDTO proveedorDTO = new ProveedorDTO(
+                    prov.getIdProveedor(),
+                    prov.getNombreProveedor(),
+                    prov.getNitProveedor(),
+                    prov.getTelefonoProveedor(),
+                    prov.getDireccionProveedor()
+            );
+            return ResponseEntity.ok(proveedorDTO); // Devuelve solo los datos relevantes
+        }).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build()); // Si no existe, 404
+    }
+
 }
