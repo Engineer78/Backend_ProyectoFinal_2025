@@ -116,4 +116,13 @@ public class Categoria {
         producto.setCategoria(this); // Relación bidireccional
     }
 
+    /**
+     * Elimina un producto de la lista de productos asociados a esta categoría.
+     *
+     * @param producto Producto a eliminar.
+     */
+    public void eliminarProducto(Producto producto) {
+        this.productos.remove(producto);
+        producto.setCategoria(null); // Rompe la relación bidireccional
+    }
 }
