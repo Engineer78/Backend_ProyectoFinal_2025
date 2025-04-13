@@ -38,4 +38,14 @@ public class Categoria {
     public Categoria() {
     }
 
+    /**
+     * Constructor con parámetros para inicializar una categoría.
+     *
+     * @param nombreCategoria Nombre de la categoría.
+     */
+    public Categoria(String nombreCategoria) {
+
+        this.nombreCategoria = nombreCategoria;
+    }
+
 }
