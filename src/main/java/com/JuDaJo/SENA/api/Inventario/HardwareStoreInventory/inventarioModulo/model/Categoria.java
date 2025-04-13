@@ -86,4 +86,14 @@ public class Categoria {
         this.nombreCategoria = nombreCategoria;
     }
 
+    /**
+     * Obtiene la lista de productos asociados a esta categoría.
+     *
+     * @return Lista de productos.
+     */
+    public List<Producto> getProductos() {
+
+        return productos;
+    }
+
 }
