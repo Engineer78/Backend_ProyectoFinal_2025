@@ -106,4 +106,14 @@ public class Categoria {
         this.productos = productos;
     }
 
+    /**
+     * Agrega un producto a la lista de productos asociados a esta categoría.
+     *
+     * @param producto Producto a agregar.
+     */
+    public void agregarProducto(Producto producto) {
+        this.productos.add(producto);
+        producto.setCategoria(this); // Relación bidireccional
+    }
+
 }
