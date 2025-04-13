@@ -76,4 +76,16 @@ public class CategoriaController {
         }
     }
 
+    // Actualizar una categoría existente
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoriaDTO> actualizarCategoria(@PathVariable Integer id, @Valid @RequestBody CategoriaDTO categoriaDTO) {
+        return categoriaRepository.findById(id)
+                .map(categoria -> {
+                    categoria.setNombreCategoria(categoriaDTO.getNombreCategoria());
+                    categoriaRepository.save(categoria);
+                    return ResponseEntity.ok(new CategoriaDTO(categoria.getIdCategoria(), categoria.getNombreCategoria()));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
 }
