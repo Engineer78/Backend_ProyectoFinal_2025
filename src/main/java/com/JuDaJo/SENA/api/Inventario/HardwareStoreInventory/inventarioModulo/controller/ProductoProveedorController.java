@@ -33,4 +33,19 @@ public class ProductoProveedorController {
 
     // Repositorio para gestionar las operaciones relacionadas con proveedores
     private final ProveedorRepository proveedorRepository;
+
+    /**
+     * Constructor para inicializar los repositorios necesarios.
+     *
+     * @param productoProveedorRepository Repositorio para gestionar ProductoProveedor.
+     * @param productoRepository Repositorio para gestionar los productos.
+     * @param proveedorRepository Repositorio para gestionar los proveedores.
+     */
+    public ProductoProveedorController(ProductoProveedorRepository productoProveedorRepository,
+                                       ProductoRepository productoRepository,
+                                       ProveedorRepository proveedorRepository) {
+        this.productoProveedorRepository = productoProveedorRepository;
+        this.productoRepository = productoRepository;
+        this.proveedorRepository = proveedorRepository;
+    }
 }
