@@ -103,4 +103,13 @@ public class ProductoProveedor {
     public Proveedor getProveedor() {
         return proveedor;
     }
+
+    /**
+     * Establece el proveedor asociado a esta relación.
+     *
+     * @param proveedor Proveedor asociado.
+     */
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
+    }
 }
