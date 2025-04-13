@@ -26,4 +26,10 @@ public class Categoria {
     @Size(max = 100, message = "El nombre de la categoría no puede exceder los 100 caracteres")
     private String nombreCategoria;
 
+    /**
+     * Lista de productos asociados a la categoría.
+     */
+    @OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Producto> productos = new ArrayList<>();
+
 }
