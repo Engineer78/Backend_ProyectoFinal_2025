@@ -116,4 +116,14 @@ public class ProductoProveedorController {
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    // Eliminar una relación por ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarProductoProveedor(@PathVariable int id) {
+        if (productoProveedorRepository.existsById(id)) {
+            productoProveedorRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
