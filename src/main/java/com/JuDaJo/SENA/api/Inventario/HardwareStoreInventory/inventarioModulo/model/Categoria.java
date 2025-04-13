@@ -57,4 +57,13 @@ public class Categoria {
         return idCategoria;
     }
 
+    /**
+     * Establece el identificador de la categoría.
+     *
+     * @param idCategoria Identificador de la categoría.
+     */
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
+    }
+
 }
