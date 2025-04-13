@@ -27,4 +27,7 @@ public class ProductoProveedorController {
 
     // Repositorio para acceder y gestionar las relaciones entre productos y proveedores en la base de datos
     private final ProductoProveedorRepository productoProveedorRepository;
+
+    // Repositorio para gestionar las operaciones relacionadas con productos
+    private final ProductoRepository productoRepository;
 }
