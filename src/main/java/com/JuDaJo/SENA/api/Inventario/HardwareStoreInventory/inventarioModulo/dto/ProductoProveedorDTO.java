@@ -19,4 +19,7 @@ public class ProductoProveedorDTO {
     @Min(value = 0, message = "El precio de compra debe ser mayor o igual a 0")
     private double precioCompra;
 
+    // Constructor vacío
+    public ProductoProveedorDTO() {}
+
 }
