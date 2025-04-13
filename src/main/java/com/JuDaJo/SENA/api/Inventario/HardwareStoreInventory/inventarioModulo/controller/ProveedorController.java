@@ -55,4 +55,20 @@ public class ProveedorController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    // Obtener un proveedor por NIT
+    // Se utiliza para buscar un proveedor específico por su NIT
+    @GetMapping("/nit/{nitProveedor}")
+    public ResponseEntity<ProveedorDTO> buscarProveedorPorNit(@PathVariable String nitProveedor) {
+        return proveedorRepository.findByNitProveedor(nitProveedor)
+                .map(proveedor -> new ProveedorDTO(
+                        proveedor.getIdProveedor(),
+                        proveedor.getNombreProveedor(),
+                        proveedor.getNitProveedor(),
+                        proveedor.getTelefonoProveedor(),
+                        proveedor.getDireccionProveedor()))
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
 }
