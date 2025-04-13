@@ -24,4 +24,7 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "http://localhost:5173") // Permite peticiones desde tu frontend
 @RequestMapping("/api/producto-proveedor") // Define el endpoint base para las rutas relacionadas con ProductoProveedor
 public class ProductoProveedorController {
+
+    // Repositorio para acceder y gestionar las relaciones entre productos y proveedores en la base de datos
+    private final ProductoProveedorRepository productoProveedorRepository;
 }
