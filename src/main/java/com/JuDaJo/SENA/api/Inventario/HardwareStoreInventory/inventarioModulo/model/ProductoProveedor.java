@@ -121,4 +121,13 @@ public class ProductoProveedor {
     public double getPrecioCompra() {
         return precioCompra;
     }
+
+    /**
+     * Establece el precio de compra del producto proporcionado por el proveedor.
+     *
+     * @param precioCompra Precio de compra.
+     */
+    public void setPrecioCompra(double precioCompra) {
+        this.precioCompra = precioCompra;
+    }
 }
