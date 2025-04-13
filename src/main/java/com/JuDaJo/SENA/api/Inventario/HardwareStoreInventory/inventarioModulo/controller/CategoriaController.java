@@ -88,4 +88,14 @@ public class CategoriaController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    // Eliminar una categoría
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarCategoria(@PathVariable Integer id) {
+        if (categoriaRepository.existsById(id)) {
+            categoriaRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
