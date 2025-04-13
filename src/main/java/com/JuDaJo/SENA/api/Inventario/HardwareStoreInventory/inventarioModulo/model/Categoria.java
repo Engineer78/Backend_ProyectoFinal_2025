@@ -66,4 +66,14 @@ public class Categoria {
         this.idCategoria = idCategoria;
     }
 
+    /**
+     * Obtiene el nombre de la categoría.
+     *
+     * @return Nombre de la categoría.
+     */
+    public String getNombreCategoria() {
+
+        return nombreCategoria;
+    }
+
 }
