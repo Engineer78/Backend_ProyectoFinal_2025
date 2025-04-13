@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Size;
 
 public class CategoriaDTO {
 
+    private Integer idCategoria;
+
     // Validación condicional: Solo requerido si idCategoria es nulo
     @NotBlank(message = "El nombre de la categoría es obligatorio")
     @Size(max = 100, message = "El nombre de la categoría no puede exceder los 100 caracteres")
@@ -34,5 +36,14 @@ public class CategoriaDTO {
 
     public void setNombreCategoria(String nombreCategoria) {
         this.nombreCategoria = nombreCategoria;
+    }
+
+    /**
+     * Método para validar si los datos proporcionados son válidos.
+     * @return true si es válido, false de lo contrario.
+     */
+    public boolean isValid() {
+        // Si el ID no está presente, el nombre debe ser obligatorio
+        return idCategoria != null || (nombreCategoria != null && !nombreCategoria.isBlank());
     }
 }
