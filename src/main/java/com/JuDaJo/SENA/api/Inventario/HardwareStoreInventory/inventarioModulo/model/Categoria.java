@@ -76,4 +76,14 @@ public class Categoria {
         return nombreCategoria;
     }
 
+    /**
+     * Establece el nombre de la categoría.
+     *
+     * @param nombreCategoria Nombre de la categoría.
+     */
+    public void setNombreCategoria(String nombreCategoria) {
+
+        this.nombreCategoria = nombreCategoria;
+    }
+
 }
