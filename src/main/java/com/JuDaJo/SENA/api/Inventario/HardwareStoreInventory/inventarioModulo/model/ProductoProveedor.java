@@ -160,4 +160,19 @@ public class ProductoProveedor {
                 ", precioCompra=" + precioCompra +
                 '}';
     }
+
+    /**
+     * Compara esta relación con otro objeto para determinar si son iguales.
+     * La comparación se realiza en función de los objetos `producto` y `proveedor`.
+     *
+     * @param o Objeto a comparar.
+     * @return true si los objetos son iguales, false en caso contrario.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductoProveedor that = (ProductoProveedor) o;
+        return producto.equals(that.producto) && proveedor.equals(that.proveedor);
+    }
 }
