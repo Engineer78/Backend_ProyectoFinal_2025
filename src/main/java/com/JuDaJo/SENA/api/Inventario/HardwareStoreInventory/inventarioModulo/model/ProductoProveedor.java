@@ -58,4 +58,13 @@ public class ProductoProveedor {
         this.proveedor = proveedor;
         this.precioCompra = precioCompra;
     }
+
+    /**
+     * Obtiene el identificador único de la relación Producto-Proveedor.
+     *
+     * @return ID de la relación.
+     */
+    public int getIdProductoProveedor() {
+        return idProductoProveedor;
+    }
 }
