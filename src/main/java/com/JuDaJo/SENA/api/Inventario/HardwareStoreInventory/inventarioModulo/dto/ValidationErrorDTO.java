@@ -15,4 +15,18 @@ public class ValidationErrorDTO {
 
     // Lista que contiene los mensajes de error de validación en formato de texto.
     private List<String> errores;
+
+    /**
+     * Constructor de la clase ValidationErrorDTO.
+     * Aquí se convierto una lista de objetos ObjectError en una lista de cadenas de texto
+     * que contienen los mensajes de error predeterminados.
+     *
+     * @param errores Lista de errores de validación (ObjectError) provenientes de Spring.
+     */
+    public ValidationErrorDTO(List<ObjectError> errores) {
+        // Se usa un flujo (Stream) para mapear cada error al mensaje predeterminado y crear la lista final.
+        this.errores = errores.stream()
+                .map(ObjectError::getDefaultMessage) // Extraigo el mensaje predeterminado de cada error.
+                .collect(Collectors.toList()); // Recolecto los mensajes en una lista.
+    }
 }
