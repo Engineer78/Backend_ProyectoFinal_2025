@@ -41,4 +41,18 @@ public class ProveedorController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(proveedores);
     }
+
+    // Obtener un proveedor por ID
+    @GetMapping("/{id}")
+    public ResponseEntity<ProveedorDTO> obtenerProveedor(@PathVariable int id) {
+        return proveedorRepository.findById(id)
+                .map(proveedor -> new ProveedorDTO(
+                        proveedor.getIdProveedor(),
+                        proveedor.getNombreProveedor(),
+                        proveedor.getNitProveedor(),
+                        proveedor.getTelefonoProveedor(),
+                        proveedor.getDireccionProveedor()))
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 }
