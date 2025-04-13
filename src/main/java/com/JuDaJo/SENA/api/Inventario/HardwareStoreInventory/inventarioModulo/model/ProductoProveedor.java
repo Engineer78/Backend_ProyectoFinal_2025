@@ -85,4 +85,13 @@ public class ProductoProveedor {
     public Producto getProducto() {
         return producto;
     }
+
+    /**
+     * Establece el producto asociado a esta relación.
+     *
+     * @param producto Producto asociado.
+     */
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
 }
