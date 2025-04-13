@@ -96,4 +96,14 @@ public class Categoria {
         return productos;
     }
 
+    /**
+     * Establece la lista de productos asociados a esta categoría.
+     *
+     * @param productos Lista de productos.
+     */
+    public void setProductos(List<Producto> productos) {
+
+        this.productos = productos;
+    }
+
 }
