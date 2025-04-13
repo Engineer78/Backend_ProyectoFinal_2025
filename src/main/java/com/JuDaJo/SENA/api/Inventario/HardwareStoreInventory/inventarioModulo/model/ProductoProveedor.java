@@ -112,4 +112,13 @@ public class ProductoProveedor {
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
     }
+
+    /**
+     * Obtiene el precio de compra del producto proporcionado por el proveedor.
+     *
+     * @return Precio de compra.
+     */
+    public double getPrecioCompra() {
+        return precioCompra;
+    }
 }
