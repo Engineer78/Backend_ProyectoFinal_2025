@@ -42,4 +42,16 @@ public class CategoriaController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    // Endpoint para buscar una categoría por nombre
+    @GetMapping("/nombre/{nombre}")
+    public ResponseEntity<CategoriaDTO> getCategoriaPorNombre(@PathVariable String nombre) {
+        Optional<Categoria> categoria = categoriaRepository.findByNombreCategoria(nombre);
+
+        // Convertir la entidad Categoria a CategoriaDTO si se encuentra
+        return categoria.map(cat -> {
+            CategoriaDTO categoriaDTO = new CategoriaDTO(cat.getIdCategoria(), cat.getNombreCategoria());
+            return ResponseEntity.ok(categoriaDTO); // Devuelve el DTO
+        }).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build()); // Si no existe, 404
+    }
+
 }
