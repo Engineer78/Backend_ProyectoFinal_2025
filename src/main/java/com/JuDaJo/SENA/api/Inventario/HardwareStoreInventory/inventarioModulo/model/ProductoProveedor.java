@@ -76,4 +76,13 @@ public class ProductoProveedor {
     public void setIdProductoProveedor(int idProductoProveedor) {
         this.idProductoProveedor = idProductoProveedor;
     }
+
+    /**
+     * Obtiene el producto asociado a esta relación.
+     *
+     * @return Producto asociado.
+     */
+    public Producto getProducto() {
+        return producto;
+    }
 }
