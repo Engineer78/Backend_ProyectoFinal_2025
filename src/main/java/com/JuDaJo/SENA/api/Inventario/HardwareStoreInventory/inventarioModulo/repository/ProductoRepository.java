@@ -57,5 +57,11 @@ public interface ProductoRepository {
             @Param("valorUnitarioProducto") Double valorUnitarioProducto,
             @Param("valorTotalProducto") Double valorTotalProducto
     );
-
+    /**
+     * Consulta JPA que obtine los datos de proveedor junto con los de producto
+     * @param idProducto
+     * @return
+     */
+    @Query("SELECT p FROM Producto p LEFT JOIN FETCH p.proveedor WHERE p.idProducto = :idProducto")
+    Optional<Producto> findByIdWithProveedor(@Param("idProducto") Integer idProducto);
 }
