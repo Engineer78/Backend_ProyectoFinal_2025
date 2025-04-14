@@ -46,5 +46,9 @@ public class ProductoDTO {
     private String telefonoProveedor;
 
     private List<Integer> productoProveedores;
+    /**
+     * Imagen del producto en formato Base64.
+     */
+    private String imagen;
 
 }
