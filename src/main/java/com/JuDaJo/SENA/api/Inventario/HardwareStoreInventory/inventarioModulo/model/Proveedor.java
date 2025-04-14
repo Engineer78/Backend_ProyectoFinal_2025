@@ -47,4 +47,9 @@ public class Proveedor {
     @Size(max = 255, message = "La dirección no puede superar los 255 caracteres")
     @Column(name = "direccion_proveedor")
     private String direccionProveedor;
+    /**
+     * Lista de relaciones entre el proveedor y los productos que suministra.
+     */
+    @OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductoProveedor> productoProveedores = new ArrayList<>();
 }
