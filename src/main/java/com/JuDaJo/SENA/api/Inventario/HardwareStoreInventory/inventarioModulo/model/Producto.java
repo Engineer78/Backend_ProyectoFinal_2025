@@ -34,5 +34,11 @@ public class Producto {
     @Column(name = "nombre_producto")
     @NotBlank(message = "El nombre del producto no puede estar en blanco")
     private String nombreProducto;
+    /**
+     * Cantidad disponible del producto.
+     */
+    @Column(name = "cantidad")
+    @Min(value = 0, message = "La cantidad no puede ser negativa")
+    private int cantidad;
 
 }
