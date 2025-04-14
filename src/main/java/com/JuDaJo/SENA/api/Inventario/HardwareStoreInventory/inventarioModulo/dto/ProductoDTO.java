@@ -50,5 +50,30 @@ public class ProductoDTO {
      * Imagen del producto en formato Base64.
      */
     private String imagen;
+    // Constructor vacío para serialización/deserialización
+    public ProductoDTO() {}
 
+    // Constructor que inicializa los campos desde la entidad Producto
+    public ProductoDTO(Producto producto) {
+        this.idProducto = producto.getIdProducto();
+        this.codigoProducto = producto.getCodigoProducto();
+        this.nombreProducto = producto.getNombreProducto();
+        this.cantidad = producto.getCantidad();
+        this.valorUnitarioProducto = producto.getValorUnitarioProducto();
+        this.valorTotalProducto = producto.getCantidad() * producto.getValorUnitarioProducto();
+        this.nombreCategoria = (producto.getCategoria() != null) ? producto.getCategoria().getNombreCategoria() : null;
+        //this.imagen = producto.getImagen();
+        if (producto.getImagen() != null && !producto.getImagen().startsWith("data:image")) {
+            this.imagen = "data:image/png;base64," + producto.getImagen();
+        } else {
+            this.imagen = producto.getImagen();
+        }
+        if (producto.getProveedor() != null) {
+            this.idProveedor = producto.getProveedor().getIdProveedor();
+            this.nombreProveedor = producto.getProveedor().getNombreProveedor();
+            this.nitProveedor = producto.getProveedor().getNitProveedor();
+            this.telefonoProveedor = producto.getProveedor().getTelefonoProveedor();
+            this.direccionProveedor = producto.getProveedor().getDireccionProveedor();
+        }
+    }
 }
