@@ -120,4 +120,19 @@ public class Proveedor {
     public void setProductoProveedores(List<ProductoProveedor> productoProveedores) {
         this.productoProveedores = productoProveedores;
     }
+    /**
+     * Compara este proveedor con otro objeto para determinar si son iguales.
+     * La comparación se realiza en función del identificador único `idProveedor`.
+     * Si los objetos tienen la misma clase y el mismo `idProveedor`, se consideran iguales.
+     *
+     * @param o Objeto a comparar.
+     * @return true si los objetos son iguales, false en caso contrario.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true; // Verifica si los dos objetos son el mismo.
+        if (o == null || getClass() != o.getClass()) return false; // Verifica que no sea nulo y que las clases coincidan.
+        Proveedor proveedor = (Proveedor) o; // Convierte el objeto a tipo Proveedor.
+        return idProveedor == proveedor.idProveedor; // Compara los identificadores únicos.
+    }
 }
