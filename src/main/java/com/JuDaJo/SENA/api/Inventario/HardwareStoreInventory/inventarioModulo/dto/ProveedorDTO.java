@@ -19,4 +19,6 @@ public class ProveedorDTO {
 
     @Size(max = 255, message = "La dirección no puede superar los 255 caracteres")
     private String direccionProveedor;
+    // Constructor vacío
+    public ProveedorDTO() {}
 }
