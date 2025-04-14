@@ -228,4 +228,12 @@ public class Producto {
         productoProveedores.add(productoProveedor);
         productoProveedor.setProducto(this); // Establece la relación bidireccional
     }
+    /**
+     * Elimina una relación entre este producto y un proveedor.
+     * @param productoProveedor Relación Producto-Proveedor a eliminar.
+     */
+    public void eliminarProductoProveedor(ProductoProveedor productoProveedor) {
+        productoProveedores.remove(productoProveedor);
+        productoProveedor.setProducto(null); // Limpia la relación bidireccional
+    }
 }
