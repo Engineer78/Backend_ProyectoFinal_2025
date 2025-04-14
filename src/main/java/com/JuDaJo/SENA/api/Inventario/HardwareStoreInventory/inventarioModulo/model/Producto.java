@@ -28,5 +28,11 @@ public class Producto {
     @Column(name = "codigo_producto")
     @NotNull(message = "El código del producto no puede ser nulo")
     private Integer codigoProducto;
+    /**
+     * Nombre del producto.
+     */
+    @Column(name = "nombre_producto")
+    @NotBlank(message = "El nombre del producto no puede estar en blanco")
+    private String nombreProducto;
 
 }
