@@ -236,4 +236,26 @@ public class Producto {
         productoProveedores.remove(productoProveedor);
         productoProveedor.setProducto(null); // Limpia la relación bidireccional
     }
+    /**
+     * Calcula el valor total del producto (cantidad x valor unitario).
+     */
+    private void calcularValorTotal() {
+        this.valorTotalProducto = this.cantidad * this.valorUnitarioProducto;
+    }
+
+    /**
+     * Obtiene la imagen del producto en formato Base64.
+     * @return imagen en formato Base64.
+     */
+    public String getImagen() {
+        return imagen;
+    }
+
+    /**
+     * Establece la imagen del producto en formato Base64.
+     * @param imagen Cadena en Base64 que representa la imagen.
+     */
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
 }
