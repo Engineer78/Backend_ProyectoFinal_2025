@@ -59,5 +59,17 @@ public class Producto {
     @JoinColumn(name = "categoria_id", nullable = false)
     @NotNull(message = "La categoría no puede ser nula")
     private Categoria categoria;
+    /**
+     * Lista de relaciones entre el producto y sus proveedores.
+     * Se utiliza para modelar la relación entre un producto y los proveedores que lo suministran.
+     */
+
+    @OneToMany(mappedBy = "producto", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductoProveedor> productoProveedores = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "proveedor_id", nullable = false)
+    @NotNull(message = "El proveedor no puede ser nulo")
+    private Proveedor proveedor;
 
 }
