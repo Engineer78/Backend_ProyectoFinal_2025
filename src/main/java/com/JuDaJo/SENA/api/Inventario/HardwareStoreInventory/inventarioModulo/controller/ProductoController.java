@@ -199,4 +199,76 @@ public class ProductoController {
                     .body("Error al crear el producto: " + e.getMessage());
         }
     }
+    /**
+     * Crea un nuevo producto en el inventario.
+     *
+     * @param productoActualizado DTO con los datos necesarios para crear el producto.
+     * @param bindingResult Resultado de la validación de los datos enviados.
+     * @return Producto creado en formato DTO o detalles del error.
+     */
+    @PutMapping("/{idProducto}")
+    @Transactional
+    public ResponseEntity<?> updateProducto(
+            @PathVariable Integer idProducto,
+            @Valid @RequestBody ProductoUpdateDTO productoActualizado,
+            BindingResult bindingResult
+    ) {
+        if (bindingResult.hasErrors()) {
+            ValidationErrorDTO errorDTO = new ValidationErrorDTO(bindingResult.getAllErrors());
+            return ResponseEntity.badRequest().body(errorDTO);
+        }
+
+        try {
+            // Obtener el producto existente con los datos del proveedor
+            Producto productoExistente = productoRepository.findByIdWithProveedor(idProducto)
+                    .orElseThrow(() -> new IllegalArgumentException("El producto con ID " + idProducto + " no existe."));
+
+            productoExistente.setCodigoProducto(productoActualizado.getCodigoProducto());
+            productoExistente.setNombreProducto(productoActualizado.getNombreProducto());
+            productoExistente.setCantidad(productoActualizado.getCantidad());
+            productoExistente.setValorUnitarioProducto(productoActualizado.getValorUnitarioProducto());
+            productoExistente.setImagen(productoActualizado.getImagen());
+
+            // Recalcular y asignar el valor total
+            double valorTotal = productoActualizado.getCantidad() * productoActualizado.getValorUnitarioProducto();
+            productoExistente.setValorTotalProducto(valorTotal);
+
+            // Actualizar categoría
+            Categoria nuevaCategoria = categoriaRepository.findByNombreCategoria(productoActualizado.getNombreCategoria())
+                    .orElseThrow(() -> new IllegalArgumentException("La categoría con nombre " + productoActualizado.getNombreCategoria() + " no existe."));
+
+            productoExistente.setCategoria(nuevaCategoria);
+
+            // Actualizar proveedor
+            Proveedor proveedor = proveedorRepository.findById(productoActualizado.getIdProveedor())
+                    .orElseThrow(() -> new IllegalArgumentException("Proveedor con ID " + productoActualizado.getIdProveedor() + " no encontrado."));
+
+            proveedor.setNitProveedor(productoActualizado.getNitProveedor());
+            proveedor.setDireccionProveedor(productoActualizado.getDireccionProveedor());
+            proveedor.setTelefonoProveedor(productoActualizado.getTelefonoProveedor());
+            proveedorRepository.save(proveedor);
+
+            // ✅ Actualizar la tabla producto_proveedor (precioCompra)
+            ProductoProveedor productoProveedor = productoProveedorRepository
+                    .findByProductoIdProductoAndProveedorIdProveedor(productoExistente.getIdProducto(), proveedor.getIdProveedor())
+                    .orElseThrow(() -> new IllegalArgumentException("No se encontró la relación producto-proveedor."));
+
+            productoProveedor.setPrecioCompra(productoActualizado.getValorUnitarioProducto());
+            productoProveedorRepository.save(productoProveedor);
+
+            // Guardar producto
+            productoRepository.save(productoExistente);
+
+            // Crear el DTO de respuesta
+            ProductoDTO productoDTO = new ProductoDTO(productoExistente);
+            return ResponseEntity.ok(productoDTO);
+
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al actualizar el producto: " + e.getMessage());
+        }
+
+    }
 }
