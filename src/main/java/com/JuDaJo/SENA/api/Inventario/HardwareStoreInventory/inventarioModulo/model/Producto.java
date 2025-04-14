@@ -220,4 +220,12 @@ public class Producto {
     public void setProductoProveedores(List<ProductoProveedor> productoProveedores) {
         this.productoProveedores = productoProveedores;
     }
+    /**
+     * Agrega una relación entre este producto y un proveedor.
+     * @param productoProveedor Relación Producto-Proveedor.
+     */
+    public void agregarProductoProveedor(ProductoProveedor productoProveedor) {
+        productoProveedores.add(productoProveedor);
+        productoProveedor.setProducto(this); // Establece la relación bidireccional
+    }
 }
