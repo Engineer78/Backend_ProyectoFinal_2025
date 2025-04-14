@@ -205,4 +205,12 @@ public class Producto {
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
     }
+    /**
+     * Obtiene la lista de relaciones entre el producto y los proveedores.
+     * @return lista de relaciones Producto-Proveedor.
+     */
+    public List<ProductoProveedor> getProductoProveedores() {
+
+        return productoProveedores;
+    }
 }
