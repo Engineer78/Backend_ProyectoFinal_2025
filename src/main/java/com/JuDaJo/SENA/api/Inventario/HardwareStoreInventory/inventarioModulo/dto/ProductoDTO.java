@@ -76,4 +76,110 @@ public class ProductoDTO {
             this.direccionProveedor = producto.getProveedor().getDireccionProveedor();
         }
     }
+    // Getters y Setters para cada campo
+
+    public int getIdProducto() {
+        return idProducto;
+    }
+
+    public void setIdProducto(int idProducto) {
+        this.idProducto = idProducto;
+    }
+
+    public Integer getCodigoProducto() {
+        return codigoProducto;
+    }
+
+    public void setCodigoProducto(Integer codigoProducto) {
+        this.codigoProducto = codigoProducto;
+    }
+
+    public String getNombreProducto() {
+        return nombreProducto;
+    }
+
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public double getValorUnitarioProducto() {
+        return valorUnitarioProducto;
+    }
+
+    public void setValorUnitarioProducto(double valorUnitarioProducto) {
+        this.valorUnitarioProducto = valorUnitarioProducto;
+    }
+
+    public double getValorTotalProducto() {
+        return valorTotalProducto;
+    }
+
+    public void setValorTotalProducto(double valorTotalProducto) {
+        this.valorTotalProducto = valorTotalProducto;
+    }
+
+    public String getNombreCategoria() {
+        return nombreCategoria;
+    }
+
+    public void setNombreCategoria(String nombreCategoria) {
+        this.nombreCategoria = nombreCategoria;
+    }
+
+    public Integer getIdProveedor() {
+        return idProveedor;
+    }
+
+    public void setIdProveedor(Integer idProveedor) {
+        this.idProveedor = idProveedor;
+    }
+
+    public String getNombreProveedor() {
+        return nombreProveedor;
+    }
+
+    public void setNombreProveedor(String nombreProveedor) {
+        this.nombreProveedor = nombreProveedor;
+    }
+
+    public String getNitProveedor() {
+        return nitProveedor;
+    }
+
+    public void setNitProveedor(String nitProveedor) {
+        this.nitProveedor = nitProveedor;
+    }
+
+    public String getDireccionProveedor() {
+        return direccionProveedor;
+    }
+
+    public void setDireccionProveedor(String direccionProveedor) {
+        this.direccionProveedor = direccionProveedor;
+    }
+
+    public String getTelefonoProveedor() {
+        return telefonoProveedor;
+    }
+
+    public void setTelefonoProveedor(String telefonoProveedor) {
+        this.telefonoProveedor = telefonoProveedor;
+    }
+
+    public List<Integer> getProductoProveedores() {
+        return productoProveedores;
+    }
+
+    public void setProductoProveedores(List<Integer> productoProveedores) {
+        this.productoProveedores = productoProveedores;
+    }
+
 }
