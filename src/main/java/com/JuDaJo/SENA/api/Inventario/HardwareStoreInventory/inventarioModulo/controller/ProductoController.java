@@ -271,4 +271,29 @@ public class ProductoController {
         }
 
     }
+    // Eliminar un producto existente
+    @DeleteMapping("/{idProducto}")
+    public ResponseEntity<Void> deleteProducto(@PathVariable Integer idProducto) {
+        Optional<Producto> productoOptional = productoRepository.findById(idProducto);
+
+        if (productoOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Producto producto = productoOptional.get();
+        if (producto.getProductoProveedores() != null) {
+            List<ProductoProveedor> copiaProductoProveedores = new ArrayList<>(producto.getProductoProveedores());
+            for (ProductoProveedor productoProveedor : copiaProductoProveedores) {
+                if (productoProveedor.getProveedor() != null) {
+                    productoProveedor.getProveedor().getProductoProveedores().remove(productoProveedor);
+                }
+                producto.eliminarProductoProveedor(productoProveedor);
+                productoProveedorRepository.delete(productoProveedor);
+            }
+        }
+
+        productoRepository.delete(producto);
+
+        return ResponseEntity.noContent().build();
+    }
 }
