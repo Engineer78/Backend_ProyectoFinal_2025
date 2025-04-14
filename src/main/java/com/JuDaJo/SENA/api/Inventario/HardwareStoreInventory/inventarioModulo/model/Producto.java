@@ -40,5 +40,11 @@ public class Producto {
     @Column(name = "cantidad")
     @Min(value = 0, message = "La cantidad no puede ser negativa")
     private int cantidad;
+    /**
+     * Valor unitario del producto.
+     */
+    @Column(name = "valor_unitario_producto")
+    @Min(value = 0, message = "El valor unitario no puede ser negativo")
+    private double valorUnitarioProducto;
 
 }
