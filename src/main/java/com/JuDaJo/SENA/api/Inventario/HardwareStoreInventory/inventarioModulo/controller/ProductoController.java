@@ -28,5 +28,8 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/productos")
 
 public class ProductoController {
-    
+    private final ProductoRepository productoRepository;
+    private final ProductoProveedorRepository productoProveedorRepository;
+    private final CategoriaRepository categoriaRepository;
+    private final ProveedorRepository proveedorRepository;
 }
