@@ -57,4 +57,67 @@ public class Proveedor {
      */
     public Proveedor() {
     }
+    /**
+     * Constructor con parámetros para inicializar un proveedor.
+     *
+     * @param nombreProveedor  Nombre del proveedor.
+     * @param nitProveedor     NIT del proveedor.
+     * @param telefonoProveedor Teléfono del proveedor.
+     * @param direccionProveedor Dirección del proveedor.
+     */
+    public Proveedor(String nombreProveedor, String nitProveedor, String telefonoProveedor, String direccionProveedor) {
+        this.nombreProveedor = nombreProveedor;
+        this.nitProveedor = nitProveedor;
+        this.telefonoProveedor = telefonoProveedor;
+        this.direccionProveedor = direccionProveedor;
+    }
+
+    // Getters y Setters
+    public Integer getIdProveedor() {
+        return idProveedor;
+    }
+
+    public void setIdProveedor(int idProveedor) {
+        this.idProveedor = idProveedor;
+    }
+
+    public String getNombreProveedor() {
+        return nombreProveedor;
+    }
+
+    public void setNombreProveedor(String nombreProveedor) {
+        this.nombreProveedor = nombreProveedor;
+    }
+
+    public String getNitProveedor() {
+        return nitProveedor;
+    }
+
+    public void setNitProveedor(String nitProveedor) {
+        this.nitProveedor = nitProveedor;
+    }
+
+    public String getTelefonoProveedor() {
+        return telefonoProveedor;
+    }
+
+    public void setTelefonoProveedor(String telefonoProveedor) {
+        this.telefonoProveedor = telefonoProveedor;
+    }
+
+    public String getDireccionProveedor() {
+        return direccionProveedor;
+    }
+
+    public void setDireccionProveedor(String direccionProveedor) {
+        this.direccionProveedor = direccionProveedor;
+    }
+
+    public List<ProductoProveedor> getProductoProveedores() {
+        return productoProveedores;
+    }
+
+    public void setProductoProveedores(List<ProductoProveedor> productoProveedores) {
+        this.productoProveedores = productoProveedores;
+    }
 }
