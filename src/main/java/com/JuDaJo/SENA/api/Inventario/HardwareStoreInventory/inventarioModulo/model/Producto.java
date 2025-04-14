@@ -258,4 +258,26 @@ public class Producto {
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
+    /**
+     * Compara este producto con otro objeto.
+     * La comparación se realiza por el ID del producto.
+     * @param o Objeto a comparar.
+     * @return true si son iguales, false en caso contrario.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Producto producto = (Producto) o;
+        return idProducto == producto.idProducto;
+    }
+
+    /**
+     * Genera un código hash para este producto basado en su ID.
+     * @return código hash del producto.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(idProducto);
+    }
 }
