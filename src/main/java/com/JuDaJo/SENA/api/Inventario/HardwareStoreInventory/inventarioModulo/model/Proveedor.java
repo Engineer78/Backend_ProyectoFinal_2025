@@ -145,5 +145,19 @@ public class Proveedor {
     public int hashCode() {
         return Objects.hash(idProveedor); // Genera el código hash basado en el identificador único.
     }
+    /**
+     * Agrega un ProductoProveedor a la lista de relaciones.
+     */
+    public void agregarProductoProveedor(ProductoProveedor productoProveedor) {
+        this.productoProveedores.add(productoProveedor);
+        productoProveedor.setProveedor(this);
+    }
 
+    /**
+     * Elimina un ProductoProveedor de la lista de relaciones.
+     */
+    public void eliminarProductoProveedor(ProductoProveedor productoProveedor) {
+        this.productoProveedores.remove(productoProveedor);
+        productoProveedor.setProveedor(null);
+    }
 }
