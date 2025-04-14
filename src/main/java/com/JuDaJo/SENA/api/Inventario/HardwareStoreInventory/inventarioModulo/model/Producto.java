@@ -213,4 +213,11 @@ public class Producto {
 
         return productoProveedores;
     }
+    /**
+     * Establece la lista de relaciones entre el producto y los proveedores.
+     * @param productoProveedores Lista de relaciones Producto-Proveedor.
+     */
+    public void setProductoProveedores(List<ProductoProveedor> productoProveedores) {
+        this.productoProveedores = productoProveedores;
+    }
 }
