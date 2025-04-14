@@ -133,4 +133,70 @@ public class ProductoController {
 
         return ResponseEntity.ok(productosDTO);
     }
+    /**
+     * Crea un nuevo producto en el inventario.
+     *
+     * @param productCreationDTO DTO con los datos necesarios para crear el producto.
+     * @param bindingResult Resultado de la validación de los datos enviados.
+     * @return Producto creado en formato DTO o detalles del error.
+     */
+    @PostMapping
+    @Transactional
+    public ResponseEntity<?> addProducto(@Valid @RequestBody ProductoCreationDTO productCreationDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            bindingResult.getFieldErrors().forEach(error -> {
+                errors.put(error.getField(), error.getDefaultMessage());
+            });
+            return ResponseEntity.badRequest().body(errors);
+        }
+
+        try {
+            // Buscar o crear la categoría
+            Categoria categoria = categoriaRepository.findByNombreCategoria(productCreationDTO.getNombreCategoria())
+                    .orElseGet(() -> {
+                        Categoria nuevaCategoria = new Categoria();
+                        nuevaCategoria.setNombreCategoria(productCreationDTO.getNombreCategoria());
+                        return categoriaRepository.save(nuevaCategoria);
+                    });
+
+            // Buscar o crear el proveedor
+            Proveedor proveedor = proveedorRepository.findByNitProveedor(productCreationDTO.getNitProveedor())
+                    .orElseGet(() -> {
+                        Proveedor nuevoProveedor = new Proveedor();
+                        nuevoProveedor.setNombreProveedor(productCreationDTO.getNombreProveedor());
+                        nuevoProveedor.setNitProveedor(productCreationDTO.getNitProveedor());
+                        nuevoProveedor.setDireccionProveedor(productCreationDTO.getDireccionProveedor());
+                        nuevoProveedor.setTelefonoProveedor(productCreationDTO.getTelefonoProveedor());
+                        return proveedorRepository.save(nuevoProveedor);
+                    });
+
+            // Crear el producto y asociarlo a la categoría y al proveedor
+            Producto nuevoProducto = new Producto();
+            nuevoProducto.setCodigoProducto(productCreationDTO.getProducto().getCodigoProducto());
+            nuevoProducto.setNombreProducto(productCreationDTO.getProducto().getNombreProducto());
+            nuevoProducto.setCantidad(productCreationDTO.getProducto().getCantidad());
+            nuevoProducto.setValorUnitarioProducto(productCreationDTO.getProducto().getValorUnitarioProducto());
+            nuevoProducto.setValorTotalProducto(productCreationDTO.getProducto().getValorTotalProducto());
+            nuevoProducto.setCategoria(categoria);
+            nuevoProducto.setProveedor(proveedor);
+            nuevoProducto.setImagen(productCreationDTO.getProducto().getImagen());
+
+            nuevoProducto = productoRepository.save(nuevoProducto);
+            // Crear la relación ProductoProveedor
+            ProductoProveedor productoProveedor = new ProductoProveedor();
+            productoProveedor.setProducto(nuevoProducto); // Asocia el producto GUARDADO
+            productoProveedor.setProveedor(proveedor);
+            productoProveedor.setPrecioCompra(nuevoProducto.getValorUnitarioProducto());
+
+            productoProveedorRepository.save(productoProveedor); // Guarda la relación ProductoProveedor
+
+
+            return new ResponseEntity<>(new ProductoDTO(nuevoProducto), HttpStatus.CREATED);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al crear el producto: " + e.getMessage());
+        }
+    }
 }
