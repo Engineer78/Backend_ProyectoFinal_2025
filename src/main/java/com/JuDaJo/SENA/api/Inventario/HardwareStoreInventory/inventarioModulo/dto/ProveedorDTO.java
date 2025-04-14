@@ -21,4 +21,53 @@ public class ProveedorDTO {
     private String direccionProveedor;
     // Constructor vacío
     public ProveedorDTO() {}
+    // Constructor con todos los atributos
+    public ProveedorDTO(int idProveedor, String nombreProveedor, String nitProveedor, String telefonoProveedor, String direccionProveedor) {
+        this.idProveedor = idProveedor;
+        this.nombreProveedor = nombreProveedor;
+        this.nitProveedor = nitProveedor;
+        this.telefonoProveedor = telefonoProveedor;
+        this.direccionProveedor = direccionProveedor;
+    }
+
+    // Getters y Setters
+    public int getIdProveedor() {
+        return idProveedor;
+    }
+
+    public void setIdProveedor(int idProveedor) {
+        this.idProveedor = idProveedor;
+    }
+
+    public String getNombreProveedor() {
+        return nombreProveedor;
+    }
+
+    public void setNombreProveedor(String nombreProveedor) {
+        this.nombreProveedor = nombreProveedor;
+    }
+
+    public String getNitProveedor() {
+        return nitProveedor;
+    }
+
+    public void setNitProveedor(String nitProveedor) {
+        this.nitProveedor = nitProveedor;
+    }
+
+    public String getTelefonoProveedor() {
+        return telefonoProveedor;
+    }
+
+    public void setTelefonoProveedor(String telefonoProveedor) {
+        this.telefonoProveedor = telefonoProveedor;
+    }
+
+    public String getDireccionProveedor() {
+        return direccionProveedor;
+    }
+
+    public void setDireccionProveedor(String direccionProveedor) {
+        this.direccionProveedor = direccionProveedor;
+    }
 }
