@@ -52,5 +52,12 @@ public class Producto {
     @Column(name = "valor_total_producto")
     @Min(value = 0, message = "El valor total no puede ser negativa")
     private double valorTotalProducto; // Nuevo campo para el valor total del producto
+    /**
+     * Relación con la categoría a la que pertenece el producto.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoria_id", nullable = false)
+    @NotNull(message = "La categoría no puede ser nula")
+    private Categoria categoria;
 
 }
