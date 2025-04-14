@@ -71,5 +71,10 @@ public class Producto {
     @JoinColumn(name = "proveedor_id", nullable = false)
     @NotNull(message = "El proveedor no puede ser nulo")
     private Proveedor proveedor;
-
+    /**
+     * Imagen del producto en formato Base64.
+     */
+    @Lob // Indica que es un campo de gran tamaño (Large Object)
+    @Column(name = "imagen", columnDefinition = "LONGTEXT") // Se define como TEXT en la base de datos
+    private String imagen;
 }
