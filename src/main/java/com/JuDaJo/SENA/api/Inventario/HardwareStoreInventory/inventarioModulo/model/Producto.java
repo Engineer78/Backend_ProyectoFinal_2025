@@ -46,5 +46,11 @@ public class Producto {
     @Column(name = "valor_unitario_producto")
     @Min(value = 0, message = "El valor unitario no puede ser negativo")
     private double valorUnitarioProducto;
+    /**
+     * Valor Total del producto.
+     */
+    @Column(name = "valor_total_producto")
+    @Min(value = 0, message = "El valor total no puede ser negativa")
+    private double valorTotalProducto; // Nuevo campo para el valor total del producto
 
 }
