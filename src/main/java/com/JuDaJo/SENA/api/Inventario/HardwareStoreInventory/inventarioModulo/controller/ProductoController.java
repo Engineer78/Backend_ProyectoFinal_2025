@@ -95,4 +95,42 @@ public class ProductoController {
             return ResponseEntity.ok(productoDTO); // Devuelve solo los datos relevantes
         }).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build()); // Si no existe, 404
     }
+    @GetMapping("/buscar")
+    public ResponseEntity<List<ProductoDTO>> buscarProductos(
+            @RequestParam(required = false) Integer codigoProducto,
+            @RequestParam(required = false) String nombreProducto,
+            @RequestParam(required = false) String nombreCategoria,
+            @RequestParam(required = false) String nitProveedor,
+            @RequestParam(required = false) String nombreProveedor,
+            @RequestParam(required = false) Integer cantidad,
+            @RequestParam(required = false) Double valorUnitarioProducto,
+            @RequestParam(required = false) Double valorTotalProducto
+    ) {
+        List<Producto> productos = productoRepository.buscarProductosConFiltros(
+                codigoProducto,
+                nombreProducto,
+                nombreCategoria,
+                nitProveedor,
+                nombreProveedor,
+                cantidad,
+                valorUnitarioProducto,
+                valorTotalProducto
+        );
+
+        List<ProductoDTO> productosDTO = productos.stream()
+                .map(producto -> {
+                    ProductoDTO dto = new ProductoDTO(producto);
+                    if (producto.getProductoProveedores() != null && !producto.getProductoProveedores().isEmpty()) {
+                        Proveedor proveedor = producto.getProductoProveedores().get(0).getProveedor();
+                        if (proveedor != null) {
+                            dto.setNombreProveedor(proveedor.getNombreProveedor());
+                            dto.setNitProveedor(proveedor.getNitProveedor());
+                        }
+                    }
+                    return dto;
+                })
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(productosDTO);
+    }
 }
