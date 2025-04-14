@@ -77,4 +77,9 @@ public class Producto {
     @Lob // Indica que es un campo de gran tamaño (Large Object)
     @Column(name = "imagen", columnDefinition = "LONGTEXT") // Se define como TEXT en la base de datos
     private String imagen;
+    /**
+     * Constructor vacío requerido por JPA.
+     */
+    public Producto() {
+    }
 }
