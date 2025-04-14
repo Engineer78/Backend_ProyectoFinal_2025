@@ -16,4 +16,11 @@ import java.util.Objects;
  */
 @Entity
 public class Producto {
+    /**
+     * Identificador único del producto.
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int idProducto;
+
 }
