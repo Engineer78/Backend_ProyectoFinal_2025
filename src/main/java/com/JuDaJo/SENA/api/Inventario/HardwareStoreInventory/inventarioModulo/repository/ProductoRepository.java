@@ -1,6 +1,7 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.repository;
 
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.model.Producto;
+import aj.org.objectweb.asm.commons.Remapper;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.model.Producto;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ProductoRepository {
+public interface ProductoRepository extends JpaRepository<Producto, Integer>{
     /**
      * Busca un producto por su código exacto.
      *
@@ -64,4 +65,5 @@ public interface ProductoRepository {
      */
     @Query("SELECT p FROM Producto p LEFT JOIN FETCH p.proveedor WHERE p.idProducto = :idProducto")
     Optional<Producto> findByIdWithProveedor(@Param("idProducto") Integer idProducto);
+
 }

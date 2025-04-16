@@ -1,4 +1,5 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.dto;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -6,6 +7,9 @@ import jakarta.persistence.Lob;
 import jakarta.validation.constraints.Min; // Esta importación también es de Jakarta
 
 public class ProductoUpdateDTO {
+
+    private int idProducto;
+
     @NotNull(message = "El código del producto no puede ser nulo")
     private Integer codigoProducto;
 
@@ -36,6 +40,7 @@ public class ProductoUpdateDTO {
 
     @NotBlank
     private String telefonoProveedor;
+
     // Getters y setters
     public int getIdProducto() {
         return idProducto;

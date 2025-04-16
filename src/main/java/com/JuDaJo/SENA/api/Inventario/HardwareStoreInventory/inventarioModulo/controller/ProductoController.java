@@ -1,14 +1,14 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.controller;
 
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.dto.*;
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.model.Categoria;
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.model.Producto;
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.model.ProductoProveedor;
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.model.Proveedor;
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.repository.CategoriaRepository;
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.repository.ProductoProveedorRepository;
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.repository.ProductoRepository;
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.repository.ProveedorRepository;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.dto.*;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.model.Categoria;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.model.Producto;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.model.ProductoProveedor;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.model.Proveedor;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.repository.CategoriaRepository;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.repository.ProductoProveedorRepository;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.repository.ProductoRepository;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.repository.ProveedorRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

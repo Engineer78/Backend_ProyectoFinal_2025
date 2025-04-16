@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Size;
  * DTO para gestionar la información de un proveedor.
  */
 public class ProveedorDTO {
+    private int idProveedor;
+
     @NotBlank(message = "El nombre del proveedor es obligatorio")
     @Size(max = 100, message = "El nombre no puede exceder los 100 caracteres")
     private String nombreProveedor;

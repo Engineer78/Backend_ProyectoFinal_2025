@@ -1,8 +1,8 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.controller;
 
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.dto.CategoriaDTO;
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.model.Categoria;
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.repository.CategoriaRepository;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.dto.CategoriaDTO;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.model.Categoria;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.repository.CategoriaRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
