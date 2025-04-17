@@ -1,12 +1,12 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.controller;
 
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.dto.ProductoProveedorDTO;
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.model.Producto;
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.model.ProductoProveedor;
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.model.Proveedor;
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.repository.ProductoProveedorRepository;
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.repository.ProductoRepository;
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.repository.ProveedorRepository;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.dto.ProductoProveedorDTO;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.model.Producto;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.model.ProductoProveedor;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.model.Proveedor;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.repository.ProductoProveedorRepository;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.repository.ProductoRepository;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.repository.ProveedorRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
  * Proporciona los puntos de entrada necesarios para operaciones relacionadas con ProductoProveedor.
  */
 @RestController
-@CrossOrigin(origins = "http://localhost:5173") // Permite peticiones desde tu frontend
 @RequestMapping("/api/producto-proveedor") // Define el endpoint base para las rutas relacionadas con ProductoProveedor
 public class ProductoProveedorController {
 
