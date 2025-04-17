@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
  * Proporciona funcionalidades como crear, actualizar, eliminar y consultar productos.
  */
 @RestController
-//@CrossOrigin(origins = "http://localhost:5173/")
 @RequestMapping("/api/productos")
 
 public class ProductoController {
