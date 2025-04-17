@@ -66,4 +66,19 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer>{
     @Query("SELECT p FROM Producto p LEFT JOIN FETCH p.proveedor WHERE p.idProducto = :idProducto")
     Optional<Producto> findByIdWithProveedor(@Param("idProducto") Integer idProducto);
 
+    @Query("SELECT p FROM Producto p " +
+            "LEFT JOIN p.productoProveedores pp " +
+            "LEFT JOIN pp.proveedor prov " +
+            "WHERE (:nitProveedor IS NULL OR prov.nitProveedor LIKE %:nitProveedor%) " +
+            "AND (:nombreProveedor IS NULL OR LOWER(prov.nombreProveedor) LIKE LOWER(CONCAT('%', :nombreProveedor, '%'))) " +
+            "AND (:cantidad IS NULL OR str(p.cantidad) LIKE %:cantidad%) " +
+            "AND (:valorUnitarioProducto IS NULL OR str(p.valorUnitarioProducto) LIKE %:valorUnitarioProducto%) " +
+            "AND (:valorTotalProducto IS NULL OR str(p.valorTotalProducto) LIKE %:valorTotalProducto%)")
+    List<Producto> buscarProductosAvanzados(
+            @Param("nitProveedor") String nitProveedor,
+            @Param("nombreProveedor") String nombreProveedor,
+            @Param("cantidad") String cantidad,
+            @Param("valorUnitarioProducto") String valorUnitarioProducto,
+            @Param("valorTotalProducto") String valorTotalProducto
+    );
 }
