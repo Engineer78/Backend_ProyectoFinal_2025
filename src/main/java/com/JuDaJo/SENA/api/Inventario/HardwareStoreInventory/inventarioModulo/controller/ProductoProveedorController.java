@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * Proporciona los puntos de entrada necesarios para operaciones relacionadas con ProductoProveedor.
  */
 @RestController
-@CrossOrigin(origins = "http://localhost:5173") // Permite peticiones desde tu frontend
+//@CrossOrigin(origins = "http://localhost:5173") // Permite peticiones desde tu frontend
 @RequestMapping("/api/producto-proveedor") // Define el endpoint base para las rutas relacionadas con ProductoProveedor
 public class ProductoProveedorController {
 

@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173") // Permite peticiones desde tu frontend
+//@CrossOrigin(origins = "http://localhost:5173") // Permite peticiones desde tu frontend
 @RequestMapping("/api/proveedores")
 public class ProveedorController {
 

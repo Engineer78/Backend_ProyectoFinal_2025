@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  * Proporciona funcionalidades como crear, actualizar, eliminar y consultar productos.
  */
 @RestController
-@CrossOrigin(origins = "http://localhost:5173/")
+//@CrossOrigin(origins = "http://localhost:5173/")
 @RequestMapping("/api/productos")
 
 public class ProductoController {
@@ -51,6 +51,21 @@ public class ProductoController {
         this.categoriaRepository = categoriaRepository;
         this.proveedorRepository = proveedorRepository;
     }
+
+    /**
+     * Obtiene todos los productos disponibles en el inventario.
+     *
+     * @return Lista de productos en formato DTO.
+     */
+    @GetMapping
+    public ResponseEntity<List<ProductoDTO>> getAllProductos() {
+        List<Producto> productos = productoRepository.findAll(); // Obtiene todos los productos
+        List<ProductoDTO> productosDTO = productos.stream()
+                .map(ProductoDTO::new) // Convierte cada Producto en un ProductoDTO
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(productosDTO);
+    }
+
     /**
      * Obtiene un producto específico por su ID.
      *
