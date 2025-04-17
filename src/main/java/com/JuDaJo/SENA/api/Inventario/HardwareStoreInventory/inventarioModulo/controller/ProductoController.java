@@ -147,6 +147,38 @@ public class ProductoController {
 
         return ResponseEntity.ok(productosDTO);
     }
+
+    /**
+     * Se realiza la busqueda avanzada para el modal de busqueda avanzada
+     * @param nitProveedor
+     * @param nombreProveedor
+     * @param cantidad
+     * @param valorUnitarioProducto
+     * @param valorTotalProducto
+     * @return
+     */
+
+    @GetMapping("/busqueda-avanzada")
+    public ResponseEntity<List<ProductoDTO>> buscarProductosAvanzados(
+            @RequestParam(required = false) String nitProveedor,
+            @RequestParam(required = false) String nombreProveedor,
+            @RequestParam(required = false) String cantidad,
+            @RequestParam(required = false) String valorUnitarioProducto,
+            @RequestParam(required = false) String valorTotalProducto
+    ) {
+        List<Producto> productos = productoRepository.buscarProductosAvanzados(
+                nitProveedor, nombreProveedor, cantidad, valorUnitarioProducto, valorTotalProducto
+        );
+
+        List<ProductoDTO> productosDTO = productos.stream()
+                .map(ProductoDTO::new)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(productosDTO);
+    }
+
+
+
     /**
      * Crea un nuevo producto en el inventario.
      *
