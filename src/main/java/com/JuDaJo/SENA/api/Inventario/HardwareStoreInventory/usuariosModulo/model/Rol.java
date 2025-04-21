@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-
 /**
  * Entidad que representa un rol dentro del sistema.
  */
@@ -21,6 +20,7 @@ public class Rol {
     /**
      * Nombre del rol.
      */
+    @Column(name = "nombre_rol")
     @NotBlank(message = "El nombre del rol no puede estar en blanco")
     @Size(max = 45, message = "El nombre del rol no puede exceder los 45 caracteres")
     private String nombreRol;
