@@ -54,4 +54,25 @@ public class Rol {
         this.perfil = perfil;
     }
 
+    /**
+     * Getter para el identificador del rol.
+     *
+     * @return Identificador del rol.
+     */
+    public Integer getIdRol() {
+        return idRol;
+    }
+
+    public String getNombreRol() {
+        return nombreRol;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public Perfil getPerfil() {
+        return perfil;
+    }
+
 }
