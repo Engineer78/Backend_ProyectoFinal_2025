@@ -41,6 +41,14 @@ public class Usuario {
     * Constructor Vacío requerido por el JPA
     * */
     public Usuario() {}
+    /*
+     * Constructor con argumentos para facilitar la creación de instancias
+     */
+    public Usuario(String nombreUsuario, String contraseña, Rol rol) {
+        this.nombreUsuario = nombreUsuario;
+        this.contraseña = contraseña;
+        this.rol = rol;
+    }
 
     // Métodos Getters and Setters
 
