@@ -14,6 +14,11 @@ import lombok.Setter;
 @Entity
 public class Rol {
 
-
+    /**
+     * Identificador único del rol.
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idRol;
 
 }
