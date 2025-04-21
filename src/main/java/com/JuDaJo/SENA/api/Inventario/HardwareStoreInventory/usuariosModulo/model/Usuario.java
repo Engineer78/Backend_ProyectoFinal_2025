@@ -35,7 +35,8 @@ public class Usuario {
     * Relación entre Usuario y Rol
     * */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_rol", referencedColumnName = "id_rol", nullable = false)
+    @JoinColumn(name = "id_rol", referencedColumnName = "idRol", nullable = false)
+
     @NotNull(message = "El rol no puede ser nulo")
     private Rol rol;
     /*
