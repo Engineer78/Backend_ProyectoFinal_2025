@@ -96,6 +96,11 @@ public class Perfil {
         rol.setPerfil(this);
     }
 
+    /**
+     * Elimina un rol del perfil.
+     *
+     * @param rol
+     */
     public void eliminarRol(Rol rol) {
         roles.remove(rol);
         rol.setPerfil(null);
