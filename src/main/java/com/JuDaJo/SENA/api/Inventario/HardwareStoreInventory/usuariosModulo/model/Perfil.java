@@ -17,4 +17,12 @@ public class Perfil {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPerfil;
 
+    /**
+     * Nombre del perfil.
+     */
+    @NotBlank(message = "El nombre del perfil no puede estar en blanco")
+    @Size(max = 15, message = "El nombre del perfil no puede exceder los 15 caracteres")
+    private String nombrePerfil;
+
+
 }
