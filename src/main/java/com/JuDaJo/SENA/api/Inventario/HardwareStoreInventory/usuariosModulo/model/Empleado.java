@@ -1,10 +1,7 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -22,5 +19,12 @@ public class Empleado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idEmpleado;
+
+    /*
+     * Número de Identificación del empleado.
+     */
+    @Column(name = "numero_documento")
+    @NotNull(message = "El número de identificación no puede ser nulo.")
+    private String numeroDocumento;
 
 }
