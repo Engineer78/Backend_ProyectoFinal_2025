@@ -65,6 +65,27 @@ public class Perfil {
         return roles;
     }
 
+    /**
+     * Setter para el identificador del perfil.
+     *
+     * @param idPerfil Identificador del perfil.
+     */
+    public void setIdPerfil(Integer idPerfil) {
+        this.idPerfil = idPerfil;
+    }
+
+    public void setNombrePerfil(String nombrePerfil) {
+        this.nombrePerfil = nombrePerfil;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setRoles(List<Rol> roles) {
+        this.roles = roles;
+    }
+
     public void agregarRol(Rol rol) {
         roles.add(rol);
         rol.setPerfil(this);
