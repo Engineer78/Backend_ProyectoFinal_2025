@@ -41,5 +41,14 @@ public class Empleado {
     @NotBlank(message = "El apellido paterno del empleado no puede exceder los 15 caracteres")
     private String apellidoPaterno;
 
+    /*
+    * Segundo apellido del empleado.
+     */
+    @Column(name = "segundo_apellido")
+    @NotBlank(message = "El apellido materno del empleado no puede exceder los 15 caracteres")
+    private String apellidoMaterno;
+
     
+
+
 }
