@@ -44,6 +44,27 @@ public class Perfil {
         this.descripcion = descripcion;
     }
 
+    /**
+     * Getter para el identificador del perfil.
+     *
+     * @return Identificador del perfil.
+     */
+    public Integer getIdPerfil() {
+        return idPerfil;
+    }
+
+    public String getNombrePerfil() {
+        return nombrePerfil;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public List<Rol> getRoles() {
+        return roles;
+    }
+
     public void agregarRol(Rol rol) {
         roles.add(rol);
         rol.setPerfil(this);
