@@ -1,6 +1,6 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.dto;
 
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.model.Producto;git
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.model.Producto;
 
 public class ProductoConsultaDTO {
 

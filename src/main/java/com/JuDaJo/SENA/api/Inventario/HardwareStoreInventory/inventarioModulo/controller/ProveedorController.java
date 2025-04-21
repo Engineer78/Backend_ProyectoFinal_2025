@@ -1,8 +1,8 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.controller;
 
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.dto.ProveedorDTO;
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.model.Proveedor;
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.repository.ProveedorRepository;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.dto.ProveedorDTO;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.model.Proveedor;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.repository.ProveedorRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173") // Permite peticiones desde tu frontend
 @RequestMapping("/api/proveedores")
 public class ProveedorController {
 
