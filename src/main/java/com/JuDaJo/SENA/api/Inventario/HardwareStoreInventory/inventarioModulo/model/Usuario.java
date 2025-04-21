@@ -37,6 +37,10 @@ public class Usuario {
     @JoinColumn(name = "rol_id_rol")
     @NotNull(message = "El rol no puede ser nulo")
     private Rol rol;
+    /*
+    * Constructor Vacío requerido por el JPA
+    * */
+    public Usuario() {}
 
 
 
