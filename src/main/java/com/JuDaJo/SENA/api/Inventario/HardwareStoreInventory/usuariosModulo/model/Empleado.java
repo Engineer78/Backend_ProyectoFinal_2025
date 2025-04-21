@@ -83,7 +83,7 @@ public class Empleado {
     /**
      * Relación a la entidad Usuario.
      */
-    //@OneToOne
+    //@OneToOne(fetch = FetchType.LAZY)
     //@JoinColumn(name = "usuario_id", referencedColumnName = "id_usuario", nullable = false)
     //private Usuario usuario;
 }
