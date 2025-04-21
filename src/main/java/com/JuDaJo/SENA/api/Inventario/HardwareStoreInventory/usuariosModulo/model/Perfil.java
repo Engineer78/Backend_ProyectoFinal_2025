@@ -14,6 +14,7 @@ public class Perfil {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_perfil")
     private Integer idPerfil;
 
     @NotBlank(message = "El nombre del perfil no puede estar en blanco")
