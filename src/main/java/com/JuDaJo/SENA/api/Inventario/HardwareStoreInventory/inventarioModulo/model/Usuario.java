@@ -24,5 +24,11 @@ public class Usuario {
     @Column(name = "nombre_usuario")
     @NotNull(message = "El nombre del usuario no puede ser nulo")
     private String nombreUsuario;
+    /*
+    * Contraseña asginada al usuario
+    * */
+    @Column(name="contraseña_usuario")
+    @NotNull(message = "La contraseña del usuario no puede ser nula")
+    private String contraseña;
 
 }
