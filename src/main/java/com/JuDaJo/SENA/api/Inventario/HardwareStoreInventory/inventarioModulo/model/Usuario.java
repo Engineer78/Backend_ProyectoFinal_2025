@@ -108,4 +108,15 @@ public class Usuario {
     public void setRol(Rol rol) {
         this.rol = rol;
     }
+    /**
+     * Compara usuarios por ID para garantizar unicidad lógica.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Usuario)) return false;
+        Usuario usuario = (Usuario) o;
+        return idUsuario == usuario.idUsuario;
+    }
+    
 }
