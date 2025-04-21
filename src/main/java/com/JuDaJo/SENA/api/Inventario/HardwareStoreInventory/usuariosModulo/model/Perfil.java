@@ -3,14 +3,15 @@ package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.mod
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Entidad que representa un perfil dentro de usuarios.
  */
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -30,13 +31,6 @@ public class Perfil {
 
     @OneToMany(mappedBy = "perfil", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Rol> roles = new ArrayList<>();
-
-    public Perfil() {}
-
-    public Perfil(String nombrePerfil, String descripcion) {
-        this.nombrePerfil = nombrePerfil;
-        this.descripcion = descripcion;
-    }
 
     public void agregarRol(Rol rol) {
         roles.add(rol);
