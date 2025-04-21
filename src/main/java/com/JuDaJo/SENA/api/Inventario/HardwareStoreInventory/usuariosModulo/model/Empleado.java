@@ -2,15 +2,19 @@ package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.mod
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.*;
+
 
 /**
  * Esta clase representa un empleado dentro de usuarios.
  */
-
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class Empleado {
 
     /**
@@ -82,13 +86,4 @@ public class Empleado {
     //@OneToOne
     //@JoinColumn(name = "usuario_id", referencedColumnName = "id_usuario", nullable = false)
     //private Usuario usuario;
-
-    /**
-     * Se crea el constructor vacío de la clase Empleado
-     */
-    public Empleado() {
-    }
-
-
-
 }
