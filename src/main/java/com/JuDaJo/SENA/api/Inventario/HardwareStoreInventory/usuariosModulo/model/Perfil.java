@@ -5,10 +5,14 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Entidad que representa un perfil dentro de usuarios.
  */
+@Getter
+@Setter
 @Entity
 public class Perfil {
 
@@ -24,6 +28,8 @@ public class Perfil {
      */
     @NotBlank(message = "El nombre del perfil no puede estar en blanco")
     @Size(max = 15, message = "El nombre del perfil no puede exceder los 15 caracteres")
+    @Getter
+    @Setter
     private String nombrePerfil;
 
     /**
@@ -55,6 +61,5 @@ public class Perfil {
         this.nombrePerfil = nombrePerfil;
         this.descripcion = descripcion;
     }
-
-
+    
 }
