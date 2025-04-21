@@ -2,9 +2,6 @@ package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.mod
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.Objects;
 
 /*
@@ -13,8 +10,6 @@ import java.util.Objects;
  * Esta clase será utilizada para mapear los registros de la tabla correspondiente a usuarios.
  */
 @Entity
-@Getter
-@Setter
 public class Usuario {
     /*
     * Identificador Unico de Usuario
