@@ -37,4 +37,14 @@ public class Perfil {
         this.nombrePerfil = nombrePerfil;
         this.descripcion = descripcion;
     }
+
+    public void agregarRol(Rol rol) {
+        roles.add(rol);
+        rol.setPerfil(this);
+    }
+
+    public void eliminarRol(Rol rol) {
+        roles.remove(rol);
+        rol.setPerfil(null);
+    }
 }
