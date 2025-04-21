@@ -28,6 +28,7 @@ public class Rol {
     /**
      * Descripción del rol.
      */
+    @Column(name = "descripcion")
     @Size(max = 150, message = "La descripción del rol no puede exceder los 150 caracteres")
     private String descripcion;
 
