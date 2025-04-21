@@ -40,9 +40,18 @@ public class Rol {
     private Perfil perfil;
 
     /**
-     * Constructor vacío requerido por JPA.
+         * Constructor vacío requerido por JPA.
      */
     public Rol() {
+    }
+
+    /**
+     * Constructor con argumentos para la clase rol.
+     */
+    public Rol(String nombreRol, String descripcion, Perfil perfil) {
+        this.nombreRol = nombreRol;
+        this.descripcion = descripcion;
+        this.perfil = perfil;
     }
 
 }
