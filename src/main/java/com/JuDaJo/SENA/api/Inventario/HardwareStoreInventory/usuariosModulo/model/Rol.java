@@ -9,10 +9,11 @@ import lombok.Setter;
 /**
  * Entidad que representa un rol dentro del sistema.
  */
-
+@Getter
+@Setter
 @Entity
 public class Rol {
 
-    
+
 
 }
