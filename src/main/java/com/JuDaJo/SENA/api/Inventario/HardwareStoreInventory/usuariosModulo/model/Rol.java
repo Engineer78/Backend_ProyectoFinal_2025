@@ -21,4 +21,11 @@ public class Rol {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idRol;
 
+    /**
+     * Nombre del rol.
+     */
+    @NotBlank(message = "El nombre del rol no puede estar en blanco")
+    @Size(max = 45, message = "El nombre del rol no puede exceder los 45 caracteres")
+    private String nombreRol;
+
 }
