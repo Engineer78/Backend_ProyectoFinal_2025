@@ -146,4 +146,48 @@ public class Empleado {
     public Usuario getUsuario() {
         return usuario;
     }
+
+    /**
+     * Setter para el identificador del empleado.
+     * @param idEmpleado Identificador del empleado.
+     */
+    public void setIdEmpleado(int idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
+
+    public void setNumeroDocumento(String numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
+    }
+
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
+    }
+
+    public void setApellidoPaterno(String apellidoPaterno) {
+        this.apellidoPaterno = apellidoPaterno;
+    }
+
+    public void setApellidoMaterno(String apellidoMaterno) {
+        this.apellidoMaterno = apellidoMaterno;
+    }
+
+    public void setTelefonoMovil(String telefonoMovil) {
+        this.telefonoMovil = telefonoMovil;
+    }
+
+    public void setDireccionResidencia(String direccionResidencia) {
+        this.direccionResidencia = direccionResidencia;
+    }
+
+    public void setContactoEmergencia(String contactoEmergencia) {
+        this.contactoEmergencia = contactoEmergencia;
+    }
+
+    public void setTelefonoContacto(String telefonoContacto) {
+        this.telefonoContacto = telefonoContacto;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 }
