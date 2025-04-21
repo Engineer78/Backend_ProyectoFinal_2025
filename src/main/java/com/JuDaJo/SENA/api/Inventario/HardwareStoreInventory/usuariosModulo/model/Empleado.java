@@ -20,42 +20,49 @@ public class Empleado {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idEmpleado;
 
-    /*
+    /**
      * Número de Identificación del empleado.
      */
     @Column(name = "numero_documento")
     @NotNull(message = "El número de identificación no puede ser nulo.")
     private String numeroDocumento;
 
-    /*
+    /**
     * Nombre del empleado.
      */
     @Column(name = "nombres")
     @NotBlank(message = "El nombre del empleado no puede exceder los 30 caracteres")
     private String nombres;
 
-    /*
+    /**
     * Primer apellido del empleado.
      */
     @Column(name = "primer_apellido")
     @NotBlank(message = "El apellido paterno del empleado no puede exceder los 15 caracteres")
     private String apellidoPaterno;
 
-    /*
+    /**
     * Segundo apellido del empleado.
      */
     @Column(name = "segundo_apellido")
     @NotBlank(message = "El apellido materno del empleado no puede exceder los 15 caracteres")
     private String apellidoMaterno;
 
-    /*
+    /**
     * Teléfono del empleado.
      */
     @Column(name = "telefono_movil")
     @NotBlank(message = "El teléfono del empleado no puede exceder los 10 digitos")
     private String telefonoMovil;
 
+    /**
+     * Drireccion del empleado.
+     */
+    @Column(name = "direccion_residencia")
+    @NotBlank(message = "La dirección de residencia del empleado puede contener caracteres, números, letras y no debe exceder los 45 caracteres")
+    private String direccionResidencia;
 
+    
 
 
 }
