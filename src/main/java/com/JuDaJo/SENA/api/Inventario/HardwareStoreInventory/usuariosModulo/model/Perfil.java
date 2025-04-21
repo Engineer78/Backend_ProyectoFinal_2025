@@ -31,5 +31,12 @@ public class Perfil {
     @Size(max = 150, message = "La descripción del perfil no puede exceder los 150 caracteres")
     private String descripcion;
 
+    /**
+     * Lista de roles asociados a este perfil.
+     */
+    @OneToMany(mappedBy = "perfil", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Rol> roles = new ArrayList<>();
+
+
 
 }
