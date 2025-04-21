@@ -39,4 +39,10 @@ public class Rol {
     @JoinColumn(name = "id_rol", referencedColumnName = "id_perfil", nullable = false)
     private Perfil perfil;
 
+    /**
+     * Constructor vacío requerido por JPA.
+     */
+    public Rol() {
+    }
+
 }
