@@ -3,17 +3,12 @@ package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.mod
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Entidad que representa un perfil dentro de usuarios.
  */
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
 @Entity
 public class Perfil {
 
