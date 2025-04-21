@@ -3,6 +3,8 @@ package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.mod
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Entidad que representa un perfil dentro de usuarios.
@@ -36,6 +38,13 @@ public class Perfil {
      */
     @OneToMany(mappedBy = "perfil", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Rol> roles = new ArrayList<>();
+
+    /**
+     * Constructor vacío requerido por JPA.
+     */
+    public Perfil() {
+    }
+
 
 
 
