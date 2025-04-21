@@ -76,5 +76,12 @@ public class Empleado {
     @NotBlank(message = "telefono_contacto")
     private String telefonoContacto;
 
+    /**
+     * Relación a la entidad Usuario.
+     */
+    //@OneToOne
+    //@JoinColumn(name = "usuario_id", referencedColumnName = "id_usuario", nullable = false)
+    //private Usuario usuario;
+
 
 }
