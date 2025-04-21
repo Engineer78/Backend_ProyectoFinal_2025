@@ -88,4 +88,18 @@ public class Empleado {
     */
     public Empleado() {
     }
+
+     /**
+     * Constructor con argumentos para la clase Empleado.
+     */
+    public Empleado(String numeroDocumento, String nombres, String apellidoPaterno, String apellidoMaterno, String telefonoMovil, String direccionResidencia, String contactoEmergencia, String telefonoContacto, Usuario usuario) {
+        this.numeroDocumento = numeroDocumento;
+        this.nombres = nombres;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.telefonoMovil = telefonoMovil;
+        this.direccionResidencia = direccionResidencia;
+        this.contactoEmergencia = contactoEmergencia;
+        this.telefonoContacto = telefonoContacto;
+    }
 }
