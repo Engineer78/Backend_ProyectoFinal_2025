@@ -102,4 +102,48 @@ public class Empleado {
         this.contactoEmergencia = contactoEmergencia;
         this.telefonoContacto = telefonoContacto;
     }
+
+     /**
+     * Getter para el identificador del empleado.
+     * @return Identificador del empleado.
+     */
+    public int getIdEmpleado() {
+        return idEmpleado;
+    }
+
+    public String getNumeroDocumento() {
+        return numeroDocumento;
+    }
+
+    public String getNombres() {
+        return nombres;
+    }
+
+    public String getApellidoPaterno() {
+        return apellidoPaterno;
+    }
+
+    public String getApellidoMaterno() {
+        return apellidoMaterno;
+    }
+
+    public String getTelefonoMovil() {
+        return telefonoMovil;
+    }
+
+    public String getDireccionResidencia() {
+        return direccionResidencia;
+    }
+
+    public String getContactoEmergencia() {
+        return contactoEmergencia;
+    }
+
+    public String getTelefonoContacto() {
+        return telefonoContacto;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
 }
