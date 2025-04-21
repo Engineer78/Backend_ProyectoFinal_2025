@@ -82,4 +82,10 @@ public class Empleado {
     //@OneToOne(fetch = FetchType.LAZY)
     //@JoinColumn(name = "id_usurio", referencedColumnName = "idUsuario", nullable = false)
     //private Usuario usuario;
+
+    /**
+     * Constructor vacío requerido por JPA.
+    */
+    public Empleado() {
+    }
 }
