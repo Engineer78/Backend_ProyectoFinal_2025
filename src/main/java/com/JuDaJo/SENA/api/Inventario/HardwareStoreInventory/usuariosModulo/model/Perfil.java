@@ -45,7 +45,16 @@ public class Perfil {
     public Perfil() {
     }
 
-
+    /**
+     * Constructor con parámetros para inicializar un perfil con nombre y descripción.
+     *
+     * @param nombrePerfil Nombre del perfil.
+     * @param descripcion Descripción del perfil.
+     */
+    public Perfil(String nombrePerfil, String descripcion) {
+        this.nombrePerfil = nombrePerfil;
+        this.descripcion = descripcion;
+    }
 
 
 }
