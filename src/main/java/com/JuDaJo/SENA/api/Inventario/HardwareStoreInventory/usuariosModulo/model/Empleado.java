@@ -69,5 +69,12 @@ public class Empleado {
     @NotBlank(message = "El nombre del contacto de emergencia del empleado no debe exceder los 45 carácteres")
     private String contactoEmergencia;
 
+    /**
+     * Teléfono del contacto de emergencia del empleado.
+     */
+    @Column(name ="telefono_contacto")
+    @NotBlank(message = "telefono_contacto")
+    private String telefonoContacto;
+
 
 }
