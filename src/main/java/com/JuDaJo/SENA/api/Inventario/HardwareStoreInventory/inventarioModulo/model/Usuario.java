@@ -1,9 +1,7 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 /*
  * La anotación @Entity indica que la clase Usuario representa una entidad persistente,
@@ -19,5 +17,12 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idUsuario;
 
+    /*
+    * Nombre del usuario
+    * */
+
+    @Column(name = "nombre_usuario")
+    @NotNull(message = "El nombre del usuario no puede ser nulo")
+    private String nombreUsuario;
 
 }
