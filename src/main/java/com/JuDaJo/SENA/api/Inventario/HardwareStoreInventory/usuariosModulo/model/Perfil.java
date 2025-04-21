@@ -27,7 +27,7 @@ public class Perfil {
     @Size(max = 150, message = "La descripción del perfil no puede exceder los 150 caracteres")
     private String descripcion;
 
-    @OneToMany(mappedBy = "perfil", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Rol> roles = new ArrayList<>();
 
     public void agregarRol(Rol rol) {
