@@ -22,6 +22,7 @@ public class Perfil {
     @Size(max = 15, message = "El nombre del perfil no puede exceder los 15 caracteres")
     private String nombrePerfil;
 
+    @Column(name = "descripcion")
     @NotBlank(message = "La descripción del perfil no puede estar en blanco")
     @Size(max = 150, message = "La descripción del perfil no puede exceder los 150 caracteres")
     private String descripcion;
