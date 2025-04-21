@@ -28,4 +28,10 @@ public class Rol {
     @Size(max = 45, message = "El nombre del rol no puede exceder los 45 caracteres")
     private String nombreRol;
 
+    /**
+     * Descripción del rol.
+     */
+    @Size(max = 150, message = "La descripción del rol no puede exceder los 150 caracteres")
+    private String descripcion;
+
 }
