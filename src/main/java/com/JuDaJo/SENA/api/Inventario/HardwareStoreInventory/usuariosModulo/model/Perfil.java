@@ -36,6 +36,14 @@ public class Perfil {
     public Perfil() {
     }
 
+    /**
+     * Constructor con parametros para inicializar un perfil.
+     */
+    public Perfil(String nombrePerfil, String descripcion) {
+        this.nombrePerfil = nombrePerfil;
+        this.descripcion = descripcion;
+    }
+
     public void agregarRol(Rol rol) {
         roles.add(rol);
         rol.setPerfil(this);
