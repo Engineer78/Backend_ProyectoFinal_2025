@@ -86,6 +86,11 @@ public class Perfil {
         this.roles = roles;
     }
 
+    /**
+     * Agrega un rol al perfil.
+     *
+     * @param rol
+     */
     public void agregarRol(Rol rol) {
         roles.add(rol);
         rol.setPerfil(this);
