@@ -83,5 +83,12 @@ public class Empleado {
     //@JoinColumn(name = "usuario_id", referencedColumnName = "id_usuario", nullable = false)
     //private Usuario usuario;
 
+    /**
+     * Se crea el constructor vacío de la clase Empleado
+     */
+    public Empleado() {
+    }
+
+
 
 }
