@@ -42,8 +42,62 @@ public class Usuario {
     * */
     public Usuario() {}
 
+    // Métodos Getters and Setters
 
-
-
-
+    /**
+     * Obtiene el id del usuario.
+     * @return idUsuario.
+     */
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+    /**
+     * Establece el id
+     * @param idUsuario id del usuario.
+     */
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+    /**
+     * Obtiene el nombre de usuario.
+     * @return nombreUsuario.
+     */
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+    /**
+     * Establece el nombre de usuario
+     * @param nombreUsuario Nombre del usuario.
+     */
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+    /**
+     * Obtiene la contraseña
+     * @return contraseña.
+     */
+    public String getContraseña() {
+        return contraseña;
+    }
+    /**
+     * Establece la contraseña
+     * @param contraseña contraseña del usuario.
+     */
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
+    /**
+     * Obtiene el rol
+     * @return rol.
+     */
+    public Rol getRol() {
+        return rol;
+    }
+    /**
+     * Establece el rol
+     * @param rol rol del usuario.
+     */
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
 }
