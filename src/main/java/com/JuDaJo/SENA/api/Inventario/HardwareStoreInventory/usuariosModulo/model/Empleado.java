@@ -27,4 +27,19 @@ public class Empleado {
     @NotNull(message = "El número de identificación no puede ser nulo.")
     private String numeroDocumento;
 
+    /*
+    * Nombre del empleado.
+     */
+    @Column(name = "nombres")
+    @NotBlank(message = "El nombre del empleado no puede exceder los 30 caracteres")
+    private String nombres;
+
+    /*
+    * Primer apellido del empleado.
+     */
+    @Column(name = "primer_apellido")
+    @NotBlank(message = "El apellido paterno del empleado no puede exceder los 15 caracteres")
+    private String apellidoPaterno;
+
+    
 }
