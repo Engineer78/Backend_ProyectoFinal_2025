@@ -79,9 +79,9 @@ public class Empleado {
     /**
      * Relación a la entidad Usuario.
      */
-    //@OneToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "id_usurio", referencedColumnName = "idUsuario", nullable = false)
-    //private Usuario usuario;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_usurio", referencedColumnName = "idUsuario", nullable = false)
+    private Usuario usuario;
 
     /**
      * Constructor vacío requerido por JPA.
