@@ -3,6 +3,8 @@ package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.m
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.Objects;
+
 /*
  * La anotación @Entity indica que la clase Usuario representa una entidad persistente,
  * es decir, una tabla dentro de la base de datos gestionada por JPA (Jakarta Persistence API).
@@ -118,5 +120,13 @@ public class Usuario {
         Usuario usuario = (Usuario) o;
         return idUsuario == usuario.idUsuario;
     }
-    
+
+    /**
+     * Genera hash basado en el ID del usuario.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(idUsuario);
+    }
+
 }
