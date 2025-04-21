@@ -30,6 +30,12 @@ public class Perfil {
     @OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Rol> roles = new ArrayList<>();
 
+    /**
+     * Constructor vacío requerido por JPA.
+     */
+    public Perfil() {
+    }
+
     public void agregarRol(Rol rol) {
         roles.add(rol);
         rol.setPerfil(this);
