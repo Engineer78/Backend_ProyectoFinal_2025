@@ -34,4 +34,11 @@ public class Rol {
     @Size(max = 150, message = "La descripción del rol no puede exceder los 150 caracteres")
     private String descripcion;
 
+    /**
+     * Perfil asociado a este rol.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_rol", referencedColumnName = "id_perfil", nullable = false)
+    private Perfil perfil;
+
 }
