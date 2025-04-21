@@ -37,6 +37,8 @@ public class Perfil {
      */
     @NotBlank(message = "La descripción del perfil no puede estar en blanco")
     @Size(max = 150, message = "La descripción del perfil no puede exceder los 150 caracteres")
+    @Getter
+    @Setter
     private String descripcion;
 
     /**
@@ -61,5 +63,5 @@ public class Perfil {
         this.nombrePerfil = nombrePerfil;
         this.descripcion = descripcion;
     }
-    
+
 }
