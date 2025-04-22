@@ -19,5 +19,4 @@ public interface EmpleadoService {
     EmpleadoDTO buscarPorId(int idEmpleado);
     EmpleadoDTO actualizarEmpleado(int idEmpleado, EmpleadoDTO empleadoDTO);
     void eliminarEmpleado(int idEmpleado);
-
 }
