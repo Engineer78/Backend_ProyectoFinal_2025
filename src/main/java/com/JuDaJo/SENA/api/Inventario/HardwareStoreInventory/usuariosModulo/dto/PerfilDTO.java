@@ -23,4 +23,9 @@ public class PerfilDTO {
      * Descripción del perfil.
      */
     private String descripcion;
+
+    /**
+     * Constructor vacío para la entidad Perfil.
+     */
+    public PerfilDTO() {}
 }
