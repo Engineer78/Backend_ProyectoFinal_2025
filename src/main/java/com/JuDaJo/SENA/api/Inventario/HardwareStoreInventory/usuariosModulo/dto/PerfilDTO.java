@@ -41,4 +41,29 @@ public class PerfilDTO {
         this.nombrePerfil = nombrePerfil;
         this.descripcion = descripcion;
     }
+
+    // Getters y Setters
+    public Integer getIdPerfil() {
+        return idPerfil;
+    }
+
+    public void setIdPerfil(Integer idPerfil) {
+        this.idPerfil = idPerfil;
+    }
+
+    public String getNombrePerfil() {
+        return nombrePerfil;
+    }
+
+    public void setNombrePerfil(String nombrePerfil) {
+        this.nombrePerfil = nombrePerfil;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 }
