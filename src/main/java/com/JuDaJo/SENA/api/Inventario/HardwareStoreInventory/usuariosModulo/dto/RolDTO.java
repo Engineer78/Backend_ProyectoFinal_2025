@@ -21,4 +21,13 @@ public class RolDTO {
      */
     public RolDTO() {}
 
+    /**
+     * Constructor con parámetros para la entidad Rol.
+     */
+    public RolDTO(Integer idRol, String nombreRol, Integer idPerfil) {
+        this.idRol = idRol;
+        this.nombreRol = nombreRol;
+        this.idPerfil = idPerfil;
+    }
+
 }
