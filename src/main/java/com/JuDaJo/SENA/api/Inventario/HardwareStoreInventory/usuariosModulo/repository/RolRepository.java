@@ -4,6 +4,9 @@ import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.mode
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Optional;
+
 /**
  * Repositorio para la entidad Rol.
  * Este repositorio proporciona operaciones CRUD básicas para la entidad Rol
@@ -11,4 +14,28 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface RolRepository  extends JpaRepository<Rol, Integer> {
+
+    /**
+     * Busca un rol por su ID.
+     *
+     * @param idRol El ID del rol.
+     * @return Un Optional que contiene el rol encontrado, o vacío si no existe.
+     */
+    Optional<Rol> findByIdRol(Integer idRol);
+
+    /**
+     * Busca un rol por su nombre.
+     *
+     * @param nombreRol El nombre del rol.
+     * @return Un Optional con el rol si existe.
+     */
+    Optional<Rol> findByNombreRol(String nombreRol);
+
+    /**
+     * Lista los roles que pertenecen a un perfil específico.
+     *
+     * @param idPerfil El ID del perfil.
+     * @return Lista de roles que pertenecen al perfil.
+     */
+    List<Rol> findByPerfil_IdPerfil(Integer idPerfil);
 }
