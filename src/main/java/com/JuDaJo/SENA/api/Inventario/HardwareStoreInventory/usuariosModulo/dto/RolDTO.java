@@ -16,5 +16,9 @@ public class RolDTO {
 
     private Integer idPerfil; // Referencia al ID del perfil asociado
 
+    /**
+     * Constructor vacío para la entidad Rol.
+     */
+    public RolDTO() {}
 
 }
