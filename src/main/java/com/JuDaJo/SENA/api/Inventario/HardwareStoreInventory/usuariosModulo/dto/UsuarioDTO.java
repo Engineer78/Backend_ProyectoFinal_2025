@@ -32,4 +32,29 @@ public class UsuarioDTO {
         this.constraseña = constraseña;
         this.rol = rol;
     }
+    //Getters And Setters
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getConstraseña() {
+        return constraseña;
+    }
+
+    public void setConstraseña(String constraseña) {
+        this.constraseña = constraseña;
+    }
+
+    public Integer getRol() {
+        return rol;
+    }
+
+    public void setRol(Integer rol) {
+        this.rol = rol;
+    }
 }
