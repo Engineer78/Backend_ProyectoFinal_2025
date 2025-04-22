@@ -36,19 +36,11 @@ public class Rol {
      * Perfil asociado a este rol.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-<<<<<<< HEAD
-    @JoinColumn(name = "id_perfil", nullable = false)
-    private Perfil perfil;
-
-    /**
-     * Constructor vacío requerido por JPA.
-=======
     @JoinColumn(name = "id_perfil", referencedColumnName = "id_perfil", nullable = false)
     private Perfil perfil;
 
     /**
          * Constructor vacío requerido por JPA.
->>>>>>> 7d5c2ab459340fe55be64437ac7aa14d6280b6dd
      */
     public Rol() {
     }
@@ -64,11 +56,7 @@ public class Rol {
 
     /**
      * Getter para el identificador del rol.
-<<<<<<< HEAD
-     * 
-=======
      *
->>>>>>> 7d5c2ab459340fe55be64437ac7aa14d6280b6dd
      * @return Identificador del rol.
      */
     public Integer getIdRol() {
@@ -89,11 +77,7 @@ public class Rol {
 
     /**
      * Setter para el identificador del rol.
-<<<<<<< HEAD
-     * 
-=======
      *
->>>>>>> 7d5c2ab459340fe55be64437ac7aa14d6280b6dd
      * @param idRol Identificador del rol.
      */
     public void setIdRol(Integer idRol) {

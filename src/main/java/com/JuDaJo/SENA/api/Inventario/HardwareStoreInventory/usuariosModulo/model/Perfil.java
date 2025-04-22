@@ -34,16 +34,6 @@ public class Perfil {
      * Constructor vacío requerido por JPA.
      */
     public Perfil() {
-<<<<<<< HEAD
-    }
-
-    /**
-     * Constructor con parametros para inicializar un perfil.
-     */
-    public Perfil(String nombrePerfil, String descripcion) {
-        this.nombrePerfil = nombrePerfil;
-        this.descripcion = descripcion;
-=======
     }
 
     /**
@@ -114,72 +104,5 @@ public class Perfil {
     public void eliminarRol(Rol rol) {
         roles.remove(rol);
         rol.setPerfil(null);
->>>>>>> 7d5c2ab459340fe55be64437ac7aa14d6280b6dd
     }
-
-    /**
-     * Getter para el identificador del perfil.
-     * 
-     * @return Identificador del perfil.
-     */
-    public Integer getIdPerfil() {
-        return idPerfil;
-    }
-
-    public String getNombrePerfil() {
-        return nombrePerfil;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public List<Rol> getRoles() {
-        return roles;
-    }
-
-    /**
-     * Setter para el identificador del perfil.
-     * 
-     * @param idPerfil Identificador del perfil.
-     */
-    public void setIdPerfil(Integer idPerfil) {
-        this.idPerfil = idPerfil;
-    }
-
-    public void setNombrePerfil(String nombrePerfil) {
-        this.nombrePerfil = nombrePerfil;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public void setRoles(List<Rol> roles) {
-        this.roles = roles;
-    }
-
-    /**
-     * Agrega un rol al perfil.
-     * 
-     * @param rol
-     */
-    /*
-     * public void agregarRol(Rol rol) {
-     * roles.add(rol);
-     * rol.setPerfil(this);
-     * }
-     */
-
-    /**
-     * Elimina un rol del perfil.
-     * 
-     * @param rol
-     */
-    /*
-     * public void eliminarRol(Rol rol) {
-     * roles.remove(rol);
-     * rol.setPerfil(null);
-     * }
-     */
 }

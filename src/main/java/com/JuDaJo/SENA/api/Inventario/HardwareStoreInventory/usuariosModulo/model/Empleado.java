@@ -4,10 +4,7 @@ package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.mod
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-<<<<<<< HEAD
-=======
 
->>>>>>> 7d5c2ab459340fe55be64437ac7aa14d6280b6dd
 
 
 /**
@@ -83,11 +80,7 @@ public class Empleado {
      * Relación a la entidad Usuario.
      */
     @OneToOne(fetch = FetchType.LAZY)
-<<<<<<< HEAD
-    @JoinColumn(name = "id_usuario", referencedColumnName = "idUsuario", nullable = false)
-=======
     @JoinColumn(name = "id_usurio", referencedColumnName = "idUsuario", nullable = false)
->>>>>>> 7d5c2ab459340fe55be64437ac7aa14d6280b6dd
     private Usuario usuario;
 
     /**
@@ -96,11 +89,7 @@ public class Empleado {
     public Empleado() {
     }
 
-<<<<<<< HEAD
-    /**
-=======
      /**
->>>>>>> 7d5c2ab459340fe55be64437ac7aa14d6280b6dd
      * Constructor con argumentos para la clase Empleado.
      */
     public Empleado(String numeroDocumento, String nombres, String apellidoPaterno, String apellidoMaterno, String telefonoMovil, String direccionResidencia, String contactoEmergencia, String telefonoContacto, Usuario usuario) {
@@ -114,11 +103,7 @@ public class Empleado {
         this.telefonoContacto = telefonoContacto;
     }
 
-<<<<<<< HEAD
-    /**
-=======
      /**
->>>>>>> 7d5c2ab459340fe55be64437ac7aa14d6280b6dd
      * Getter para el identificador del empleado.
      * @return Identificador del empleado.
      */
