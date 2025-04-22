@@ -9,5 +9,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmpleadoServiceImpl implements EmpleadoService {
 
-    
+    /**
+     * Se crean las inyecciones de dependencias para los repositorios de empleados.
+     */
+    @Autowired
+    private EmpleadoRepository empleadoRepository;
 }
