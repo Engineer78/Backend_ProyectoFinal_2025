@@ -4,17 +4,12 @@ package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.mod
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
 
 
 /**
  * Esta clase representa un empleado dentro de usuarios.
  */
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
 public class Empleado {
 
     /**
@@ -83,7 +78,115 @@ public class Empleado {
     /**
      * Relación a la entidad Usuario.
      */
-    //@OneToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "usuario_id", referencedColumnName = "id_usuario", nullable = false)
-    //private Usuario usuario;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_usuario", referencedColumnName = "idUsuario", nullable = false)
+    private Usuario usuario;
+
+    /**
+     * Constructor vacío requerido por JPA.
+    */
+    public Empleado() {
+    }
+
+    /**
+     * Constructor con argumentos para la clase Empleado.
+     */
+    public Empleado(String numeroDocumento, String nombres, String apellidoPaterno, String apellidoMaterno, String telefonoMovil, String direccionResidencia, String contactoEmergencia, String telefonoContacto, Usuario usuario) {
+        this.numeroDocumento = numeroDocumento;
+        this.nombres = nombres;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.telefonoMovil = telefonoMovil;
+        this.direccionResidencia = direccionResidencia;
+        this.contactoEmergencia = contactoEmergencia;
+        this.telefonoContacto = telefonoContacto;
+    }
+
+    /**
+     * Getter para el identificador del empleado.
+     * @return Identificador del empleado.
+     */
+    public int getIdEmpleado() {
+        return idEmpleado;
+    }
+
+    public String getNumeroDocumento() {
+        return numeroDocumento;
+    }
+
+    public String getNombres() {
+        return nombres;
+    }
+
+    public String getApellidoPaterno() {
+        return apellidoPaterno;
+    }
+
+    public String getApellidoMaterno() {
+        return apellidoMaterno;
+    }
+
+    public String getTelefonoMovil() {
+        return telefonoMovil;
+    }
+
+    public String getDireccionResidencia() {
+        return direccionResidencia;
+    }
+
+    public String getContactoEmergencia() {
+        return contactoEmergencia;
+    }
+
+    public String getTelefonoContacto() {
+        return telefonoContacto;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * Setter para el identificador del empleado.
+     * @param idEmpleado Identificador del empleado.
+     */
+    public void setIdEmpleado(int idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
+
+    public void setNumeroDocumento(String numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
+    }
+
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
+    }
+
+    public void setApellidoPaterno(String apellidoPaterno) {
+        this.apellidoPaterno = apellidoPaterno;
+    }
+
+    public void setApellidoMaterno(String apellidoMaterno) {
+        this.apellidoMaterno = apellidoMaterno;
+    }
+
+    public void setTelefonoMovil(String telefonoMovil) {
+        this.telefonoMovil = telefonoMovil;
+    }
+
+    public void setDireccionResidencia(String direccionResidencia) {
+        this.direccionResidencia = direccionResidencia;
+    }
+
+    public void setContactoEmergencia(String contactoEmergencia) {
+        this.contactoEmergencia = contactoEmergencia;
+    }
+
+    public void setTelefonoContacto(String telefonoContacto) {
+        this.telefonoContacto = telefonoContacto;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 }
