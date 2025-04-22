@@ -22,4 +22,8 @@ public class UsuarioDTO {
     private String constraseña;
     @NotNull( message="Debe seleccionar el rol")
     private Integer rol;
+
+    //Constructor
+    public UsuarioDTO() {}
+
 }
