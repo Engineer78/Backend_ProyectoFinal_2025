@@ -33,6 +33,8 @@ public class EmpleadoDTO {
         this.telefonoMovil = telefonoMovil;
         this.direccionResidencia = direccionResidencia;
         this.contactoEmergencia = contactoEmergencia;
+        this.telefonoContacto = telefonoContacto;
+        this.idUsuario = idUsuario;
     }
 
     /**
