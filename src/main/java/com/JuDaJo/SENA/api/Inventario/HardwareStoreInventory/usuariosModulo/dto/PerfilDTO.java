@@ -28,4 +28,17 @@ public class PerfilDTO {
      * Constructor vacío para la entidad Perfil.
      */
     public PerfilDTO() {}
+
+    /**
+     * Constructor con todos los parámetros.
+     *
+     * @param idPerfil ID del perfil
+     * @param nombrePerfil Nombre del perfil
+     * @param descripcion Descripción del perfill
+     */
+    public PerfilDTO(Integer idPerfil, String nombrePerfil, String descripcion) {
+        this.idPerfil = idPerfil;
+        this.nombrePerfil = nombrePerfil;
+        this.descripcion = descripcion;
+    }
 }
