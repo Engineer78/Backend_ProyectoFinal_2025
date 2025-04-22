@@ -8,4 +8,19 @@ import jakarta.validation.constraints.Size;
  * Contiene solo los datos necesarios que se enviarán o recibirán desde el frontend.
  */
 public class PerfilDTO {
+
+    /**
+     * Identificador del perfil.
+     */
+    private Integer idPerfil;
+
+    /**
+     * Nombre del perfil.
+     */
+    private String nombrePerfil;
+
+    /**
+     * Descripción del perfil.
+     */
+    private String descripcion;
 }
