@@ -26,4 +26,10 @@ public class UsuarioDTO {
     //Constructor
     public UsuarioDTO() {}
 
+    //Constructor con argumentos
+    public UsuarioDTO(String nombre, String constraseña, Integer rol) {
+        this.nombre = nombre;
+        this.constraseña = constraseña;
+        this.rol = rol;
+    }
 }
