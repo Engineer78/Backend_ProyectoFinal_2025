@@ -9,6 +9,8 @@ public class RolDTO {
 
     private String nombreRol;
 
+    private String descripcion;
+
     private Integer idPerfil; // Referencia al ID del perfil asociado
 
     /**
@@ -17,11 +19,17 @@ public class RolDTO {
     public RolDTO() {}
 
     /**
-     * Constructor con parámetros para la entidad Rol.
+     * Constructor con todos los parámetros.
+     *
+     * @param idRol ID del rol
+     * @param nombreRol Nombre del rol
+     * @param descripcion Descripción del rol
+     * @param idPerfil ID del perfil asociado
      */
-    public RolDTO(Integer idRol, String nombreRol, Integer idPerfil) {
+    public RolDTO(Integer idRol, String nombreRol, String descripcion, Integer idPerfil) {
         this.idRol = idRol;
         this.nombreRol = nombreRol;
+        this.descripcion = descripcion;
         this.idPerfil = idPerfil;
     }
 
@@ -42,6 +50,14 @@ public class RolDTO {
 
     public void setNombreRol(String nombreRol) {
         this.nombreRol = nombreRol;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public Integer getIdPerfil() {
