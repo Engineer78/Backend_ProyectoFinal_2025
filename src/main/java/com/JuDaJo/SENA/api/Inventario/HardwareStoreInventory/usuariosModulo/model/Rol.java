@@ -36,7 +36,7 @@ public class Rol {
      * Perfil asociado a este rol.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_rol", referencedColumnName = "id_perfil", nullable = false)
+    @JoinColumn(name = "id_perfil", referencedColumnName = "id_perfil", nullable = false)
     private Perfil perfil;
 
     /**
