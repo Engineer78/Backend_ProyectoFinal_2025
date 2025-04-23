@@ -58,4 +58,16 @@ public class PerfilServiceImpl {
         return dto;
     }
 
+    /**
+     * Obtiene una lista de todos los perfiles existentes como DTOs.
+     *
+     * @return Lista de objetos PerfilDTO.
+     */
+    @Override
+    public List<PerfilDTO> listarPerfiles() {
+        return perfilRepository.findAll().stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
 }
