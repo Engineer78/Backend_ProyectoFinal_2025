@@ -95,5 +95,51 @@ public class EmpleadoServiceImpl implements EmpleadoService {
                 nombreRol
         );
     }
-    
+    /**
+     * Actualiza los datos de un empleado existente.
+     * @param idEmpleado
+     * @param dto
+     * @return
+     */
+    @Override
+    public EmpleadoDTO actualizarEmpleado(int idEmpleado, EmpleadoDTO dto) {
+        Empleado empleado = empleadoRepository.findById(idEmpleado)
+                .orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
+
+        Usuario usuario = empleado.getUsuario();
+        usuario.setNombreUsuario(dto.getNombreUsuario());
+        usuario.setContrasena(dto.getContraseña());
+        usuarioRepository.save(usuario);
+
+        empleado.setNumeroDocumento(dto.getNumeroDocumento());
+        empleado.setNombres(dto.getNombres());
+        empleado.setApellidoPaterno(dto.getApellidoPaterno());
+        empleado.setApellidoMaterno(dto.getApellidoMaterno());
+        empleado.setTelefonoMovil(dto.getTelefonoMovil());
+        empleado.setDireccionResidencia(dto.getDireccionResidencia());
+        empleado.setContactoEmergencia(dto.getContactoEmergencia());
+        empleado.setTelefonoContacto(dto.getTelefonoContacto());
+
+        Empleado actualizado = empleadoRepository.save(empleado);
+
+        int idRol = usuario.getRol() != null ? usuario.getRol().getIdRol() : 0;
+        String nombreRol = usuario.getRol() != null ? usuario.getRol().getNombreRol() : null;
+
+        return new EmpleadoDTO(
+                actualizado.getIdEmpleado(),
+                usuario.getIdUsuario(),
+                idRol,
+                actualizado.getNumeroDocumento(),
+                actualizado.getNombres(),
+                actualizado.getApellidoPaterno(),
+                actualizado.getApellidoMaterno(),
+                actualizado.getTelefonoMovil(),
+                actualizado.getDireccionResidencia(),
+                actualizado.getContactoEmergencia(),
+                actualizado.getTelefonoContacto(),
+                usuario.getNombreUsuario(),
+                usuario.getContrasena(),
+                nombreRol
+        );
+    }
 }
