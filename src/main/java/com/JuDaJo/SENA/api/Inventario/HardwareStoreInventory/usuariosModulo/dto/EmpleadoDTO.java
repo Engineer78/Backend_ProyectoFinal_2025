@@ -17,6 +17,7 @@ public class EmpleadoDTO {
     private int idUsuario; //relación
     private int idRol; // consulta y actualización
     private String nombreUsuario; //mostrar en consulta
+    private String contraseña;
 
     /**
      * Se crea el constructor vacío de la clase EmpleadoDTO.
@@ -29,7 +30,7 @@ public class EmpleadoDTO {
     public EmpleadoDTO(int idEmpleado, String numeroDocumento, String nombres, String apellidoPaterno,
                        String apellidoMaterno, String telefonoMovil, String direccionResidencia,
                        String contactoEmergencia, String telefonoContacto,
-                       int idUsuario, int idRol, String nombreUsuario) {
+                       int idUsuario, int idRol, String nombreUsuario, String contraseña) {
         this.idEmpleado = idEmpleado;
         this.numeroDocumento = numeroDocumento;
         this.nombres = nombres;
@@ -40,6 +41,7 @@ public class EmpleadoDTO {
         this.contactoEmergencia = contactoEmergencia;
         this.telefonoContacto = telefonoContacto;
         this.nombreUsuario = nombreUsuario;
+        this.contraseña = contraseña;
         this.idUsuario = idUsuario;
         this.idRol = idRol;
     }
@@ -125,6 +127,14 @@ public class EmpleadoDTO {
 
     public void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
+    }
+
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
     }
 
     public int getIdUsuario() {
