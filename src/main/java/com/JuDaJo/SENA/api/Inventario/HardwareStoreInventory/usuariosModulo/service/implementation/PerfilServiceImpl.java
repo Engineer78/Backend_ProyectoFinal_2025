@@ -5,6 +5,7 @@ import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.mode
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.repository.PerfilRepository;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.service.PerfilService;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -113,11 +114,9 @@ public class PerfilServiceImpl implements PerfilService {
      * @throws EntityNotFoundException si el perfil no existe.
      */
     @Override
-    public void eliminarPerfil(Long id) {
+    public void eliminarPerfil(Integer id) {
         Perfil perfil = perfilRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Perfil con ID " + id + " no encontrado"));
         perfilRepository.delete(perfil);
     }
-
-
 }
