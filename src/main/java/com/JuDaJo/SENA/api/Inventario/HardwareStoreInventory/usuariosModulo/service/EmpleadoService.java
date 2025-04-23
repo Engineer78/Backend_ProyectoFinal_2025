@@ -11,7 +11,6 @@ public interface EmpleadoService {
      * @param idEmpleado Objeto EmpleadoDTO con los datos del empleado a buscar.
      */
     EmpleadoDTO buscarPorId(int idEmpleado);
-    EmpleadoDTO crearEmpleado(EmpleadoDTO dto);
     EmpleadoDTO buscarEmpleadoPorDocumento(String numeroDocumento);
     EmpleadoDTO actualizarEmpleado(int idEmpleado, EmpleadoDTO dto);
     void eliminarEmpleado(int idEmpleado);
