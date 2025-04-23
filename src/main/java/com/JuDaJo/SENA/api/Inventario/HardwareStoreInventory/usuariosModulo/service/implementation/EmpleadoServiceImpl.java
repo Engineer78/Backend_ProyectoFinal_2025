@@ -1,14 +1,15 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.service.implementation;
 
-
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.service.EmpleadoService;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.dto.EmpleadoDTO;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.model.Empleado;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.model.Usuario;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.repository.EmpleadoRepository;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.repository.UsuarioRepository;
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.service.EmpleadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EmpleadoServiceImpl implements EmpleadoService {
@@ -25,6 +26,42 @@ public class EmpleadoServiceImpl implements EmpleadoService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    /**
+     * Busca un empleado por su ID.
+     * @param idEmpleado El identificador único del empleado a buscar
+     * @return EmpleadoDTO objeto con los datos del empleado encontrado
+     * @throws RuntimeException si el empleado no es encontrado
+     */
+    @Override
+    public EmpleadoDTO buscarPorId(int idEmpleado) {
+        Empleado empleado = empleadoRepository.findById(idEmpleado)
+                .orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
 
+        Usuario usuario = empleado.getUsuario();
+
+        /**
+         * Se crea la variable idRol y nombreRol para guardar el id y nombre del rol del usuario.
+         */
+        int idRol = usuario.getRol() != null ? usuario.getRol().getIdRol() : 0;
+        String nombreRol = usuario.getRol() != null ? usuario.getRol().getNombreRol() : null;
+
+
+        return new EmpleadoDTO(
+                empleado.getIdEmpleado(),
+                usuario.getIdUsuario(),
+                idRol,
+                empleado.getNumeroDocumento(),
+                empleado.getNombres(),
+                empleado.getApellidoPaterno(),
+                empleado.getApellidoMaterno(),
+                empleado.getTelefonoMovil(),
+                empleado.getDireccionResidencia(),
+                empleado.getContactoEmergencia(),
+                empleado.getTelefonoContacto(),
+                usuario.getNombreUsuario(),
+                usuario.getContrasena(),
+                nombreRol
+        );
+    }
 
 }
