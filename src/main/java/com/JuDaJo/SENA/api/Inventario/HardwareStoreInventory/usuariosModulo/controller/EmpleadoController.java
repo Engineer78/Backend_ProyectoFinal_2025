@@ -47,4 +47,12 @@ public class EmpleadoController {
         return ResponseEntity.ok(empleadoService.buscarEmpleadoPorDocumento(numeroDocumento));
     }
 
+    /**
+     * Actualiza un empleado existente.
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<EmpleadoDTO> actualizar(@PathVariable int id, @RequestBody EmpleadoDTO dto) {
+        return ResponseEntity.ok(empleadoService.actualizarEmpleado(id, dto));
+    }
+
 }
