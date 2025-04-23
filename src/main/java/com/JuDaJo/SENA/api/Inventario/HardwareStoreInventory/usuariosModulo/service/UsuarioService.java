@@ -2,7 +2,6 @@ package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.ser
 
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.dto.UsuarioDTO;
 
-import java.util.List;
 
 public interface UsuarioService {
 
