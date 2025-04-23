@@ -13,7 +13,7 @@ public interface EmpleadoService {
     EmpleadoDTO crearEmpleado(EmpleadoDTO dto);
     EmpleadoDTO buscarEmpleadoPorDocumento(String numeroDocumento);
     EmpleadoDTO actualizarEmpleado(int idEmpleado, EmpleadoDTO dto);
-    void elimnarEmpledo(int idEmpleado);
+    void eliminarEmpleado(int idEmpleado);
     List<EmpleadoDTO> listarEmpleados();
 
 }
