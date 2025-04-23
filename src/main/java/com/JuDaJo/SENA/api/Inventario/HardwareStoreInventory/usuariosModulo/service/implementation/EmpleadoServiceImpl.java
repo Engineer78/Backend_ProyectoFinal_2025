@@ -142,4 +142,35 @@ public class EmpleadoServiceImpl implements EmpleadoService {
                 nombreRol
         );
     }
+
+    /**
+     * Lista todos los empleados existentes.
+     * @return
+     */
+    @Override
+    public List<EmpleadoDTO> listarEmpleados() {
+        List<Empleado> empleados = empleadoRepository.findAll();
+        return empleados.stream().map(emp -> {
+            Usuario usuario = emp.getUsuario();
+            int idRol = usuario.getRol() != null ? usuario.getRol().getIdRol() : 0;
+            String nombreRol = usuario.getRol() != null ? usuario.getRol().getNombreRol() : null;
+
+            return new EmpleadoDTO(
+                    emp.getIdEmpleado(),
+                    usuario.getIdUsuario(),
+                    idRol,
+                    emp.getNumeroDocumento(),
+                    emp.getNombres(),
+                    emp.getApellidoPaterno(),
+                    emp.getApellidoMaterno(),
+                    emp.getTelefonoMovil(),
+                    emp.getDireccionResidencia(),
+                    emp.getContactoEmergencia(),
+                    emp.getTelefonoContacto(),
+                    usuario.getNombreUsuario(),
+                    usuario.getContrasena(),
+                    nombreRol
+            );
+        }).collect(Collectors.toList());
+    }
 }
