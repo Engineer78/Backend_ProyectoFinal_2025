@@ -31,7 +31,7 @@ public class Usuario {
     * */
     @Column(name="contraseña_usuario")
     @NotNull(message = "La contraseña del usuario no puede ser nula")
-    private String contraseña;
+    private String contrasenia;
 
     /**
     * Relación entre Usuario y Rol
@@ -49,9 +49,9 @@ public class Usuario {
     /**
      * Constructor con argumentos para facilitar la creación de instancias
      */
-    public Usuario(String nombreUsuario, String contraseña, Rol rol) {
+    public Usuario(String nombreUsuario, String contrasenia, Rol rol) {
         this.nombreUsuario = nombreUsuario;
-        this.contraseña = contraseña;
+        this.contrasenia = contrasenia;
         this.rol = rol;
     }
 
@@ -93,16 +93,16 @@ public class Usuario {
      * Obtiene la contraseña
      * @return contraseña.
      */
-    public String getContraseña() {
-        return contraseña;
+    public String getContrasenia() {
+        return contrasenia;
     }
 
     /**
      * Establece la contraseña
-     * @param contraseña contraseña del usuario.
+     * @param contrasenia contraseña del usuario.
      */
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
     }
 
     /**
