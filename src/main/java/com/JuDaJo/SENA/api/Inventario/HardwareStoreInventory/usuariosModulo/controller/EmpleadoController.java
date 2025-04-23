@@ -31,4 +31,12 @@ public class EmpleadoController {
         return ResponseEntity.ok(empleadoService.listarEmpleados());
     }
 
+    /**
+     * Busca un empleado por su ID.
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<EmpleadoDTO> buscarPorId(@PathVariable int id) {
+        return ResponseEntity.ok(empleadoService.buscarPorId(id));
+    }
+
 }
