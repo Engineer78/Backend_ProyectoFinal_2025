@@ -64,4 +64,36 @@ public class EmpleadoServiceImpl implements EmpleadoService {
         );
     }
 
+    /**
+     * Busca un empleado por número de documento.
+     * @param numeroDocumento Objeto EmpleadoDTO con los datos del empleado a buscar.
+     * @return
+     */
+    @Override
+    public EmpleadoDTO buscarEmpleadoPorDocumento(String numeroDocumento) {
+        Empleado empleado = empleadoRepository.findByNumeroDocumento(numeroDocumento)
+                .orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
+
+        Usuario usuario = empleado.getUsuario();
+        int idRol = usuario.getRol() != null ? usuario.getRol().getIdRol() : 0;
+        String nombreRol = usuario.getRol() != null ? usuario.getRol().getNombreRol() : null;
+
+        return new EmpleadoDTO(
+                empleado.getIdEmpleado(),
+                usuario.getIdUsuario(),
+                idRol,
+                empleado.getNumeroDocumento(),
+                empleado.getNombres(),
+                empleado.getApellidoPaterno(),
+                empleado.getApellidoMaterno(),
+                empleado.getTelefonoMovil(),
+                empleado.getDireccionResidencia(),
+                empleado.getContactoEmergencia(),
+                empleado.getTelefonoContacto(),
+                usuario.getNombreUsuario(),
+                usuario.getContrasena(),
+                nombreRol
+        );
+    }
+    
 }
