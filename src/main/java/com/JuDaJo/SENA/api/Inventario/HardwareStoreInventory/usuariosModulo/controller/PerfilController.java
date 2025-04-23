@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/perfiles")
 public class PerfilController {
 
-    private PerfilService perfilService;
+    private final PerfilService perfilService;
+
+    // Inyección del servicio PerfilService a través del constructor
+    public PerfilController(PerfilService perfilService) {
+        this.perfilService = perfilService;
+    }
 
 }
