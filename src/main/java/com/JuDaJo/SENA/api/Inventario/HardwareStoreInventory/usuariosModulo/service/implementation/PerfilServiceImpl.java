@@ -87,4 +87,23 @@ public class PerfilServiceImpl implements PerfilService {
         return toDTO(perfil);
     }
 
+    /**
+     * Actualiza los datos de un perfil existente.
+     *
+     * @param id ID del perfil a actualizar.
+     * @param perfilDTO Objeto con los nuevos datos del perfil.
+     * @return PerfilDTO actualizado.
+     */
+    @Override
+    public PerfilDTO actualizarPerfil(Integer id, PerfilDTO perfilDTO) {
+        Perfil perfilExistente = perfilRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Perfil no encontrado con ID: " + id));
+
+        perfilExistente.setNombrePerfil(perfilDTO.getNombrePerfil());
+        perfilExistente.setDescripcion(perfilDTO.getDescripcion());
+
+        Perfil perfilActualizado = perfilRepository.save(perfilExistente);
+        return toDTO(perfilActualizado);
+    }
+
 }
