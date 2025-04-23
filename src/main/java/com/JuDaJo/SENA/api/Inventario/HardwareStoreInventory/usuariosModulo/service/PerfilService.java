@@ -43,6 +43,7 @@ public interface PerfilService {
      * Elimina un perfil del sistema.
      *
      * @param id El ID del perfil a eliminar.
+     * @return true si el perfil fue eliminado correctamente, false si no se encontró.
      */
-    void eliminarPerfil(Integer id);
+    boolean eliminarPerfil(Integer id);
 }
