@@ -34,7 +34,7 @@ public class RolController {
     // ================================
     // Listar todos los roles
     // ================================
-    @PostMapping
+    @GetMapping
     public ResponseEntity<List<RolDTO>> listarRoles() {
         List<RolDTO> roles = rolService.listarRoles();
         return new ResponseEntity<>(roles, HttpStatus.OK);
@@ -47,5 +47,14 @@ public class RolController {
     public ResponseEntity<RolDTO> obtenerRolPorId(@PathVariable Integer id) {
         RolDTO rol = rolService.obtenerRolPorId(id);
         return new ResponseEntity<>(rol, HttpStatus.OK);
+    }
+
+    // ================================
+    // Actualizar un rol existente
+    // ================================
+    @PutMapping("/{id}")
+    public ResponseEntity<RolDTO> actualizarRol(@PathVariable Integer id, @RequestBody RolDTO rolDTO) {
+        RolDTO rolActualizado = rolService.actualizarRol(id, rolDTO);
+        return new ResponseEntity<>(rolActualizado, HttpStatus.OK);
     }
 }
