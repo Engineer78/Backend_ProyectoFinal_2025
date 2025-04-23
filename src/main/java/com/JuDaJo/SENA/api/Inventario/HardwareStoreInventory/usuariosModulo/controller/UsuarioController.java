@@ -2,6 +2,7 @@ package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.con
 
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.repository.UsuarioRepository;
 
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /*
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 * Proporcionará la funcionalidad: CrearUsuarios
 * */
 @RestController
+@RequestMapping("/api/usuarios")
 public class UsuarioController {
     private final UsuarioRepository usuarioRepository;
     private final RolRepository rolRepository;
