@@ -14,5 +14,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/empleados")
 public class EmpleadoController {
 
-  
+    /**
+     * Servicio para gestionar los empleados.
+     */
+    @Autowired
+    private EmpleadoService empleadoService;
 }
