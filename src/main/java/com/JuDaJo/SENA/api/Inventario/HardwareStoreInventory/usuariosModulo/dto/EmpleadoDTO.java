@@ -14,8 +14,9 @@ public class EmpleadoDTO {
     private String direccionResidencia;
     private String contactoEmergencia;
     private String telefonoContacto;
-    private String nombreUsuario;
-    private String contraseña;
+    private int idUsuario; //relación
+    private int idRol; // consulta y actualización
+    private String nombreUsuario; //mostrar en consulta
 
     /**
      * Se crea el constructor vacío de la clase EmpleadoDTO.
