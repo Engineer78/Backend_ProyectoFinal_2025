@@ -1,8 +1,16 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.service.implementation;
 
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.repository.RolRepository;
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.repository.PerfilRepository;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.service.RolService;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.dto.RolDTO;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.model.Rol;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.repository.PerfilRepository;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.model.Perfil;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,4 +65,32 @@ public class RolServiceImpl implements RolService {
                 rolGuardado.getDescripcion(),
                 rolGuardado.getPerfil().getIdPerfil()
         );
+    }
+
+    /**
+     * Implementar el método obtenerTodos() dentro de RolServiceImpl.
+     * Obtiene todos los Rol desde el repositorio.
+     * Convierte cada uno a un RolDTO.
+     * Devuelve la lista de DTOs.
+     * Aquí usamos un bucle for para crear un nuevo RolDTO por cada Rol, incluyendo la relación con el Perfil.
+     */
+    @Override
+    public List<RolDTO> obtenerTodos() {
+        List<Rol> roles = rolRepository.findAll();
+        List<RolDTO> rolesDTO = new ArrayList<>();
+
+        for (Rol rol : roles) {
+            RolDTO dto = new RolDTO(
+                    rol.getIdRol(),
+                    rol.getNombreRol(),
+                    rol.getDescripcion(),
+                    rol.getPerfil() != null ? rol.getPerfil().getIdPerfil() : null
+            );
+            rolesDTO.add(dto);
+        }
+
+        return rolesDTO;
+    }
+
+
 }
