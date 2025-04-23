@@ -3,18 +3,20 @@ package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.ser
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.dto.PerfilDTO;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.model.Perfil;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.repository.PerfilRepository;
-
-
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.service.PerfilService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Implementación del servicio para los perfiles. Contiene la lógica de negocio
  * para crear, obtener, actualizar y eliminar perfiles.
  */
 @Service
-public class PerfilServiceImpl {
+public class PerfilServiceImpl implements PerfilService {
 
     /**
      * Inyectar dependencia de PerfilRepository
@@ -68,6 +70,20 @@ public class PerfilServiceImpl {
         return perfilRepository.findAll().stream()
                 .map(this::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Busca un perfil por su ID.
+     *
+     * @param id ID del perfil a buscar.
+     * @return PerfilDTO correspondiente al ID.
+     * @throws NoSuchElementException si no se encuentra el perfil.
+     */
+    @Override
+    public PerfilDTO obtenerPerfilPorId(Long id) {
+        Perfil perfil = perfilRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Perfil no encontrado con ID: " + id));
+        return toDTO(perfil);
     }
 
 }
