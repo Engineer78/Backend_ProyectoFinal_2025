@@ -17,10 +17,10 @@ public interface PerfilRepository extends JpaRepository<Perfil, Integer> {
     /**
      * Busca un perfil por su ID.
      *
-     * @param idPerfil El ID del perfil.
+     * @param id El ID del perfil.
      * @return Un Optional que contiene el perfil encontrado, o un Optional vacío si no se encuentra.
      */
-    Optional<Perfil> findByIdPerfil(Integer idPerfil);
+    Optional<Perfil> findById(Integer id);
 
     /**
      * Busca un perfil por su nombre.
@@ -29,4 +29,8 @@ public interface PerfilRepository extends JpaRepository<Perfil, Integer> {
      * @return Un Optional que contiene el perfil encontrado, o un Optional vacío si no se encuentra.
      */
     Optional<Perfil> findByNombrePerfil(String nombrePerfil);
+
+    // Método adicional para eliminar un perfil por ID
+    void deleteById(Integer id);
 }
+
