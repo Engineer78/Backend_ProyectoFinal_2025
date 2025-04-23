@@ -106,4 +106,18 @@ public class PerfilServiceImpl implements PerfilService {
         return toDTO(perfilActualizado);
     }
 
+    /**
+     * Elimina un perfil de la base de datos.
+     *
+     * @param id ID del perfil a eliminar.
+     * @throws EntityNotFoundException si el perfil no existe.
+     */
+    @Override
+    public void eliminarPerfil(Long id) {
+        Perfil perfil = perfilRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Perfil con ID " + id + " no encontrado"));
+        perfilRepository.delete(perfil);
+    }
+
+
 }
