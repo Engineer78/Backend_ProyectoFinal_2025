@@ -63,4 +63,16 @@ public class PerfilController {
         return new ResponseEntity<>(updatedPerfil, HttpStatus.OK);
     }
 
+    // ================================
+    // Eliminar perfil
+    // ================================
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePerfil(@PathVariable Integer id) {
+        boolean isDeleted = perfilService.eliminarPerfil(id);
+        if (!isDeleted) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }
