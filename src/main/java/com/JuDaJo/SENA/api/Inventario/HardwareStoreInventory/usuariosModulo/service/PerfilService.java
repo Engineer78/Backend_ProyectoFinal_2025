@@ -15,4 +15,12 @@ public interface PerfilService {
      * @return El PerfilDTO creado, con su ID asignado.
      */
     PerfilDTO crearPerfil(PerfilDTO perfilDTO);
+
+    /**
+     * Obtiene un perfil por su ID.
+     *
+     * @param id El ID del perfil a obtener.
+     * @return El PerfilDTO correspondiente al ID, o null si no se encuentra.
+     */
+    PerfilDTO obtenerPerfilPorId(Long id);
 }
