@@ -57,4 +57,13 @@ public class RolController {
         RolDTO rolActualizado = rolService.actualizarRol(id, rolDTO);
         return new ResponseEntity<>(rolActualizado, HttpStatus.OK);
     }
+
+    // ================================
+    // Eliminar un rol por su ID
+    // ================================
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarRol(@PathVariable Integer id) {
+        rolService.eliminarRol(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 204 sin contenido
+    }
 }
