@@ -30,4 +30,12 @@ public class RolController {
         RolDTO nuevoRol = rolService.crearRol(rolDTO);
         return new ResponseEntity<>(nuevoRol, HttpStatus.CREATED);
     }
+
+    // ================================
+    // Listar todos los roles
+    // ================================
+    public ResponseEntity<List<RolDTO>> listarRoles() {
+        List<RolDTO> roles = rolService.listarRoles();
+        return new ResponseEntity<>(roles, HttpStatus.OK);
+    }
 }
