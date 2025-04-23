@@ -32,4 +32,11 @@ public interface PerfilService {
      * @return El PerfilDTO actualizado.
      */
     PerfilDTO actualizarPerfil(Long id, PerfilDTO perfilDTO);
+
+    /**
+     * Elimina un perfil del sistema.
+     *
+     * @param id El ID del perfil a eliminar.
+     */
+    void eliminarPerfil(Long id);
 }
