@@ -75,6 +75,13 @@ public class RolServiceImpl implements RolService {
                 .collect(Collectors.toList());
     }
 
+    public List<RolDTO> listarRolesPorNombre(String nombre) {
+        List<Rol> roles = rolRepository.findByNombreContainingIgnoreCase(nombre);
+        return roles.stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
     @Override
     public RolDTO obtenerRolPorId(Integer id) {
         Rol rol = rolRepository.findById(id)

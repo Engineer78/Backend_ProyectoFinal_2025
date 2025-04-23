@@ -24,18 +24,18 @@ public interface RolRepository  extends JpaRepository<Rol, Integer> {
     Optional<Rol> findByIdRol(Integer idRol);
 
     /**
-     * Busca un rol por su nombre.
-     *
-     * @param nombreRol El nombre del rol.
-     * @return Un Optional con el rol si existe.
-     */
-    Optional<Rol> findByNombreRol(String nombreRol);
-
-    /**
      * Lista los roles que pertenecen a un perfil específico.
      *
      * @param idPerfil El ID del perfil.
      * @return Lista de roles que pertenecen al perfil.
      */
     List<Rol> findByPerfil_IdPerfil(Integer idPerfil);
+
+    /**
+     * Busca un rol por su ID.
+     *
+     * @param nombreRol El ID del rol.
+     * @return Un Optional que contiene el rol encontrado, o vacío si no existe.
+     */
+    List<Rol> findByNombreContainingIgnoreCase(String nombreRol);
 }
