@@ -93,7 +93,7 @@ public class Usuario {
      * Obtiene la contraseña
      * @return contraseña.
      */
-    public String getContraseña() {
+    public String getContrasena() {
         return contrasena;
     }
 
@@ -101,7 +101,7 @@ public class Usuario {
      * Establece la contraseña
      * @param contraseña contraseña del usuario.
      */
-    public void setContraseña(String contraseña) {
+    public void setContrasena(String contraseña) {
         this.contrasena = contraseña;
     }
 
