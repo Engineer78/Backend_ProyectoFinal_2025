@@ -92,5 +92,22 @@ public class RolServiceImpl implements RolService {
         return rolesDTO;
     }
 
+    /**
+     * Implementar el método el método buscarPorId() en RolServiceImpl.
+     * Busca un Rol por su ID usando RolRepository..
+     * Si no lo encuentra, lanza una excepción (NoSuchElementException, por ahora).
+     * Si lo encuentra, lo convierte en RolDTO y lo retorna.
+     */
+    @Override
+    public RolDTO buscarPorId(Integer id) {
+        Rol rol = rolRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Rol no encontrado con id: " + id));
 
+        return new RolDTO(
+                rol.getIdRol(),
+                rol.getNombreRol(),
+                rol.getDescripcion(),
+                rol.getPerfil() != null ? rol.getPerfil().getIdPerfil() : null
+        );
+    }
 }
