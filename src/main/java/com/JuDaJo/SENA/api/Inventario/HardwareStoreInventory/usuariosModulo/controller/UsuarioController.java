@@ -1,5 +1,7 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.controller;
 
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.repository.UsuarioRepository;
+
 import org.springframework.web.bind.annotation.RestController;
 
 /*
@@ -8,4 +10,16 @@ import org.springframework.web.bind.annotation.RestController;
 * */
 @RestController
 public class UsuarioController {
+    private final UsuarioRepository usuarioRepository;
+    private final RolRepository rolRepository;
+    /*
+    * Constructor para inicializar los repositorios necesarios
+    * @param usuarioRepository
+    * @param rolRepository
+    * */
+
+    public UsuarioController(UsuarioRepository usuarioRepository, RolRepository rolRepository) {
+        this.usuarioRepository = usuarioRepository;
+        this.rolRepository = rolRepository;
+    }
 }
