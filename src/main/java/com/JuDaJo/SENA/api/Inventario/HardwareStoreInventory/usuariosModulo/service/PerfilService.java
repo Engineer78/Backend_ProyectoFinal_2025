@@ -23,4 +23,13 @@ public interface PerfilService {
      * @return El PerfilDTO correspondiente al ID, o null si no se encuentra.
      */
     PerfilDTO obtenerPerfilPorId(Long id);
+
+    /**
+     * Actualiza un perfil existente con los nuevos datos.
+     *
+     * @param id El ID del perfil a actualizar.
+     * @param perfilDTO El objeto con los datos actualizados del perfil.
+     * @return El PerfilDTO actualizado.
+     */
+    PerfilDTO actualizarPerfil(Long id, PerfilDTO perfilDTO);
 }
