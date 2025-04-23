@@ -39,4 +39,12 @@ public class EmpleadoController {
         return ResponseEntity.ok(empleadoService.buscarPorId(id));
     }
 
+    /**
+     * Busca un empleado por su número de documento.
+     */
+    @GetMapping("/documento/{numeroDocumento}")
+    public ResponseEntity<EmpleadoDTO> buscarPorDocumento(@PathVariable String numeroDocumento) {
+        return ResponseEntity.ok(empleadoService.buscarEmpleadoPorDocumento(numeroDocumento));
+    }
+
 }
