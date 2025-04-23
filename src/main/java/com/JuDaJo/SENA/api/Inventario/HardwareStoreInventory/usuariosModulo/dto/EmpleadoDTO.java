@@ -28,8 +28,8 @@ public class EmpleadoDTO {
      */
     public EmpleadoDTO(int idEmpleado, String numeroDocumento, String nombres, String apellidoPaterno,
                        String apellidoMaterno, String telefonoMovil, String direccionResidencia,
-                       String contactoEmergencia, String telefonoContacto, String nombreUsuario,
-                       String contraseña) {
+                       String contactoEmergencia, String telefonoContacto,
+                       int idUsuario, int idRol, String nombreUsuario) {
         this.idEmpleado = idEmpleado;
         this.numeroDocumento = numeroDocumento;
         this.nombres = nombres;
@@ -40,7 +40,8 @@ public class EmpleadoDTO {
         this.contactoEmergencia = contactoEmergencia;
         this.telefonoContacto = telefonoContacto;
         this.nombreUsuario = nombreUsuario;
-        this.contraseña = contraseña;
+        this.idUsuario = idUsuario;
+        this.idRol = idRol;
     }
 
     /**
