@@ -173,4 +173,16 @@ public class EmpleadoServiceImpl implements EmpleadoService {
             );
         }).collect(Collectors.toList());
     }
+
+    /**
+     * Elimina un empleado existente.
+     * @param idEmpleado
+     */
+    @Override
+    public void eliminarEmpleado(int idEmpleado) {
+        if (!empleadoRepository.existsById(idEmpleado)) {
+            throw new RuntimeException("Empleado no encontrado");
+        }
+        empleadoRepository.deleteById(idEmpleado);
+    }
 }
