@@ -9,6 +9,7 @@ import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.mode
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +75,6 @@ public class RolServiceImpl implements RolService {
      * Devuelve la lista de DTOs.
      * Aquí usamos un bucle for para crear un nuevo RolDTO por cada Rol, incluyendo la relación con el Perfil.
      */
-    @Override
     public List<RolDTO> obtenerTodos() {
         List<Rol> roles = rolRepository.findAll();
         List<RolDTO> rolesDTO = new ArrayList<>();
@@ -98,7 +98,6 @@ public class RolServiceImpl implements RolService {
      * Si no lo encuentra, lanza una excepción (NoSuchElementException, por ahora).
      * Si lo encuentra, lo convierte en RolDTO y lo retorna.
      */
-    @Override
     public RolDTO buscarPorId(Integer id) {
         Rol rol = rolRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Rol no encontrado con id: " + id));
@@ -110,4 +109,34 @@ public class RolServiceImpl implements RolService {
                 rol.getPerfil() != null ? rol.getPerfil().getIdPerfil() : null
         );
     }
+
+    /**
+     * Implementar el método guardarRol(RolDTO rolDTO) en RolServiceImpl.
+     * Buscará el perfil correspondiente al idPerfil (si existe).
+     * Creará una nueva entidad Rol a partir de los datos del RolDTO.
+     * Asociará el Perfil a ese nuevo rol.
+     * Guardará el rol en la base de datos.
+     * Devolverá el DTO con los datos del rol guardado.
+     */
+    public RolDTO guardarRol(RolDTO rolDTO) {
+        Rol rol = new Rol();
+        rol.setNombreRol(rolDTO.getNombreRol());
+        rol.setDescripcion(rolDTO.getDescripcion());
+
+        if (rolDTO.getIdPerfil() != null) {
+            Perfil perfil = perfilRepository.findById(rolDTO.getIdPerfil())
+                    .orElseThrow(() -> new NoSuchElementException("Perfil no encontrado con id: " + rolDTO.getIdPerfil()));
+            rol.setPerfil(perfil);
+        }
+
+        Rol rolGuardado = rolRepository.save(rol);
+
+        return new RolDTO(
+                rolGuardado.getIdRol(),
+                rolGuardado.getNombreRol(),
+                rolGuardado.getDescripcion(),
+                rolGuardado.getPerfil() != null ? rolGuardado.getPerfil().getIdPerfil() : null
+        );
+    }
+
 }
