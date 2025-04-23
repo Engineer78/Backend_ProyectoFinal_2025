@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -194,4 +195,25 @@ public class RolServiceImpl implements RolService {
         );
     }
 
+    /**
+     * Implementar el método obtenerTodosLosRoles() en RolServiceImpl.
+     * Este método lista todos los roles existentes en la base de datos, devolviendo una lista de RolDTO.
+     * Es útil para mostrar una tabla o listado general en el frontend.
+     * findAll(): Consulta todos los registros de la tabla rol.
+     * stream().map(): Convierte cada entidad Rol a un objeto RolDTO.
+     * Conversión segura: Maneja null para evitar errores si no hay un perfil asociado.
+     */
+    public List<RolDTO> obtenerTodosLosRoles() {
+        List<Rol> roles = rolRepository.findAll();
+
+        return roles.stream()
+                .map(rol -> new RolDTO(
+                        rol.getIdRol(),
+                        rol.getNombreRol(),
+                        rol.getDescripcion(),
+                        rol.getPerfil() != null ? rol.getPerfil().getIdPerfil() : null
+                ))
+                .collect(Collectors.toList());
+    }
+    
 }
