@@ -24,6 +24,16 @@ public class UserServiceImpl implements UsuarioService {
         * */
         Usuario usuario = new Usuario();
         usuario.setNombreUsuario(usuarioDTO.getNombre());
-        return null;
+        /*
+        * Guardar el usuario en la base de datos
+        * */
+        Usuario guardado = usuarioRepository.save(usuario);
+        /*
+        * Convertir de Entidad a DTO
+        * */
+        UsuarioDTO respuesta = new UsuarioDTO();
+        respuesta.setNombre(guardado.getNombreUsuario());
+
+        return respuesta;
     }
 }
