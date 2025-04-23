@@ -6,6 +6,8 @@ public class EmpleadoDTO {
      * Se declaran los atributos de la clase EmpleadoDTO.
      */
     private int idEmpleado;
+    private int idUsuario; //relación
+    private int idRol; // consulta y actualización
     private String numeroDocumento;
     private String nombres;
     private String apellidoPaterno;
@@ -14,10 +16,8 @@ public class EmpleadoDTO {
     private String direccionResidencia;
     private String contactoEmergencia;
     private String telefonoContacto;
-    private int idUsuario; //relación
     private String nombreUsuario; //mostrar en consulta
     private String contrasena;
-    private int idRol; // consulta y actualización
     private String nombreRol;
 
 
@@ -29,11 +29,13 @@ public class EmpleadoDTO {
     /**
      * Se crea el constructor con argumentos de la clase EmpleadoDTO.
      */
-    public EmpleadoDTO(int idEmpleado, String numeroDocumento, String nombres, String apellidoPaterno,
+    public EmpleadoDTO(int idEmpleado, int idUsuario, int idRol, String numeroDocumento, String nombres, String apellidoPaterno,
                        String apellidoMaterno, String telefonoMovil, String direccionResidencia,
                        String contactoEmergencia, String telefonoContacto,
-                       int idUsuario, String nombreUsuario, String contrasena, int idRol, String nombreRol) {
+                       String nombreUsuario, String contrasena, String nombreRol) {
         this.idEmpleado = idEmpleado;
+        this.idUsuario = idUsuario;
+        this.idRol = idRol;
         this.numeroDocumento = numeroDocumento;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -44,8 +46,6 @@ public class EmpleadoDTO {
         this.telefonoContacto = telefonoContacto;
         this.nombreUsuario = nombreUsuario;
         this.contrasena = contrasena;
-        this.idUsuario = idUsuario;
-        this.idRol = idRol;
         this.nombreRol = nombreRol;
 
     }
@@ -55,6 +55,22 @@ public class EmpleadoDTO {
      */
     public int getIdEmpleado() {
         return idEmpleado;
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public int getIdRol() {
+        return idRol;
+    }
+
+    public void setIdRol(int idRol) {
+        this.idRol = idRol;
     }
 
     public void setIdEmpleado(int idEmpleado) {
@@ -139,22 +155,6 @@ public class EmpleadoDTO {
 
     public void setContraseña(String contraseña) {
         this.contrasena = contraseña;
-    }
-
-    public int getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    public int getIdRol() {
-        return idRol;
-    }
-
-    public void setIdRol(int idRol) {
-        this.idRol = idRol;
     }
 
     public String getNombreRol() {
