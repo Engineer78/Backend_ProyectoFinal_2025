@@ -139,4 +139,40 @@ public class RolServiceImpl implements RolService {
         );
     }
 
+    /**
+     * Implementar el método actualizarRol(Integer id, RolDTO rolDTO) en RolServiceImpl.
+     * Buscar el rol existente. Se valida que el id exista en la base de datos, si no, lanza excepción con mensaje claro.
+     * Actualizar datos simples. Se actualiza el nombre y la descripción.
+     * Actualizar la relación con Perfil. Si idPerfil viene en el DTO, busca el perfil asociado y lo actualiza.
+     * Guardar. Se guardan los cambios en la base de datos usando rolRepository.save().
+     * Devolver DTO. Devuelve el rol actualizado como un objeto RolDTO.
+     */
+    public RolDTO actualizarRol(Integer id, RolDTO rolDTO) {
+        // 1. Buscar el rol por ID
+        Rol rolExistente = rolRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Rol no encontrado con ID: " + id));
+
+        // 2. Actualizar campos del rol
+        rolExistente.setNombreRol(rolDTO.getNombreRol());
+        rolExistente.setDescripcion(rolDTO.getDescripcion());
+
+        // 3. Actualizar la asociación con el perfil, si es necesario
+        if (rolDTO.getIdPerfil() != null) {
+            Perfil perfil = perfilRepository.findById(rolDTO.getIdPerfil())
+                    .orElseThrow(() -> new NoSuchElementException("Perfil no encontrado con ID: " + rolDTO.getIdPerfil()));
+            rolExistente.setPerfil(perfil);
+        }
+
+        // 4. Guardar los cambios
+        Rol rolActualizado = rolRepository.save(rolExistente);
+
+        // 5. Devolver el resultado como DTO
+        return new RolDTO(
+                rolActualizado.getIdRol(),
+                rolActualizado.getNombreRol(),
+                rolActualizado.getPerfil() != null ? rolActualizado.getPerfil().getIdPerfil() : null
+        );
+    }
+
+
 }
