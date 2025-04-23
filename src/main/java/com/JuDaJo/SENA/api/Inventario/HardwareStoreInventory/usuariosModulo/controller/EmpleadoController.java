@@ -55,4 +55,12 @@ public class EmpleadoController {
         return ResponseEntity.ok(empleadoService.actualizarEmpleado(id, dto));
     }
 
+    /**
+     * Elimina un empleado por su ID.
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable int id) {
+        empleadoService.eliminarEmpleado(id);
+        return ResponseEntity.noContent().build();
+    }
 }
