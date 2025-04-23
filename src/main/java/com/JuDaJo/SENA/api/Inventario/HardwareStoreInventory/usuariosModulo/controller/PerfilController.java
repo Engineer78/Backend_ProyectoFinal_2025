@@ -1,13 +1,11 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.controller;
 
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.dto.PerfilDTO;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.dto.RolDTO;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.service.PerfilService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,5 +30,16 @@ public class PerfilController {
         return new ResponseEntity<>(perfiles, HttpStatus.OK);
     }
 
+    // ================================
+    // Obtener perfil por ID
+    // ================================
+    @GetMapping("/{id}")
+    public ResponseEntity<PerfilDTO> getPerfilById(@PathVariable Integer id) {
+        PerfilDTO perfil = perfilService.obtenerPerfilPorId(id);
+        if (perfil == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(perfil, HttpStatus.OK);
+    }
 
 }
