@@ -42,4 +42,13 @@ public class PerfilController {
         return new ResponseEntity<>(perfil, HttpStatus.OK);
     }
 
+    // ================================
+    // Crear perfil
+    // ================================
+    @PostMapping("/")
+    public ResponseEntity<PerfilDTO> createPerfil(@RequestBody PerfilDTO perfilDTO) {
+        PerfilDTO createdPerfil = perfilService.crearPerfil(perfilDTO);
+        return new ResponseEntity<>(createdPerfil, HttpStatus.CREATED);
+    }
+
 }
