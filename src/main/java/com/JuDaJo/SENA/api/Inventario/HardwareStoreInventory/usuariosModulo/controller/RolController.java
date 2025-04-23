@@ -37,8 +37,18 @@ public class RolController {
     // ================================
     // Listar todos los roles
     // ================================
+    @PostMapping
     public ResponseEntity<List<RolDTO>> listarRoles() {
         List<RolDTO> roles = rolService.listarRoles();
         return new ResponseEntity<>(roles, HttpStatus.OK);
+    }
+
+    // ================================
+    // Obtener un rol por su ID
+    // ================================
+    @GetMapping("/{id}")
+    public ResponseEntity<RolDTO> obtenerRolPorId(@PathVariable Integer id) {
+        RolDTO rol = rolService.obtenerRolPorId(id);
+        return new ResponseEntity<>(rol, HttpStatus.OK);
     }
 }
