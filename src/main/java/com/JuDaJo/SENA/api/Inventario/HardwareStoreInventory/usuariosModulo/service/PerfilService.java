@@ -1,12 +1,18 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.service;
 
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.dto.PerfilDTO;
+import java.util.List;
 
 /**
  * Interfaz para el servicio de perfiles. Define las operaciones básicas
  * relacionadas con la gestión de perfiles en el sistema.
  */
 public interface PerfilService {
+
+    /**
+     * Lista los perfiles.
+     */
+    List<PerfilDTO> listarPerfiles();
 
     /**
      * Crea un nuevo perfil en el sistema.
