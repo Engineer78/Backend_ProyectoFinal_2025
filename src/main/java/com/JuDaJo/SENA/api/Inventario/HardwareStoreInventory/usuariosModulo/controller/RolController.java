@@ -34,9 +34,18 @@ public class RolController {
     // ================================
     // Listar todos los roles
     // ================================
-    @GetMapping
+    @GetMapping("/buscar")
     public ResponseEntity<List<RolDTO>> listarRoles() {
         List<RolDTO> roles = rolService.listarRoles();
+        return new ResponseEntity<>(roles, HttpStatus.OK);
+    }
+
+    // ================================
+    // Buscar roles por nombre (ignorando mayúsculas)
+    // ================================
+    @GetMapping("/buscar")
+    public ResponseEntity<List<RolDTO>> buscarRolesPorNombre(@RequestParam String nombre) {
+        List<RolDTO> roles = rolService.listarRolesPorNombre(nombre);
         return new ResponseEntity<>(roles, HttpStatus.OK);
     }
 
