@@ -15,4 +15,13 @@ public class RolController {
     public RolController(RolService rolService) {
         this.rolService = rolService;
     }
+
+    // ================================
+    // Crear un nuevo rol
+    // ================================
+    @PostMapping
+    public ResponseEntity<RolDTO> crearRol(@RequestBody RolDTO rolDTO) {
+        RolDTO nuevoRol = rolService.crearRol(rolDTO);
+        return new ResponseEntity<>(nuevoRol, HttpStatus.CREATED);
+    }
 }
