@@ -8,4 +8,15 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class PerfilServiceImpl {
+
+    /**
+     * Inyectar dependencia de PerfilRepository
+     * Esto permitirá que PerfilServiceImpl acceda a las operaciones de base de datos necesarias para manejar los perfiles
+     */
+    private final PerfilRepository perfilRepository;
+
+    @Autowired
+    public PerfilServiceImpl(PerfilRepository perfilRepository) {
+        this.perfilRepository = perfilRepository;
+    }
 }
