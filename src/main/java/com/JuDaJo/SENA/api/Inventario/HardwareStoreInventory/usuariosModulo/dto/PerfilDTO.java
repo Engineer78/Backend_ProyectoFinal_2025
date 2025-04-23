@@ -1,5 +1,7 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.dto;
 
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.model.Perfil;
+
 /**
  * DTO para la entidad Perfil.
  * Contiene solo los datos necesarios que se enviarán o recibirán desde el frontend.
