@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 /**
  * Controlador REST para gestionar los empleados.
@@ -15,8 +17,18 @@ import org.springframework.web.bind.annotation.*;
 public class EmpleadoController {
 
     /**
-     * Servicio para gestionar los empleados.
+     * Se inyecta el servicio de EmpleadoService.
+     * @see EmpleadoService
      */
     @Autowired
     private EmpleadoService empleadoService;
+
+    /**
+     * Lista todos los empleados registrados.
+     */
+    @GetMapping
+    public ResponseEntity<List<EmpleadoDTO>> listarEmpleados() {
+        return ResponseEntity.ok(empleadoService.listarEmpleados());
+    }
+
 }
