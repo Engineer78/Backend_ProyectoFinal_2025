@@ -8,12 +8,10 @@ public interface EmpleadoService {
     /**
      * Métodos principales de la clase EmpleadoService.
      * Definen el contrato de la lógica de negocio para trabajar con empleados.
-     * @param dto Objeto EmpleadoDTO con los datos del empleado a crear.
+     * @param numeroDocumento Objeto EmpleadoDTO con los datos del empleado a buscar.
      */
-    EmpleadoDTO crearEmpleado(EmpleadoDTO dto);
     EmpleadoDTO buscarEmpleadoPorDocumento(String numeroDocumento);
     EmpleadoDTO actualizarEmpleado(int idEmpleado, EmpleadoDTO dto);
     void eliminarEmpleado(int idEmpleado);
     List<EmpleadoDTO> listarEmpleados();
-
 }
