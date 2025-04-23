@@ -51,4 +51,16 @@ public class PerfilController {
         return new ResponseEntity<>(createdPerfil, HttpStatus.CREATED);
     }
 
+    // ================================
+    // Actualizar perfil
+    // ================================
+    @PutMapping("/{id}")
+    public ResponseEntity<PerfilDTO> updatePerfil(@PathVariable Integer id, @RequestBody PerfilDTO perfilDTO) {
+        PerfilDTO updatedPerfil = perfilService.actualizarPerfil(id, perfilDTO);
+        if (updatedPerfil == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(updatedPerfil, HttpStatus.OK);
+    }
+
 }
