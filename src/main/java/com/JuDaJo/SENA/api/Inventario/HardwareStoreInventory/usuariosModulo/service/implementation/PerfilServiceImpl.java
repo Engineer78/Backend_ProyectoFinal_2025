@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 /**
@@ -80,7 +81,7 @@ public class PerfilServiceImpl implements PerfilService {
      * @throws NoSuchElementException si no se encuentra el perfil.
      */
     @Override
-    public PerfilDTO obtenerPerfilPorId(Long id) {
+    public PerfilDTO obtenerPerfilPorId(Integer id) {
         Perfil perfil = perfilRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Perfil no encontrado con ID: " + id));
         return toDTO(perfil);

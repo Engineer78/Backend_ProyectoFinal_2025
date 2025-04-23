@@ -22,7 +22,7 @@ public interface PerfilService {
      * @param id El ID del perfil a obtener.
      * @return El PerfilDTO correspondiente al ID, o null si no se encuentra.
      */
-    PerfilDTO obtenerPerfilPorId(Long id);
+    PerfilDTO obtenerPerfilPorId(Integer id);
 
     /**
      * Actualiza un perfil existente con los nuevos datos.
@@ -31,12 +31,12 @@ public interface PerfilService {
      * @param perfilDTO El objeto con los datos actualizados del perfil.
      * @return El PerfilDTO actualizado.
      */
-    PerfilDTO actualizarPerfil(Long id, PerfilDTO perfilDTO);
+    PerfilDTO actualizarPerfil(Integer id, PerfilDTO perfilDTO);
 
     /**
      * Elimina un perfil del sistema.
      *
      * @param id El ID del perfil a eliminar.
      */
-    void eliminarPerfil(Long id);
+    void eliminarPerfil(Integer id);
 }
