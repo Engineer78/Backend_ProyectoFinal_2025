@@ -13,6 +13,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -215,5 +216,20 @@ public class RolServiceImpl implements RolService {
                 ))
                 .collect(Collectors.toList());
     }
-    
+
+    /**
+     * Implementar el método eliminarRol(Integer id) en RolServiceImpl.
+     * Este método permite eliminar un rol por su ID, y es importante asegurarse de que:
+     * El rol exista antes de intentar eliminarlo.
+     * Si no existe, se lanza una excepción adecuada.
+     * Usa findById(id) para buscar el rol en la base de datos.
+     * Si no lo encuentra, lanza una EntityNotFoundException.
+     * Si lo encuentra, lo elimina con delete().
+     */
+    public void eliminarRol(Integer id) {
+        Rol rol = rolRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Rol con ID " + id + " no encontrado"));
+
+        rolRepository.delete(rol);
+    }
 }
