@@ -19,7 +19,7 @@ public class UsuarioDTO {
             regexp = "^(?=.*[A-Z])(?=.*[!@#$%^&*()_+\\-={}\\[\\]:;\"'<>,.?/]).+$",
             message = "La contraseña debe contener al menos una letra mayúscula y un carácter especial"
     )
-    private String constraseña;
+    private String constrasenia;
     @NotNull( message="Debe seleccionar el rol")
     private Integer rol;
 
@@ -27,9 +27,9 @@ public class UsuarioDTO {
     public UsuarioDTO() {}
 
     //Constructor con argumentos
-    public UsuarioDTO(String nombre, String constraseña, Integer rol) {
+    public UsuarioDTO(String nombre, String constrasenia, Integer rol) {
         this.nombre = nombre;
-        this.constraseña = constraseña;
+        this.constrasenia = constrasenia;
         this.rol = rol;
     }
     //Getters And Setters
@@ -42,12 +42,12 @@ public class UsuarioDTO {
         this.nombre = nombre;
     }
 
-    public String getConstraseña() {
-        return constraseña;
+    public String getConstrasenia() {
+        return constrasenia;
     }
 
-    public void setConstraseña(String constraseña) {
-        this.constraseña = constraseña;
+    public void setConstrasenia(String constrasenia) {
+        this.constrasenia = constrasenia;
     }
 
     public Integer getRol() {
