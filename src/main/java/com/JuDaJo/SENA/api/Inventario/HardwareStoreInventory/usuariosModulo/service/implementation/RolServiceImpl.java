@@ -174,5 +174,24 @@ public class RolServiceImpl implements RolService {
         );
     }
 
+    /**
+     * Implementar el método obtenerRolPorId(Integer id) en RolServiceImpl.
+     * Este método permite obtener un rol específico a partir de su ID, devolviendo su representación como DTO.
+     * Es útil para mostrar los datos en formularios de edición, vistas detalladas, etc.
+     * Validación: Se lanza una excepción clara si no se encuentra el rol.
+     * Conversión a DTO: Se prepara el RolDTO para enviar solo los datos necesarios al frontend.
+     * Prevención de NullPointerException: Se valida si el perfil existe antes de obtener su ID.
+     */
+    public RolDTO obtenerRolPorId(Integer id) {
+        Rol rol = rolRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Rol no encontrado con ID: " + id));
+
+        return new RolDTO(
+                rol.getIdRol(),
+                rol.getNombreRol(),
+                rol.getDescripcion(),
+                rol.getPerfil() != null ? rol.getPerfil().getIdPerfil() : null
+        );
+    }
 
 }
