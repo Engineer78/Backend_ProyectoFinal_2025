@@ -57,4 +57,16 @@ public class TipoDocumentoController {
         return new ResponseEntity<>(creado, HttpStatus.CREATED);
     }
 
+    /**
+     * Realiza la actualización de un tipo de documento dentro de la base de datos-
+     * @param id
+     * @param dto
+     * @return
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<TipoDocumentoDTO> actualizar(@PathVariable Integer id, @RequestBody TipoDocumentoDTO dto) {
+        TipoDocumentoDTO actualizado = tipoDocumentoService.actualizarTipoDocumento(id, dto);
+        return new ResponseEntity<>(actualizado, HttpStatus.OK);
+    }
+
 }
