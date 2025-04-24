@@ -68,7 +68,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
                 empleado.getContactoEmergencia(),
                 empleado.getTelefonoContacto(),
                 usuario.getNombreUsuario(),
-                usuario.getContrasena(),
+                usuario.getContrasenia(),
                 nombreRol
         );
     }
@@ -92,7 +92,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
         // Crea el usuario
         Usuario nuevoUsuario = new Usuario();
         nuevoUsuario.setNombreUsuario(dto.getNombreUsuario());
-        nuevoUsuario.setContrasena(dto.getContrasena());
+        nuevoUsuario.setContrasenia(dto.getContrasena());
         nuevoUsuario.setRol(rol);
         Usuario usuarioGuardado = usuarioRepository.save(nuevoUsuario);
 
@@ -123,7 +123,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
                 guardado.getContactoEmergencia(),
                 guardado.getTelefonoContacto(),
                 usuarioGuardado.getNombreUsuario(),
-                usuarioGuardado.getContrasena(),
+                usuarioGuardado.getContrasenia(),
                 rol.getNombreRol()
         );
     }
@@ -155,7 +155,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
                 empleado.getContactoEmergencia(),
                 empleado.getTelefonoContacto(),
                 usuario.getNombreUsuario(),
-                usuario.getContrasena(),
+                usuario.getContrasenia(),
                 nombreRol
         );
     }
@@ -172,7 +172,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
         Usuario usuario = empleado.getUsuario();
         usuario.setNombreUsuario(dto.getNombreUsuario());
-        usuario.setContrasena(dto.getContrasena());
+        usuario.setContrasenia(dto.getContrasena());
         usuarioRepository.save(usuario);
 
         empleado.setNumeroDocumento(dto.getNumeroDocumento());
@@ -202,7 +202,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
                 actualizado.getContactoEmergencia(),
                 actualizado.getTelefonoContacto(),
                 usuario.getNombreUsuario(),
-                usuario.getContrasena(),
+                usuario.getContrasenia(),
                 nombreRol
         );
     }
@@ -232,7 +232,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
                     emp.getContactoEmergencia(),
                     emp.getTelefonoContacto(),
                     usuario.getNombreUsuario(),
-                    usuario.getContrasena(),
+                    usuario.getContrasenia(),
                     nombreRol
             );
         }).collect(Collectors.toList());
