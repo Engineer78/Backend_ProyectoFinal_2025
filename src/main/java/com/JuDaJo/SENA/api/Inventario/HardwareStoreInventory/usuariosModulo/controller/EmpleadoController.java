@@ -61,11 +61,21 @@ public class EmpleadoController {
 
 
     /**
-     * Actualiza un empleado existente.
+     * Actualiza un empleado existente por ID.
      */
     @PutMapping("/{id}")
     public ResponseEntity<EmpleadoDTO> actualizar(@PathVariable int id, @RequestBody EmpleadoDTO dto) {
         return ResponseEntity.ok(empleadoService.actualizarEmpleado(id, dto));
+    }
+
+    /**
+     * Actualiza un empleado existente por número de documento.
+     */
+    @PutMapping("/documento/{numeroDocumento}")
+    public ResponseEntity<EmpleadoDTO> actualizarPorDocumento(
+            @PathVariable String numeroDocumento,
+            @RequestBody EmpleadoDTO dto) {
+        return ResponseEntity.ok(empleadoService.actualizarEmpleadoPorDocumento(numeroDocumento, dto));
     }
 
     /**
