@@ -27,4 +27,15 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService {
     public TipoDocumentoServiceImpl(TipoDocumentoRepository tipoDocumentoRepository) {
         this.tipoDocumentoRepository = tipoDocumentoRepository;
     }
+
+    /**
+     * Crea un nuevo tipo de documento en la base de datos a partir de un objeto TipoDocumentoDTO.
+     * @return
+     */
+    @Override
+    public List<TipoDocumentoDTO> listarTiposDocumento() {
+        return tipoDocumentoRepository.findAll().stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
 }
