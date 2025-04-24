@@ -77,7 +77,7 @@ public class RolServiceImpl implements RolService {
 
     @Override
     public RolDTO obtenerRolPorId(Integer id) {
-        Rol rol = rolRepository.findById(id)
+        Rol rol = rolRepository.findByIdRol(id)
                 .orElseThrow(() -> new NoSuchElementException("Rol no encontrado con ID: " + id));
         return toDTO(rol);
     }
