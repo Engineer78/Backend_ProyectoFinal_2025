@@ -18,4 +18,13 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService {
      * Inyectar dependencia de TipoDocumentoRepository
      */
     private final TipoDocumentoRepository tipoDocumentoRepository;
+
+    /**
+     * Se inyecta la dependencia TipoDocumentoRepository en el constructor de la clase.
+     * @param tipoDocumentoRepository
+     */
+    @Autowired
+    public TipoDocumentoServiceImpl(TipoDocumentoRepository tipoDocumentoRepository) {
+        this.tipoDocumentoRepository = tipoDocumentoRepository;
+    }
 }
