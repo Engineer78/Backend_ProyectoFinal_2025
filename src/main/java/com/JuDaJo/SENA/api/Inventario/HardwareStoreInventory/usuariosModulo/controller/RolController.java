@@ -23,12 +23,12 @@ public class RolController {
     }
 
     // ================================
-    // Crear un nuevo rol
+    // Obtener un rol por su ID
     // ================================
-    @PostMapping
-    public ResponseEntity<RolDTO> crearRol(@RequestBody RolDTO rolDTO) {
-        RolDTO nuevoRol = rolService.crearRol(rolDTO);
-        return new ResponseEntity<>(nuevoRol, HttpStatus.CREATED);
+    @GetMapping("/{id}")
+    public ResponseEntity<RolDTO> obtenerRolPorId(@PathVariable Integer id) {
+        RolDTO rol = rolService.obtenerRolPorId(id);
+        return new ResponseEntity<>(rol, HttpStatus.OK);
     }
 
     // ================================
@@ -43,19 +43,19 @@ public class RolController {
     // ================================
     // Buscar roles por nombre (ignorando mayúsculas)
     // ================================
-    @GetMapping("/buscar")
+    @GetMapping("/buscar/{nombre}")
     public ResponseEntity<List<RolDTO>> buscarRolesPorNombre(@RequestParam String nombre) {
         List<RolDTO> roles = rolService.listarRolesPorNombre(nombre);
         return new ResponseEntity<>(roles, HttpStatus.OK);
     }
 
     // ================================
-    // Obtener un rol por su ID
+    // Crear un nuevo rol
     // ================================
-    @GetMapping("/{id}")
-    public ResponseEntity<RolDTO> obtenerRolPorId(@PathVariable Integer id) {
-        RolDTO rol = rolService.obtenerRolPorId(id);
-        return new ResponseEntity<>(rol, HttpStatus.OK);
+    @PostMapping
+    public ResponseEntity<RolDTO> crearRol(@RequestBody RolDTO rolDTO) {
+        RolDTO nuevoRol = rolService.crearRol(rolDTO);
+        return new ResponseEntity<>(nuevoRol, HttpStatus.CREATED);
     }
 
     // ================================
