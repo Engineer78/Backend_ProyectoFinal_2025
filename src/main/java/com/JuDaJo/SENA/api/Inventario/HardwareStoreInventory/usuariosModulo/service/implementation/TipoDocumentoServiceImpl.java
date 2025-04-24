@@ -65,4 +65,17 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService {
                 .orElseThrow(() -> new NoSuchElementException("Tipo de documento no encontrado con ID: " + id));
         return toDTO(tipo);
     }
+
+    /**
+     * Elimina un tipo de documento por su ID.
+     * @param id
+     */
+    @Override
+    public void eliminarTipoDocumento(Integer id) {
+        if (!tipoDocumentoRepository.existsById(id)) {
+            throw new NoSuchElementException("Tipo de documento no encontrado con ID: " + id);
+        }
+        tipoDocumentoRepository.deleteById(id);
+    }
+
 }
