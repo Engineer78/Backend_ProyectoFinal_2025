@@ -44,7 +44,7 @@ public class RolController {
     // Buscar roles por nombre (ignorando mayúsculas)
     // ================================
     @GetMapping("/buscar/{nombre}")
-    public ResponseEntity<List<RolDTO>> buscarRolesPorNombre(@RequestParam String nombre) {
+    public ResponseEntity<List<RolDTO>> buscarRolesPorNombre(@PathVariable String nombre) {
         List<RolDTO> roles = rolService.listarRolesPorNombre(nombre);
         return new ResponseEntity<>(roles, HttpStatus.OK);
     }
