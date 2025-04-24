@@ -8,4 +8,10 @@ public class TipoDocumentoDTO {
     private Integer idTipoDocumento;
     private String codigo;
     private String nombre;
+
+    /**
+     * Contructor vacío de la clase TipoDocumentoDTO.
+     */
+    public TipoDocumentoDTO() {
+    }
 }
