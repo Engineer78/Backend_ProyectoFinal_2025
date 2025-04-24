@@ -4,4 +4,11 @@ import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.mode
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
+
+    /**
+     * Se utiliza para saber si el empleado existe con el nombre de usuario en la base de datos..
+     * @param nombreUsuario
+     * @return
+     */
+    boolean existsByNombreUsuario(String nombreUsuario);
 }
