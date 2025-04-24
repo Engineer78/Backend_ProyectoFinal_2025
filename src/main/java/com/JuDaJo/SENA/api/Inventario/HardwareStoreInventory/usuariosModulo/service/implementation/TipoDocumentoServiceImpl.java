@@ -53,4 +53,16 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService {
         TipoDocumento guardado = tipoDocumentoRepository.save(tipo);
         return toDTO(guardado);
     }
+
+    /**
+     * Actualiza un tipo de documento existente.
+     * @param id
+     * @return
+     */
+    @Override
+    public TipoDocumentoDTO obtenerTipoDocumentoPorId(Integer id) {
+        TipoDocumento tipo = tipoDocumentoRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Tipo de documento no encontrado con ID: " + id));
+        return toDTO(tipo);
+    }
 }
