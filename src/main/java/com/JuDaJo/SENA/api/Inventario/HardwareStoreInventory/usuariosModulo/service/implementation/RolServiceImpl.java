@@ -69,7 +69,7 @@ public class RolServiceImpl implements RolService {
     }
 
     public List<RolDTO> listarRolesPorNombre(String nombre) {
-        List<Rol> roles = rolRepository.findByNombreContainingIgnoreCase(nombre);
+        List<Rol> roles = rolRepository.findByNombreRolContainingIgnoreCase(nombre);
         return roles.stream()
                 .map(this::toDTO)
                 .collect(Collectors.toList());
