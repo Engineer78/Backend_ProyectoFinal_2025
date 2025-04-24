@@ -69,4 +69,14 @@ public class TipoDocumentoController {
         return new ResponseEntity<>(actualizado, HttpStatus.OK);
     }
 
+    /**
+     * Realiza la eliminación de un tipo de documento dentro de la base de datos.
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Integer id) {
+        tipoDocumentoService.eliminarTipoDocumento(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
