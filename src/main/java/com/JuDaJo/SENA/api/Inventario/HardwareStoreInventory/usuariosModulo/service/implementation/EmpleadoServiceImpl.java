@@ -1,5 +1,6 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.service.implementation;
 
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.model.Rol;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.service.EmpleadoService;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.dto.EmpleadoDTO;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.model.Empleado;
@@ -61,6 +62,61 @@ public class EmpleadoServiceImpl implements EmpleadoService {
                 usuario.getNombreUsuario(),
                 usuario.getContrasena(),
                 nombreRol
+        );
+    }
+
+    /**
+     * Crea un nuevo empleado en la base de datos.
+     * @param dto Objeto EmpleadoDTO con los datos del empleado a buscar.
+     * @return
+     */
+    @Override
+    public EmpleadoDTO crearEmpleado(EmpleadoDTO dto) {
+        // Verifica si el nombre de usuario ya existe
+        if (usuarioRepository.existsByNombreUsuario(dto.getNombreUsuario())) {
+            throw new RuntimeException("El nombre de usuario ya está en uso");
+        }
+
+        // Obtiene el rol desde la base de datos
+        Rol rol = rolRepository.findById(dto.getIdRol())
+                .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
+
+        // Crea el usuario
+        Usuario nuevoUsuario = new Usuario();
+        nuevoUsuario.setNombreUsuario(dto.getNombreUsuario());
+        nuevoUsuario.setContrasena(dto.getContrasena());
+        nuevoUsuario.setRol(rol);
+        Usuario usuarioGuardado = usuarioRepository.save(nuevoUsuario);
+
+        // Crea el empleado y lo asocia al usuario
+        Empleado empleado = new Empleado();
+        empleado.setNumeroDocumento(dto.getNumeroDocumento());
+        empleado.setNombres(dto.getNombres());
+        empleado.setApellidoPaterno(dto.getApellidoPaterno());
+        empleado.setApellidoMaterno(dto.getApellidoMaterno());
+        empleado.setTelefonoMovil(dto.getTelefonoMovil());
+        empleado.setDireccionResidencia(dto.getDireccionResidencia());
+        empleado.setContactoEmergencia(dto.getContactoEmergencia());
+        empleado.setTelefonoContacto(dto.getTelefonoContacto());
+        empleado.setUsuario(usuarioGuardado);
+
+        Empleado guardado = empleadoRepository.save(empleado);
+
+        return new EmpleadoDTO(
+                guardado.getIdEmpleado(),
+                guardado.getNumeroDocumento(),
+                guardado.getNombres(),
+                guardado.getApellidoPaterno(),
+                guardado.getApellidoMaterno(),
+                guardado.getTelefonoMovil(),
+                guardado.getDireccionResidencia(),
+                guardado.getContactoEmergencia(),
+                guardado.getTelefonoContacto(),
+                usuarioGuardado.getIdUsuario(),
+                rol.getIdRol(),
+                usuarioGuardado.getNombreUsuario(),
+                usuarioGuardado.getContrasena(),
+                rol.getNombreRol()
         );
     }
 
