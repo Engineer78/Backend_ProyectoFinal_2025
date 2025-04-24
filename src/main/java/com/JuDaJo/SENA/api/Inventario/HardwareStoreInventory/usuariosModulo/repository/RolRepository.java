@@ -37,5 +37,5 @@ public interface RolRepository  extends JpaRepository<Rol, Integer> {
      * @param nombreRol El ID del rol.
      * @return Un Optional que contiene el rol encontrado, o vacío si no existe.
      */
-    List<Rol> findByNombreContainingIgnoreCase(String nombreRol);
+    List<Rol> findByNombreRolContainingIgnoreCase(String nombreRol);
 }
