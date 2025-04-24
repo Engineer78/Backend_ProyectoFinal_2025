@@ -1,7 +1,6 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.controller;
 
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.dto.PerfilDTO;
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.dto.RolDTO;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.service.PerfilService;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
@@ -19,6 +18,7 @@ public class PerfilController {
 
     // Inyección del servicio PerfilService a través del constructor
     public PerfilController(PerfilService perfilService) {
+
         this.perfilService = perfilService;
     }
 
