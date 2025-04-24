@@ -46,5 +46,15 @@ public class TipoDocumentoController {
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
+    /**
+     * Realiza la creación de un nuevo tipo de documento en la base de datos.
+     * @param dto
+     * @return
+     */
+    @PostMapping
+    public ResponseEntity<TipoDocumentoDTO> crearTipoDocumento(@RequestBody TipoDocumentoDTO dto) {
+        TipoDocumentoDTO creado = tipoDocumentoService.crearTipoDocumento(dto);
+        return new ResponseEntity<>(creado, HttpStatus.CREATED);
+    }
 
 }
