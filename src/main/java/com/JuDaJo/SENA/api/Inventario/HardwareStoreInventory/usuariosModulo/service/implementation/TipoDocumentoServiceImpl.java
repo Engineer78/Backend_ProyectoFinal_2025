@@ -13,4 +13,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class TipoDocumentoServiceImpl implements TipoDocumentoService {
+
+    /**
+     * Inyectar dependencia de TipoDocumentoRepository
+     */
+    private final TipoDocumentoRepository tipoDocumentoRepository;
 }
