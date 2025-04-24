@@ -1,6 +1,7 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.service.implementation;
 
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.model.Rol;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.repository.RolRepository;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.service.EmpleadoService;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.dto.EmpleadoDTO;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.model.Empleado;
@@ -26,6 +27,13 @@ public class EmpleadoServiceImpl implements EmpleadoService {
      */
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    /**
+     * Se inyecta la dependencia para el repositorio de RolRepository.
+     */
+    @Autowired
+    private RolRepository rolRepository;
+
 
     /**
      * Busca un empleado por su ID.
@@ -104,6 +112,8 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
         return new EmpleadoDTO(
                 guardado.getIdEmpleado(),
+                usuarioGuardado.getIdUsuario(),
+                rol.getIdRol(),
                 guardado.getNumeroDocumento(),
                 guardado.getNombres(),
                 guardado.getApellidoPaterno(),
@@ -112,8 +122,6 @@ public class EmpleadoServiceImpl implements EmpleadoService {
                 guardado.getDireccionResidencia(),
                 guardado.getContactoEmergencia(),
                 guardado.getTelefonoContacto(),
-                usuarioGuardado.getIdUsuario(),
-                rol.getIdRol(),
                 usuarioGuardado.getNombreUsuario(),
                 usuarioGuardado.getContrasena(),
                 rol.getNombreRol()
@@ -164,7 +172,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
         Usuario usuario = empleado.getUsuario();
         usuario.setNombreUsuario(dto.getNombreUsuario());
-        usuario.setContrasena(dto.getContraseña());
+        usuario.setContrasena(dto.getContrasena());
         usuarioRepository.save(usuario);
 
         empleado.setNumeroDocumento(dto.getNumeroDocumento());
