@@ -38,4 +38,19 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService {
                 .map(this::toDTO)
                 .collect(Collectors.toList());
     }
+
+    /**
+     * Obtiene un tipo de documento por su ID.
+     * @param dto
+     * @return
+     */
+    @Override
+    public TipoDocumentoDTO crearTipoDocumento(TipoDocumentoDTO dto) {
+        TipoDocumento tipo = new TipoDocumento();
+        tipo.setCodigo(dto.getCodigo());
+        tipo.setNombre(dto.getNombre());
+
+        TipoDocumento guardado = tipoDocumentoRepository.save(tipo);
+        return toDTO(guardado);
+    }
 }
