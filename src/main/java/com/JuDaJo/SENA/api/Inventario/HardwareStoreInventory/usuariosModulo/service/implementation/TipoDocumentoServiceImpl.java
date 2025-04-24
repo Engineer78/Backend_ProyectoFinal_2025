@@ -78,4 +78,9 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService {
         tipoDocumentoRepository.deleteById(id);
     }
 
+    // Método para convertir entidad a DTO
+    private TipoDocumentoDTO toDTO(TipoDocumento tipo) {
+        return new TipoDocumentoDTO(tipo.getIdTipoDocumento(), tipo.getCodigo(), tipo.getNombre());
+    }
+
 }
