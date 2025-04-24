@@ -3,6 +3,7 @@ package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.con
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.dto.PerfilDTO;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.dto.RolDTO;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.service.PerfilService;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +46,8 @@ public class PerfilController {
     // ================================
     // Crear perfil
     // ================================
-    @PostMapping("/")
+    @PostMapping()
+    @Transactional
     public ResponseEntity<PerfilDTO> createPerfil(@RequestBody PerfilDTO perfilDTO) {
         PerfilDTO createdPerfil = perfilService.crearPerfil(perfilDTO);
         return new ResponseEntity<>(createdPerfil, HttpStatus.CREATED);
