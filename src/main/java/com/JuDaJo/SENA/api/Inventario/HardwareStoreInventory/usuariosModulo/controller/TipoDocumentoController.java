@@ -35,7 +35,16 @@ public class TipoDocumentoController {
         return new ResponseEntity<>(lista, HttpStatus.OK);
     }
 
-
+    /**
+     * Realiza la búsqueda por el ID del tipo de documento.
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<TipoDocumentoDTO> obtenerPorId(@PathVariable Integer id) {
+        TipoDocumentoDTO dto = tipoDocumentoService.obtenerTipoDocumentoPorId(id);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
 
 
 }
