@@ -160,7 +160,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
         );
     }
     /**
-     * Actualiza los datos de un empleado existente.
+     * Actualiza los datos de un empleado existente por ID.
      * @param idEmpleado
      * @param dto
      * @return
@@ -204,6 +204,51 @@ public class EmpleadoServiceImpl implements EmpleadoService {
                 usuario.getNombreUsuario(),
                 usuario.getContrasenia(),
                 nombreRol
+        );
+    }
+
+    /**
+     * Actualiza los datos existente de un empleado por número de documento.
+     * @param numeroDocumento
+     * @param dto
+     * @return
+     */
+    @Override
+    public EmpleadoDTO actualizarEmpleadoPorDocumento(String numeroDocumento, EmpleadoDTO dto) {
+        Empleado empleado = empleadoRepository.findByNumeroDocumento(numeroDocumento)
+                .orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
+
+        Usuario usuario = empleado.getUsuario();
+        usuario.setNombreUsuario(dto.getNombreUsuario());
+        usuario.setContrasenia(dto.getContrasena());
+        usuarioRepository.save(usuario);
+
+        empleado.setNombres(dto.getNombres());
+        empleado.setApellidoPaterno(dto.getApellidoPaterno());
+        empleado.setApellidoMaterno(dto.getApellidoMaterno());
+        empleado.setTelefonoMovil(dto.getTelefonoMovil());
+        empleado.setDireccionResidencia(dto.getDireccionResidencia());
+        empleado.setContactoEmergencia(dto.getContactoEmergencia());
+        empleado.setTelefonoContacto(dto.getTelefonoContacto());
+
+        Empleado actualizado = empleadoRepository.save(empleado);
+        Rol rol = usuario.getRol();
+
+        return new EmpleadoDTO(
+                actualizado.getIdEmpleado(),
+                usuario.getIdUsuario(),
+                rol != null ? rol.getIdRol() : 0,
+                actualizado.getNumeroDocumento(),
+                actualizado.getNombres(),
+                actualizado.getApellidoPaterno(),
+                actualizado.getApellidoMaterno(),
+                actualizado.getTelefonoMovil(),
+                actualizado.getDireccionResidencia(),
+                actualizado.getContactoEmergencia(),
+                actualizado.getTelefonoContacto(),
+                usuario.getNombreUsuario(),
+                usuario.getContrasenia(),
+                rol != null ? rol.getNombreRol() : null
         );
     }
 
