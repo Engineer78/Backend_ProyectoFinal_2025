@@ -55,7 +55,7 @@ public class EmpleadoController {
     @PostMapping
     @Transactional
     public ResponseEntity<EmpleadoDTO> crearEmpleado(@RequestBody EmpleadoDTO dto) {
-        EmpleadoDTO nuevo = empleadoService.crearEmpleado(dto);
+        EmpleadoDTO nuevo = empleadoService.crear(dto);
         return new ResponseEntity<>(nuevo, HttpStatus.CREATED);
     }
 

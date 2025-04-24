@@ -79,7 +79,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
      * @return
      */
     @Override
-    public EmpleadoDTO crearEmpleado(EmpleadoDTO dto) {
+    public EmpleadoDTO crear(EmpleadoDTO dto) {
         // Verifica si el nombre de usuario ya existe
         if (usuarioRepository.existsByNombreUsuario(dto.getNombreUsuario())) {
             throw new RuntimeException("El nombre de usuario ya está en uso");
