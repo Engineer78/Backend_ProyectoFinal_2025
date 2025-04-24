@@ -55,7 +55,7 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService {
     }
 
     /**
-     * Actualiza un tipo de documento existente.
+     * Busca un tipo de documento existente.
      * @param id
      * @return
      */
@@ -65,6 +65,25 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService {
                 .orElseThrow(() -> new NoSuchElementException("Tipo de documento no encontrado con ID: " + id));
         return toDTO(tipo);
     }
+
+    /**
+     * Actualiza un tipo de documento existente.
+     * @param id
+     * @param dto
+     * @return
+     */
+    @Override
+    public TipoDocumentoDTO actualizarTipoDocumento(Integer id, TipoDocumentoDTO dto) {
+        TipoDocumento tipo = tipoDocumentoRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Tipo de documento no encontrado con ID: " + id));
+
+        tipo.setCodigo(dto.getCodigo());
+        tipo.setNombre(dto.getNombre());
+
+        TipoDocumento actualizado = tipoDocumentoRepository.save(tipo);
+        return toDTO(actualizado);
+    }
+
 
     /**
      * Elimina un tipo de documento por su ID.
