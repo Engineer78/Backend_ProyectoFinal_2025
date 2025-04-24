@@ -2,7 +2,9 @@ package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.con
 
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.dto.EmpleadoDTO;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.service.EmpleadoService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,6 +48,17 @@ public class EmpleadoController {
     public ResponseEntity<EmpleadoDTO> buscarPorDocumento(@PathVariable String numeroDocumento) {
         return ResponseEntity.ok(empleadoService.buscarEmpleadoPorDocumento(numeroDocumento));
     }
+
+    /**
+     * Crea un nuevo empleado con usuario y rol.
+     */
+    @PostMapping
+    @Transactional
+    public ResponseEntity<EmpleadoDTO> crearEmpleado(@RequestBody EmpleadoDTO dto) {
+        EmpleadoDTO nuevo = empleadoService.crearEmpleado(dto);
+        return new ResponseEntity<>(nuevo, HttpStatus.CREATED);
+    }
+
 
     /**
      * Actualiza un empleado existente.
