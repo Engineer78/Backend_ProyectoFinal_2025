@@ -84,7 +84,7 @@ public class Empleado {
      * Relación a la entidad TipoDocumento.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_tipo_documento", referencedColumnName = "id_Tipo_Documento", nullable = false)
+    @JoinColumn(name = "id_tipo_documento", referencedColumnName = "id_tipo_documento", nullable = false)
     private TipoDocumento tipoDocumento;
     
     /**
