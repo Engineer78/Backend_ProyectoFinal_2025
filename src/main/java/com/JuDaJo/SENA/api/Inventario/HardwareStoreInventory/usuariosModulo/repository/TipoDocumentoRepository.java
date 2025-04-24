@@ -4,5 +4,6 @@ import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.mode
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-public interface TipoDocumentoRepository {
+@Repository
+public interface TipoDocumentoRepository extends JpaRepository<TipoDocumento, Integer> {
 }
