@@ -84,6 +84,13 @@ public class Empleado {
     private Usuario usuario;
 
     /**
+     * Relación a la entidad TipoDocumento.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_tipo_documento", referencedColumnName = "idTipoDocumento", nullable = false)
+    private TipoDocumento tipoDocumento;
+    
+    /**
      * Constructor vacío requerido por JPA.
     */
     public Empleado() {
