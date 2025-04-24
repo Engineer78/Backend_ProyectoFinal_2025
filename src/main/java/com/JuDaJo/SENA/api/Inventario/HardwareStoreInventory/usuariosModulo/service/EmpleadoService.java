@@ -14,6 +14,7 @@ public interface EmpleadoService {
     EmpleadoDTO buscarPorId(int idEmpleado);
     EmpleadoDTO buscarEmpleadoPorDocumento(String numeroDocumento);
     EmpleadoDTO actualizarEmpleado(int idEmpleado, EmpleadoDTO dto);
+    EmpleadoDTO actualizarEmpleadoPorDocumento(String numeroDocumento, EmpleadoDTO dto);
     void eliminarEmpleado(int idEmpleado);
     List<EmpleadoDTO> listarEmpleados();
 }
