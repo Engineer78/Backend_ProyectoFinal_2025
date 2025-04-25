@@ -1,5 +1,7 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.dto;
 
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.model.TipoDocumento;
+
 public class EmpleadoDTO {
 
     /**
@@ -9,6 +11,8 @@ public class EmpleadoDTO {
     private int idUsuario; //relación
     private int idRol; // consulta y actualización
     private String numeroDocumento;
+    private int idtipoDocumento;
+    private String nombreTipoDocumento;
     private String nombres;
     private String apellidoPaterno;
     private String apellidoMaterno;
@@ -29,7 +33,8 @@ public class EmpleadoDTO {
     /**
      * Se crea el constructor con argumentos de la clase EmpleadoDTO.
      */
-    public EmpleadoDTO(int idEmpleado, int idUsuario, int idRol, String numeroDocumento, String nombres, String apellidoPaterno,
+    public EmpleadoDTO(int idEmpleado, int idUsuario, int idRol, String numeroDocumento, int tipoDocumento,
+                       String nombreTipoDocumento, String nombres, String apellidoPaterno,
                        String apellidoMaterno, String telefonoMovil, String direccionResidencia,
                        String contactoEmergencia, String telefonoContacto,
                        String nombreUsuario, String contrasena, String nombreRol) {
@@ -37,6 +42,8 @@ public class EmpleadoDTO {
         this.idUsuario = idUsuario;
         this.idRol = idRol;
         this.numeroDocumento = numeroDocumento;
+        this.idtipoDocumento = tipoDocumento;
+        this.nombreTipoDocumento = nombreTipoDocumento;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -83,6 +90,22 @@ public class EmpleadoDTO {
 
     public void setNumeroDocumento(String numeroDocumento) {
         this.numeroDocumento = numeroDocumento;
+    }
+
+    public int getIdtipoDocumento() {
+        return idtipoDocumento;
+    }
+
+    public void setIdtipoDocumento(int idtipoDocumento) {
+        this.idtipoDocumento = idtipoDocumento;
+    }
+
+    public String getNombreTipoDocumento() {
+        return nombreTipoDocumento;
+    }
+
+    public void setNombreTipoDocumento(String nombreTipoDocumento) {
+        this.nombreTipoDocumento = nombreTipoDocumento;
     }
 
     public String getNombres() {
