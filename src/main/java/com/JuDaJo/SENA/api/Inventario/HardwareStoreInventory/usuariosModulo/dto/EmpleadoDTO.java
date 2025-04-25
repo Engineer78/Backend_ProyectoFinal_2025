@@ -11,7 +11,7 @@ public class EmpleadoDTO {
     private int idUsuario; //relación
     private int idRol; // consulta y actualización
     private String numeroDocumento;
-    private int idtipoDocumento;
+    private int idTipoDocumento;
     private String nombreTipoDocumento;
     private String nombres;
     private String apellidoPaterno;
@@ -42,7 +42,7 @@ public class EmpleadoDTO {
         this.idUsuario = idUsuario;
         this.idRol = idRol;
         this.numeroDocumento = numeroDocumento;
-        this.idtipoDocumento = tipoDocumento;
+        this.idTipoDocumento = tipoDocumento;
         this.nombreTipoDocumento = nombreTipoDocumento;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -92,12 +92,12 @@ public class EmpleadoDTO {
         this.numeroDocumento = numeroDocumento;
     }
 
-    public int getIdtipoDocumento() {
-        return idtipoDocumento;
+    public int getIdTipoDocumento() {
+        return idTipoDocumento;
     }
 
-    public void setIdtipoDocumento(int idtipoDocumento) {
-        this.idtipoDocumento = idtipoDocumento;
+    public void setIdTipoDocumento(int idTipoDocumento) {
+        this.idTipoDocumento = idTipoDocumento;
     }
 
     public String getNombreTipoDocumento() {
