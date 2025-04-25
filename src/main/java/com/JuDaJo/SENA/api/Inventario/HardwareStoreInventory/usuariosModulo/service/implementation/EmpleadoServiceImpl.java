@@ -108,12 +108,13 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
 
         // Obtiene el tipo de documento desde la base de datos
-        TipoDocumento tipoDocumento = tipoDocumentoRepository.findById(dto.getIdtipoDocumento())
+        TipoDocumento tipoDocumento = tipoDocumentoRepository.findById(dto.getIdTipoDocumento())
                 .orElseThrow(() -> new RuntimeException("Tipo de documento no encontrado"));
 
         // Crea el empleado y lo asocia al usuario
         Empleado empleado = new Empleado();
         empleado.setNumeroDocumento(dto.getNumeroDocumento());
+        empleado.setTipoDocumento(tipoDocumento);
         empleado.setNombres(dto.getNombres());
         empleado.setApellidoPaterno(dto.getApellidoPaterno());
         empleado.setApellidoMaterno(dto.getApellidoMaterno());
@@ -125,7 +126,6 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
         Empleado guardado = empleadoRepository.save(empleado);
 
-        empleado.setTipoDocumento(tipoDocumento);
         return new EmpleadoDTO(
                 guardado.getIdEmpleado(),
                 usuarioGuardado.getIdUsuario(),
