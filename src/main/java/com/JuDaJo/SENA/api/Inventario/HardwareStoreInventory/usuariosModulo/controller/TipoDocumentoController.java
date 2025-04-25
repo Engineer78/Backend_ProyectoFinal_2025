@@ -2,6 +2,7 @@ package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.con
 
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.dto.TipoDocumentoDTO;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.service.TipoDocumentoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +44,9 @@ public class TipoDocumentoController {
     @GetMapping("/{id}")
     public ResponseEntity<TipoDocumentoDTO> obtenerPorId(@PathVariable Integer id) {
         TipoDocumentoDTO dto = tipoDocumentoService.obtenerTipoDocumentoPorId(id);
+        if (dto == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
@@ -52,7 +56,7 @@ public class TipoDocumentoController {
      * @return
      */
     @PostMapping
-    public ResponseEntity<TipoDocumentoDTO> crearTipoDocumento(@RequestBody TipoDocumentoDTO dto) {
+    public ResponseEntity<TipoDocumentoDTO> crearTipoDocumento(@Valid @RequestBody TipoDocumentoDTO dto) {
         TipoDocumentoDTO creado = tipoDocumentoService.crearTipoDocumento(dto);
         return new ResponseEntity<>(creado, HttpStatus.CREATED);
     }
@@ -64,7 +68,7 @@ public class TipoDocumentoController {
      * @return
      */
     @PutMapping("/{id}")
-    public ResponseEntity<TipoDocumentoDTO> actualizar(@PathVariable Integer id, @RequestBody TipoDocumentoDTO dto) {
+    public ResponseEntity<TipoDocumentoDTO> actualizar(@PathVariable Integer id, @Valid @RequestBody TipoDocumentoDTO dto) {
         TipoDocumentoDTO actualizado = tipoDocumentoService.actualizarTipoDocumento(id, dto);
         return new ResponseEntity<>(actualizado, HttpStatus.OK);
     }
