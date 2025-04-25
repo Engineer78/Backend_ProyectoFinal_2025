@@ -1,7 +1,9 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.service.implementation;
 
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.model.Rol;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.model.TipoDocumento;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.repository.RolRepository;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.repository.TipoDocumentoRepository;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.service.EmpleadoService;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.dto.EmpleadoDTO;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.model.Empleado;
@@ -34,6 +36,12 @@ public class EmpleadoServiceImpl implements EmpleadoService {
     @Autowired
     private RolRepository rolRepository;
 
+    /**
+     * Se inyecta la dependencia para el repositorio de TipoDocumentoRepository.
+     */
+    @Autowired
+    private TipoDocumentoRepository tipoDocumentoRepository;
+
 
     /**
      * Busca un empleado por su ID.
@@ -60,6 +68,8 @@ public class EmpleadoServiceImpl implements EmpleadoService {
                 usuario.getIdUsuario(),
                 idRol,
                 empleado.getNumeroDocumento(),
+                empleado.getTipoDocumento() != null ? empleado.getTipoDocumento().getIdTipoDocumento() : 0,
+                empleado.getTipoDocumento() != null ? empleado.getTipoDocumento().getNombre() : null,
                 empleado.getNombres(),
                 empleado.getApellidoPaterno(),
                 empleado.getApellidoMaterno(),
@@ -96,6 +106,11 @@ public class EmpleadoServiceImpl implements EmpleadoService {
         nuevoUsuario.setRol(rol);
         Usuario usuarioGuardado = usuarioRepository.save(nuevoUsuario);
 
+
+        // Obtiene el tipo de documento desde la base de datos
+        TipoDocumento tipoDocumento = tipoDocumentoRepository.findById(dto.getIdtipoDocumento())
+                .orElseThrow(() -> new RuntimeException("Tipo de documento no encontrado"));
+
         // Crea el empleado y lo asocia al usuario
         Empleado empleado = new Empleado();
         empleado.setNumeroDocumento(dto.getNumeroDocumento());
@@ -110,11 +125,14 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
         Empleado guardado = empleadoRepository.save(empleado);
 
+        empleado.setTipoDocumento(tipoDocumento);
         return new EmpleadoDTO(
                 guardado.getIdEmpleado(),
                 usuarioGuardado.getIdUsuario(),
                 rol.getIdRol(),
                 guardado.getNumeroDocumento(),
+                tipoDocumento.getIdTipoDocumento(),
+                tipoDocumento.getNombre(),
                 guardado.getNombres(),
                 guardado.getApellidoPaterno(),
                 guardado.getApellidoMaterno(),
@@ -147,6 +165,8 @@ public class EmpleadoServiceImpl implements EmpleadoService {
                 usuario.getIdUsuario(),
                 idRol,
                 empleado.getNumeroDocumento(),
+                empleado.getTipoDocumento() != null ? empleado.getTipoDocumento().getIdTipoDocumento() : 0,
+                empleado.getTipoDocumento() != null ? empleado.getTipoDocumento().getNombre() : null,
                 empleado.getNombres(),
                 empleado.getApellidoPaterno(),
                 empleado.getApellidoMaterno(),
@@ -194,6 +214,8 @@ public class EmpleadoServiceImpl implements EmpleadoService {
                 usuario.getIdUsuario(),
                 idRol,
                 actualizado.getNumeroDocumento(),
+                actualizado.getTipoDocumento() != null ? actualizado.getTipoDocumento().getIdTipoDocumento() : 0,
+                actualizado.getTipoDocumento() != null ? actualizado.getTipoDocumento().getNombre() : null,
                 actualizado.getNombres(),
                 actualizado.getApellidoPaterno(),
                 actualizado.getApellidoMaterno(),
@@ -239,6 +261,8 @@ public class EmpleadoServiceImpl implements EmpleadoService {
                 usuario.getIdUsuario(),
                 rol != null ? rol.getIdRol() : 0,
                 actualizado.getNumeroDocumento(),
+                actualizado.getTipoDocumento() != null ? actualizado.getTipoDocumento().getIdTipoDocumento() : 0,
+                actualizado.getTipoDocumento() != null ? actualizado.getTipoDocumento().getNombre() : null,
                 actualizado.getNombres(),
                 actualizado.getApellidoPaterno(),
                 actualizado.getApellidoMaterno(),
@@ -269,6 +293,8 @@ public class EmpleadoServiceImpl implements EmpleadoService {
                     usuario.getIdUsuario(),
                     idRol,
                     emp.getNumeroDocumento(),
+                    emp.getTipoDocumento() != null ? emp.getTipoDocumento().getIdTipoDocumento() : 0,
+                    emp.getTipoDocumento() != null ? emp.getTipoDocumento().getNombre() : null,
                     emp.getNombres(),
                     emp.getApellidoPaterno(),
                     emp.getApellidoMaterno(),
