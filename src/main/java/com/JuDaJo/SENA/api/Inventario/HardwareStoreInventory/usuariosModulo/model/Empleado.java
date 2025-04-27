@@ -76,7 +76,7 @@ public class Empleado {
     /**
      * Relación a la entidad Usuario.
      */
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_usurio", referencedColumnName = "idUsuario", nullable = false)
     private Usuario usuario;
 
