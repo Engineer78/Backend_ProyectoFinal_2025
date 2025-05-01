@@ -19,12 +19,12 @@ public class Perfil {
 
     @Column(name = "nombre_perfil")
     @NotBlank(message = "El nombre del perfil no puede estar en blanco")
-    @Size(max = 15, message = "El nombre del perfil no puede exceder los 15 caracteres")
+    @Size(max = 20, message = "El nombre del perfil no puede exceder los 20 caracteres")
     private String nombrePerfil;
 
     @Column(name = "descripcion")
     @NotBlank(message = "La descripción del perfil no puede estar en blanco")
-    @Size(max = 150, message = "La descripción del perfil no puede exceder los 150 caracteres")
+    @Size(max = 255, message = "La descripción del perfil no puede exceder los 255 caracteres")
     private String descripcion;
 
     @OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

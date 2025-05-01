@@ -22,14 +22,14 @@ public class Rol {
      */
     @Column(name = "nombre_rol")
     @NotBlank(message = "El nombre del rol no puede estar en blanco")
-    @Size(max = 45, message = "El nombre del rol no puede exceder los 45 caracteres")
+    @Size(max = 20, message = "El nombre del rol no puede exceder los 20 caracteres")
     private String nombreRol;
 
     /**
      * Descripción del rol.
      */
     @Column(name = "descripcion")
-    @Size(max = 150, message = "La descripción del rol no puede exceder los 150 caracteres")
+    @Size(max = 255, message = "La descripción del rol no puede exceder los 255 caracteres")
     private String descripcion;
 
     /**
