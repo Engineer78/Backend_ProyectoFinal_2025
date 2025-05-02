@@ -43,6 +43,55 @@ public class RolServiceImpl implements RolService {
         return toDTO(rolGuardado);
     }
 
+    @Override
+    public List<RolDTO> listarRoles() {
+        return rolRepository.findAll()
+                .stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<RolDTO> listarRolesPorNombre(String nombre) {
+        List<Rol> roles = rolRepository.findByNombreRolContainingIgnoreCase(nombre);
+        return roles.stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public RolDTO obtenerRolPorId(Integer id) {
+        Rol rol = rolRepository.findByIdRol(id)
+                .orElseThrow(() -> new NoSuchElementException("Rol no encontrado con ID: " + id));
+
+        return toDTO(rol);
+    }
+
+    @Override
+    public RolDTO actualizarRol(Integer id, RolDTO rolDTO) {
+        Rol rolExistente = rolRepository.findByIdRol(id)
+                .orElseThrow(() -> new NoSuchElementException("Rol no encontrado con ID: " + id));
+
+        rolExistente.setNombreRol(rolDTO.getNombreRol());
+        rolExistente.setDescripcion(rolDTO.getDescripcion());
+
+        if (rolDTO.getIdPerfil() != null) {
+            Perfil perfil = perfilRepository.findById(rolDTO.getIdPerfil())
+                    .orElseThrow(() -> new NoSuchElementException("Perfil no encontrado con ID: " + rolDTO.getIdPerfil()));
+            rolExistente.setPerfil(perfil);
+        }
+
+        Rol rolActualizado = rolRepository.save(rolExistente);
+        return toDTO(rolActualizado);
+    }
+
+    @Override
+    public void eliminarRol(Integer id) {
+        Rol rol = rolRepository.findByIdRol(id)
+                .orElseThrow(() -> new EntityNotFoundException("Rol con ID " + id + " no encontrado"));
+        rolRepository.delete(rol);
+    }
+
     /**
      * Convierte una entidad Rol a un DTO RolDTO.
      *
@@ -62,70 +111,4 @@ public class RolServiceImpl implements RolService {
 
         return dto;
     }
-
-    public List<RolDTO> listarRoles() {
-        return rolRepository.findAll().stream()
-                .map(this::toDTO)
-                .collect(Collectors.toList());
-    }
-
-    public List<RolDTO> listarRolesPorNombre(String nombre) {
-        List<Rol> roles = rolRepository.findByNombreRolContainingIgnoreCase(nombre);
-        return roles.stream()
-                .map(this::toDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public RolDTO obtenerRolPorId(Integer id) {
-        Rol rol = rolRepository.findByIdRol(id)
-                .orElseThrow(() -> new NoSuchElementException("Rol no encontrado con ID: " + id));
-
-        // Forzamos la carga del perfil (evita que nombrePerfil sea null)
-        if (rol.getPerfil() != null) {
-            rol.getPerfil().getNombrePerfil(); // Acceso forzado
-        }
-
-        return toDTO(rol);
-    }
-
-    public RolDTO guardarRol(RolDTO rolDTO) {
-        Rol rol = new Rol();
-        rol.setNombreRol(rolDTO.getNombreRol());
-        rol.setDescripcion(rolDTO.getDescripcion());
-
-        if (rolDTO.getIdPerfil() != null) {
-            Perfil perfil = perfilRepository.findById(rolDTO.getIdPerfil())
-                    .orElseThrow(() -> new NoSuchElementException("Perfil no encontrado con ID: " + rolDTO.getIdPerfil()));
-            rol.setPerfil(perfil);
-        }
-
-        Rol rolGuardado = rolRepository.save(rol);
-        return toDTO(rolGuardado);
-    }
-
-    public RolDTO actualizarRol(Integer id, RolDTO rolDTO) {
-        Rol rolExistente = rolRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Rol no encontrado con ID: " + id));
-
-        rolExistente.setNombreRol(rolDTO.getNombreRol());
-        rolExistente.setDescripcion(rolDTO.getDescripcion());
-
-        if (rolDTO.getIdPerfil() != null) {
-            Perfil perfil = perfilRepository.findById(rolDTO.getIdPerfil())
-                    .orElseThrow(() -> new NoSuchElementException("Perfil no encontrado con ID: " + rolDTO.getIdPerfil()));
-            rolExistente.setPerfil(perfil);
-        }
-
-        Rol rolActualizado = rolRepository.save(rolExistente);
-        return toDTO(rolActualizado);
-    }
-
-    public void eliminarRol(Integer id) {
-        Rol rol = rolRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Rol con ID " + id + " no encontrado"));
-        rolRepository.delete(rol);
-    }
-
-
 }
