@@ -29,16 +29,17 @@ public class RolServiceImpl implements RolService {
 
     @Override
     public RolDTO crearRol(RolDTO rolDTO) {
-        Perfil perfil = perfilRepository.findById(rolDTO.getIdPerfil())
-                .orElseThrow(() -> new RuntimeException("Perfil no encontrado con ID: " + rolDTO.getIdPerfil()));
-
         Rol rol = new Rol();
         rol.setNombreRol(rolDTO.getNombreRol());
         rol.setDescripcion(rolDTO.getDescripcion());
-        rol.setPerfil(perfil);
+
+        if (rolDTO.getIdPerfil() != null) {
+            Perfil perfil = perfilRepository.findById(rolDTO.getIdPerfil())
+                    .orElseThrow(() -> new RuntimeException("Perfil no encontrado con ID: " + rolDTO.getIdPerfil()));
+            rol.setPerfil(perfil);
+        }
 
         Rol rolGuardado = rolRepository.save(rol);
-
         return toDTO(rolGuardado);
     }
 
