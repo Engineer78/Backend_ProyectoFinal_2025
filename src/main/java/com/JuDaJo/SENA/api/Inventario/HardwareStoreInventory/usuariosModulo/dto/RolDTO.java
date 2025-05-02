@@ -76,7 +76,7 @@ public class RolDTO {
         return nombrePerfil;
     }
 
-    public void setNombrePerfil(String NombrePerfil) {
+    public void setNombrePerfil(String nombrePerfil) {
         this.nombrePerfil = nombrePerfil;
     }
 }
