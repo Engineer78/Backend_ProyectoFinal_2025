@@ -64,7 +64,7 @@ public class RolServiceImpl implements RolService {
 
     public List<RolDTO> listarRoles() {
         return rolRepository.findAll().stream()
-                .map(this::convertirARolDTO)
+                .map(this::toDTO)
                 .collect(Collectors.toList());
     }
 
