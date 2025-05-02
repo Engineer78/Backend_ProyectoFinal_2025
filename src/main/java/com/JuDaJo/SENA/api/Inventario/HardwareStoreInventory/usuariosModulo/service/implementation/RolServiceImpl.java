@@ -48,12 +48,12 @@ public class RolServiceImpl implements RolService {
      * @param rol la entidad Rol que se desea convertir
      * @return un RolDTO con los datos de la entidad
      */
-    private RolDTO convertirARolDTO(Rol rol) {
+    private RolDTO toDTO(Rol rol) {
         RolDTO dto = new RolDTO();
         dto.setIdRol(rol.getIdRol());
         dto.setNombreRol(rol.getNombreRol());
+        dto.setDescripcion(rol.getDescripcion());
 
-        // Asegúrate de que rol.getPerfil() no sea null antes de acceder a sus datos
         if (rol.getPerfil() != null) {
             dto.setIdPerfil(rol.getPerfil().getIdPerfil());
             dto.setNombrePerfil(rol.getPerfil().getNombrePerfil());
@@ -87,7 +87,6 @@ public class RolServiceImpl implements RolService {
 
         return toDTO(rol);
     }
-
 
     public RolDTO guardarRol(RolDTO rolDTO) {
         Rol rol = new Rol();
@@ -127,21 +126,5 @@ public class RolServiceImpl implements RolService {
         rolRepository.delete(rol);
     }
 
-    /**
-     * Convierte una entidad Rol en un RolDTO.
-     */
-    private RolDTO toDTO(Rol rol) {
-        RolDTO dto = new RolDTO();
-        dto.setIdRol(rol.getIdRol());
-        dto.setNombreRol(rol.getNombreRol());
-        dto.setDescripcion(rol.getDescripcion());
-
-        if (rol.getPerfil() != null) {
-            dto.setIdPerfil(rol.getPerfil().getIdPerfil());
-            dto.setNombrePerfil(rol.getPerfil().getNombrePerfil());
-        }
-
-        return dto;
-    }
 
 }
