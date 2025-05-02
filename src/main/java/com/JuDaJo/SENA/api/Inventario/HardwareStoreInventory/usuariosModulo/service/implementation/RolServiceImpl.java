@@ -79,8 +79,15 @@ public class RolServiceImpl implements RolService {
     public RolDTO obtenerRolPorId(Integer id) {
         Rol rol = rolRepository.findByIdRol(id)
                 .orElseThrow(() -> new NoSuchElementException("Rol no encontrado con ID: " + id));
+
+        // Forzamos la carga del perfil (evita que nombrePerfil sea null)
+        if (rol.getPerfil() != null) {
+            rol.getPerfil().getNombrePerfil(); // Acceso forzado
+        }
+
         return toDTO(rol);
     }
+
 
     public RolDTO guardarRol(RolDTO rolDTO) {
         Rol rol = new Rol();
