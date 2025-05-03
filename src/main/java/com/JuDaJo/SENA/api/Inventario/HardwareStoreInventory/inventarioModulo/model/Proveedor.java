@@ -30,7 +30,7 @@ public class Proveedor {
      * NIT del proveedor.
      */
     @NotBlank(message = "El NIT del proveedor es obligatorio")
-    @Size(max = 20, message = "El NIT no puede exceder los 20 caracteres")
+    @Size(max = 15, message = "El NIT no puede exceder los 20 caracteres")
     @Column(name = "nit_proveedor")
     private String nitProveedor;
 
