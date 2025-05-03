@@ -1,9 +1,7 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +25,8 @@ public class Producto {
      */
     @Column(name = "codigo_producto")
     @NotNull(message = "El código del producto no puede ser nulo")
+    @Min(value = 11111, message = "El código de producto debe ser mayor o igual a 11111 ")
+    @Max(value = 99999, message = "El código de producto debe ser menor o igual a 99999")
     private Integer codigoProducto;
     /**
      * Nombre del producto.
@@ -38,7 +38,8 @@ public class Producto {
      * Cantidad disponible del producto.
      */
     @Column(name = "cantidad")
-    @Min(value = 0, message = "La cantidad no puede ser negativa")
+    @Min(value = 1, message = "La cantidad no puede ser negativa")
+    @Max(value = 99999, message = "La cantidad no puede ser mayor a 99999")
     private int cantidad;
     /**
      * Valor unitario del producto.
