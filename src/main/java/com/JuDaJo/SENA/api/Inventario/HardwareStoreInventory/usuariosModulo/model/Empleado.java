@@ -3,6 +3,7 @@ package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.mod
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 /**
  * Esta clase representa un empleado dentro de usuarios.
@@ -42,7 +43,7 @@ public class Empleado {
     * Segundo apellido del empleado.
      */
     @Column(name = "segundo_apellido")
-    @NotBlank(message = "El apellido materno del empleado no puede exceder los 15 caracteres")
+    @Size(max = 15, message = "El apellido materno no puede exceder los 15 caracteres")
     private String apellidoMaterno;
 
     /**
