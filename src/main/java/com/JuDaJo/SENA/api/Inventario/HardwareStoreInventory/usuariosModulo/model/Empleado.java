@@ -1,11 +1,9 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.model;
 
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
-
+import jakarta.validation.constraints.Size;
 
 /**
  * Esta clase representa un empleado dentro de usuarios.
@@ -45,7 +43,7 @@ public class Empleado {
     * Segundo apellido del empleado.
      */
     @Column(name = "segundo_apellido")
-    @NotBlank(message = "El apellido materno del empleado no puede exceder los 15 caracteres")
+    @Size(max = 15, message = "El apellido materno no puede exceder los 15 caracteres")
     private String apellidoMaterno;
 
     /**
@@ -79,10 +77,17 @@ public class Empleado {
     /**
      * Relación a la entidad Usuario.
      */
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_usurio", referencedColumnName = "idUsuario", nullable = false)
     private Usuario usuario;
 
+    /**
+     * Relación a la entidad TipoDocumento.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_tipo_documento", referencedColumnName = "id_tipo_documento", nullable = false)
+    private TipoDocumento tipoDocumento;
+    
     /**
      * Constructor vacío requerido por JPA.
     */
@@ -92,99 +97,106 @@ public class Empleado {
      /**
      * Constructor con argumentos para la clase Empleado.
      */
-    public Empleado(String numeroDocumento, String nombres, String apellidoPaterno, String apellidoMaterno, String telefonoMovil, String direccionResidencia, String contactoEmergencia, String telefonoContacto, Usuario usuario) {
+    public Empleado(String numeroDocumento, TipoDocumento tipoDocumento,  String nombres, String apellidoPaterno, String apellidoMaterno, String telefonoMovil, String direccionResidencia,
+                    Usuario usuario, String contactoEmergencia, String telefonoContacto) {
         this.numeroDocumento = numeroDocumento;
+        this.tipoDocumento = tipoDocumento;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.telefonoMovil = telefonoMovil;
         this.direccionResidencia = direccionResidencia;
+        this.usuario = usuario;
         this.contactoEmergencia = contactoEmergencia;
         this.telefonoContacto = telefonoContacto;
     }
 
-     /**
-     * Getter para el identificador del empleado.
-     * @return Identificador del empleado.
+    /**
+     * Getters y Setters de la clase Empleado.
+     * @return
      */
     public int getIdEmpleado() {
         return idEmpleado;
+    }
+
+    public void setIdEmpleado(int idEmpleado) {
+        this.idEmpleado = idEmpleado;
     }
 
     public String getNumeroDocumento() {
         return numeroDocumento;
     }
 
-    public String getNombres() {
-        return nombres;
-    }
-
-    public String getApellidoPaterno() {
-        return apellidoPaterno;
-    }
-
-    public String getApellidoMaterno() {
-        return apellidoMaterno;
-    }
-
-    public String getTelefonoMovil() {
-        return telefonoMovil;
-    }
-
-    public String getDireccionResidencia() {
-        return direccionResidencia;
-    }
-
-    public String getContactoEmergencia() {
-        return contactoEmergencia;
-    }
-
-    public String getTelefonoContacto() {
-        return telefonoContacto;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    /**
-     * Setter para el identificador del empleado.
-     * @param idEmpleado Identificador del empleado.
-     */
-    public void setIdEmpleado(int idEmpleado) {
-        this.idEmpleado = idEmpleado;
-    }
-
     public void setNumeroDocumento(String numeroDocumento) {
         this.numeroDocumento = numeroDocumento;
+    }
+
+    public TipoDocumento getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(TipoDocumento tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
+    }
+
+    public String getNombres() {
+        return nombres;
     }
 
     public void setNombres(String nombres) {
         this.nombres = nombres;
     }
 
+    public String getApellidoPaterno() {
+        return apellidoPaterno;
+    }
+
     public void setApellidoPaterno(String apellidoPaterno) {
         this.apellidoPaterno = apellidoPaterno;
+    }
+
+    public String getApellidoMaterno() {
+        return apellidoMaterno;
     }
 
     public void setApellidoMaterno(String apellidoMaterno) {
         this.apellidoMaterno = apellidoMaterno;
     }
 
+    public String getTelefonoMovil() {
+        return telefonoMovil;
+    }
+
     public void setTelefonoMovil(String telefonoMovil) {
         this.telefonoMovil = telefonoMovil;
+    }
+
+    public String getDireccionResidencia() {
+        return direccionResidencia;
     }
 
     public void setDireccionResidencia(String direccionResidencia) {
         this.direccionResidencia = direccionResidencia;
     }
 
+    public String getContactoEmergencia() {
+        return contactoEmergencia;
+    }
+
     public void setContactoEmergencia(String contactoEmergencia) {
         this.contactoEmergencia = contactoEmergencia;
     }
 
+    public String getTelefonoContacto() {
+        return telefonoContacto;
+    }
+
     public void setTelefonoContacto(String telefonoContacto) {
         this.telefonoContacto = telefonoContacto;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
     }
 
     public void setUsuario(Usuario usuario) {
