@@ -1,4 +1,5 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.model;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -30,14 +31,14 @@ public class Proveedor {
      * NIT del proveedor.
      */
     @NotBlank(message = "El NIT del proveedor es obligatorio")
-    @Size(max = 15, message = "El NIT no puede exceder los 20 caracteres")
+    @Size(max = 15, message = "El NIT no puede exceder los 15 caracteres")
     @Column(name = "nit_proveedor")
     private String nitProveedor;
 
     /**
      * Teléfono del proveedor.
      */
-    @Size(max = 15, message = "El teléfono no puede superar los 15 caracteres")
+    @Size(max = 10, message = "El teléfono no puede superar los 10 caracteres")
     @Column(name = "telefono_proveedor")
     private String telefonoProveedor;
 
