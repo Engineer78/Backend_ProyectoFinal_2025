@@ -1,4 +1,4 @@
-package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.backup.controller;
+package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.backup;
 
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.backup.service.BackupService;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.model.TipoMovimiento;
@@ -23,7 +23,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/backup")
 @CrossOrigin(origins = "*") // opcional según configuración CORS
-public class BackupController {
+public class Backup {
 
     @Autowired
     private BackupService backupService;
