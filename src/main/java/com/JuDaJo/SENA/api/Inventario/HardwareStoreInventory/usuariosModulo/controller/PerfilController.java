@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-// Indica que esta clase es un controlador REST
+/**
+ * Controlador REST para manejar operaciones relacionadas con la entidad Perfil.
+ * Proporciona una interfaz para listar, obtener, crear, actualizar y eliminar perfiles
+ * en el sistema a través de diferentes endpoints.
+ */
 @RestController
 @RequestMapping("/api/perfiles")
 public class PerfilController {
