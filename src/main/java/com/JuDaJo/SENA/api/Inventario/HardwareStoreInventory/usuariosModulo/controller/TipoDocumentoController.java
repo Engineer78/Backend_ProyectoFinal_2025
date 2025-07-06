@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controlador para gestionar las operaciones relacionadas con los tipos de documento.
+ * Este controlador proporciona endpoints para realizar las operaciones CRUD
+ * (Crear, Leer, Actualizar, Eliminar) sobre los tipos de documento.
+ */
 @RestController
 @RequestMapping("/api/tipo-documento")
 public class TipoDocumentoController {

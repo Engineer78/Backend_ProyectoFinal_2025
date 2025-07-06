@@ -26,28 +26,28 @@ public class Empleado {
     private String numeroDocumento;
 
     /**
-    * Nombre del empleado.
+     * Nombre del empleado.
      */
     @Column(name = "nombres")
     @NotBlank(message = "El nombre del empleado no puede exceder los 30 caracteres")
     private String nombres;
 
     /**
-    * Primer apellido del empleado.
+     * Primer apellido del empleado.
      */
     @Column(name = "primer_apellido")
     @NotBlank(message = "El apellido paterno del empleado no puede exceder los 15 caracteres")
     private String apellidoPaterno;
 
     /**
-    * Segundo apellido del empleado.
+     * Segundo apellido del empleado.
      */
     @Column(name = "segundo_apellido")
     @Size(max = 15, message = "El apellido materno no puede exceder los 15 caracteres")
     private String apellidoMaterno;
 
     /**
-    * Teléfono del empleado.
+     * Teléfono del empleado.
      */
     @Column(name = "telefono_movil")
     @NotBlank(message = "El teléfono del empleado no puede exceder los 10 digitos")
@@ -78,7 +78,7 @@ public class Empleado {
      * Relación a la entidad Usuario.
      */
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_usurio", referencedColumnName = "idUsuario", nullable = false)
+    @JoinColumn(name = "id_usuario", referencedColumnName = "idUsuario", nullable = false)
     private Usuario usuario;
 
     /**
@@ -87,14 +87,14 @@ public class Empleado {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tipo_documento", referencedColumnName = "id_tipo_documento", nullable = false)
     private TipoDocumento tipoDocumento;
-    
+
     /**
      * Constructor vacío requerido por JPA.
-    */
+     */
     public Empleado() {
     }
 
-     /**
+    /**
      * Constructor con argumentos para la clase Empleado.
      */
     public Empleado(String numeroDocumento, TipoDocumento tipoDocumento,  String nombres, String apellidoPaterno, String apellidoMaterno, String telefonoMovil, String direccionResidencia,

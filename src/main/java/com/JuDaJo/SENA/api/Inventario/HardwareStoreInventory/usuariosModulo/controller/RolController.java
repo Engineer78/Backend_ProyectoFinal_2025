@@ -2,15 +2,15 @@ package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.con
 
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.dto.RolDTO;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.service.RolService;
-
-
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-// Indica que esta clase es un controlador REST
+/**
+ * Controlador REST para gestionar las operaciones relacionadas con los roles.
+ * Proporciona endpoints para crear, listar, buscar, actualizar y eliminar roles.
+ */
 @RestController
 @RequestMapping("/api/roles") // Ruta base para todas las peticiones relacionadas con roles
 public class RolController {
