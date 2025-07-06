@@ -1,144 +1,81 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.controller;
 
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.dto.ProveedorDTO;
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.model.Proveedor;
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.repository.ProveedorRepository;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.service.ProveedorService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
-// Controlador REST para gestionar proveedores
-// Permite realizar operaciones CRUD sobre la entidad Proveedor
-// @RestController indica que esta clase es un controlador REST y maneja las peticiones HTTP
-
-
+/**
+ * Controlador REST para gestionar proveedores.
+ * Toda la lógica es delegada al servicio ProveedorService.
+ */
 @RestController
 @RequestMapping("/api/proveedores")
 public class ProveedorController {
 
-    private final ProveedorRepository proveedorRepository;
+    private final ProveedorService proveedorService;
 
-    public ProveedorController(ProveedorRepository proveedorRepository) {
-        this.proveedorRepository = proveedorRepository;
+    public ProveedorController(ProveedorService proveedorService) {
+        this.proveedorService = proveedorService;
     }
 
-    // Obtener todos los proveedores
+    /**
+     * Obtener todos los proveedores.
+     */
     @GetMapping
     public ResponseEntity<List<ProveedorDTO>> listarProveedores() {
-        List<ProveedorDTO> proveedores = proveedorRepository.findAll().stream()
-                .map(proveedor -> new ProveedorDTO(
-                        proveedor.getIdProveedor(),
-                        proveedor.getNombreProveedor(),
-                        proveedor.getNitProveedor(),
-                        proveedor.getTelefonoProveedor(),
-                        proveedor.getDireccionProveedor()))
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(proveedores);
+        return ResponseEntity.ok(proveedorService.listarProveedores());
     }
 
-    // Obtener un proveedor por ID
+    /**
+     * Obtener un proveedor por ID.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<ProveedorDTO> obtenerProveedor(@PathVariable int id) {
-        return proveedorRepository.findById(id)
-                .map(proveedor -> new ProveedorDTO(
-                        proveedor.getIdProveedor(),
-                        proveedor.getNombreProveedor(),
-                        proveedor.getNitProveedor(),
-                        proveedor.getTelefonoProveedor(),
-                        proveedor.getDireccionProveedor()))
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return proveedorService.obtenerProveedor(id);
     }
 
-    // Obtener un proveedor por NIT
-    // Se utiliza para buscar un proveedor específico por su NIT
+    /**
+     * Buscar proveedor por NIT.
+     */
     @GetMapping("/nit/{nitProveedor}")
-    public ResponseEntity<ProveedorDTO> buscarProveedorPorNit(@PathVariable String nitProveedor) {
-        return proveedorRepository.findByNitProveedor(nitProveedor)
-                .map(proveedor -> new ProveedorDTO(
-                        proveedor.getIdProveedor(),
-                        proveedor.getNombreProveedor(),
-                        proveedor.getNitProveedor(),
-                        proveedor.getTelefonoProveedor(),
-                        proveedor.getDireccionProveedor()))
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<ProveedorDTO> buscarPorNit(@PathVariable String nitProveedor) {
+        return proveedorService.buscarPorNit(nitProveedor);
     }
 
-    // Obtener un proveedor por nombre
-    // Se utiliza para buscar un proveedor específico por su nombre
+    /**
+     * Buscar proveedor por nombre.
+     */
     @GetMapping("/nombre/{nombre}")
-    public ResponseEntity<ProveedorDTO> getProveedorPorNombre(@PathVariable String nombre) {
-        Optional<Proveedor> proveedor = proveedorRepository.findByNombreProveedor(nombre);
-
-        // Convertir la entidad Proveedor a ProveedorDTO
-        return proveedor.map(prov -> {
-            ProveedorDTO proveedorDTO = new ProveedorDTO(
-                    prov.getIdProveedor(),
-                    prov.getNombreProveedor(),
-                    prov.getNitProveedor(),
-                    prov.getTelefonoProveedor(),
-                    prov.getDireccionProveedor()
-            );
-            return ResponseEntity.ok(proveedorDTO); // Devuelve solo los datos relevantes
-        }).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build()); // Si no existe, 404
+    public ResponseEntity<ProveedorDTO> buscarPorNombre(@PathVariable String nombre) {
+        return proveedorService.buscarPorNombre(nombre);
     }
 
-    // Crear un nuevo proveedor
+    /**
+     * Crear un nuevo proveedor.
+     */
     @PostMapping
-    public ResponseEntity<ProveedorDTO> crearProveedor(@Valid @RequestBody ProveedorDTO proveedorDTO) {
-        Proveedor proveedor = new Proveedor();
-        proveedor.setNombreProveedor(proveedorDTO.getNombreProveedor());
-        proveedor.setNitProveedor(proveedorDTO.getNitProveedor());
-        proveedor.setTelefonoProveedor(proveedorDTO.getTelefonoProveedor());
-        proveedor.setDireccionProveedor(proveedorDTO.getDireccionProveedor());
-
-        Proveedor nuevoProveedor = proveedorRepository.save(proveedor);
-
-        ProveedorDTO nuevoProveedorDTO = new ProveedorDTO(
-                nuevoProveedor.getIdProveedor(),
-                nuevoProveedor.getNombreProveedor(),
-                nuevoProveedor.getNitProveedor(),
-                nuevoProveedor.getTelefonoProveedor(),
-                nuevoProveedor.getDireccionProveedor());
-
-        return new ResponseEntity<>(nuevoProveedorDTO, HttpStatus.CREATED);
+    public ResponseEntity<Object> crearProveedor(@Valid @RequestBody ProveedorDTO dto) {
+        return proveedorService.crearProveedor(dto);
     }
 
-    // Actualizar un proveedor existente
+    /**
+     * Actualizar proveedor existente.
+     */
     @PutMapping("/{id}")
-    public ResponseEntity<ProveedorDTO> actualizarProveedor(@PathVariable int id, @Valid @RequestBody ProveedorDTO proveedorDTO) {
-        return proveedorRepository.findById(id)
-                .map(proveedor -> {
-                    proveedor.setNombreProveedor(proveedorDTO.getNombreProveedor());
-                    proveedor.setNitProveedor(proveedorDTO.getNitProveedor());
-                    proveedor.setTelefonoProveedor(proveedorDTO.getTelefonoProveedor());
-                    proveedor.setDireccionProveedor(proveedorDTO.getDireccionProveedor());
-
-                    Proveedor proveedorActualizado = proveedorRepository.save(proveedor);
-                    return ResponseEntity.ok(new ProveedorDTO(
-                            proveedorActualizado.getIdProveedor(),
-                            proveedorActualizado.getNombreProveedor(),
-                            proveedorActualizado.getNitProveedor(),
-                            proveedorActualizado.getTelefonoProveedor(),
-                            proveedorActualizado.getDireccionProveedor()));
-                })
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<ProveedorDTO> actualizarProveedor(@PathVariable int id, @Valid @RequestBody ProveedorDTO dto) {
+        return proveedorService.actualizarProveedor(id, dto);
     }
 
-    // Eliminar un proveedor por ID
+    /**
+     * Eliminar proveedor por ID.
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarProveedor(@PathVariable int id) {
-        if (proveedorRepository.existsById(id)) {
-            proveedorRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return proveedorService.eliminarProveedor(id);
     }
 }
+

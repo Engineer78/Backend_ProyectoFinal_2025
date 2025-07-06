@@ -1,100 +1,71 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.controller;
 
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.dto.CategoriaDTO;
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.model.Categoria;
-import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.repository.CategoriaRepository;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.service.CategoriaService;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
+/**
+ * Controlador REST para gestionar las categorías.
+ * Delega toda la lógica en el servicio CategoriaService.
+ */
 @RestController
 @RequestMapping("/api/categorias")
 public class CategoriaController {
 
-    private final CategoriaRepository categoriaRepository;
+    private final CategoriaService categoriaService;
 
-    public CategoriaController(CategoriaRepository categoriaRepository) {
-        this.categoriaRepository = categoriaRepository;
+    public CategoriaController(CategoriaService categoriaService) {
+        this.categoriaService = categoriaService;
     }
 
-    // Obtener todas las categorías
+    /**
+     * Obtener todas las categorías.
+     */
     @GetMapping
     public ResponseEntity<List<CategoriaDTO>> listarCategorias() {
-        List<Categoria> categorias = categoriaRepository.findAll();
-        List<CategoriaDTO> categoriaDTOs = categorias.stream()
-                .map(categoria -> new CategoriaDTO(categoria.getIdCategoria(), categoria.getNombreCategoria()))
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(categoriaDTOs);
+        return ResponseEntity.ok(categoriaService.listarCategorias());
     }
 
-    // Obtener una categoría por ID
+    /**
+     * Obtener una categoría por ID.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<CategoriaDTO> obtenerCategoria(@PathVariable Integer id) {
-        return categoriaRepository.findById(id)
-                .map(categoria -> new CategoriaDTO(categoria.getIdCategoria(), categoria.getNombreCategoria()))
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return categoriaService.obtenerCategoria(id);
     }
 
-    // Endpoint para buscar una categoría por nombre
+    /**
+     * Buscar categoría por nombre exacto.
+     */
     @GetMapping("/nombre/{nombre}")
-    public ResponseEntity<CategoriaDTO> getCategoriaPorNombre(@PathVariable String nombre) {
-        Optional<Categoria> categoria = categoriaRepository.findByNombreCategoria(nombre);
-
-        // Convertir la entidad Categoria a CategoriaDTO si se encuentra
-        return categoria.map(cat -> {
-            CategoriaDTO categoriaDTO = new CategoriaDTO(cat.getIdCategoria(), cat.getNombreCategoria());
-            return ResponseEntity.ok(categoriaDTO); // Devuelve el DTO
-        }).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build()); // Si no existe, 404
+    public ResponseEntity<CategoriaDTO> buscarPorNombre(@PathVariable String nombre) {
+        return categoriaService.buscarPorNombre(nombre);
     }
 
-    // Crear una nueva categoría
+    /**
+     * Crear nueva categoría.
+     */
     @PostMapping
-    public ResponseEntity<?> crearCategoria(@Valid @RequestBody CategoriaDTO categoriaDTO) {
-        try {
-            // Mapea el DTO a la entidad
-            Categoria categoria = new Categoria();
-            categoria.setNombreCategoria(categoriaDTO.getNombreCategoria());
-
-            // Guarda la categoría en el repositorio
-            Categoria nuevaCategoria = categoriaRepository.save(categoria);
-
-            // Crea un nuevo DTO para devolver la respuesta
-            CategoriaDTO nuevaCategoriaDTO = new CategoriaDTO(nuevaCategoria.getIdCategoria(), nuevaCategoria.getNombreCategoria());
-
-            // Retorna la respuesta con HTTP 201
-            return new ResponseEntity<>(nuevaCategoriaDTO, HttpStatus.CREATED);
-        } catch (Exception e) {
-            // Maneja excepciones y retornamos error
-            return new ResponseEntity<>("Error al crear la categoría: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<?> crearCategoria(@Valid @RequestBody CategoriaDTO dto) {
+        return categoriaService.crearCategoria(dto);
     }
 
-    // Actualizar una categoría existente
+    /**
+     * Actualizar categoría existente.
+     */
     @PutMapping("/{id}")
-    public ResponseEntity<CategoriaDTO> actualizarCategoria(@PathVariable Integer id, @Valid @RequestBody CategoriaDTO categoriaDTO) {
-        return categoriaRepository.findById(id)
-                .map(categoria -> {
-                    categoria.setNombreCategoria(categoriaDTO.getNombreCategoria());
-                    categoriaRepository.save(categoria);
-                    return ResponseEntity.ok(new CategoriaDTO(categoria.getIdCategoria(), categoria.getNombreCategoria()));
-                })
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<CategoriaDTO> actualizarCategoria(@PathVariable Integer id, @Valid @RequestBody CategoriaDTO dto) {
+        return categoriaService.actualizarCategoria(id, dto);
     }
 
-    // Eliminar una categoría
+    /**
+     * Eliminar una categoría por ID.
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarCategoria(@PathVariable Integer id) {
-        if (categoriaRepository.existsById(id)) {
-            categoriaRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return categoriaService.eliminarCategoria(id);
     }
 }
