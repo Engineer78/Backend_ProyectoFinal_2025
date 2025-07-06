@@ -1,4 +1,4 @@
-package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.backup;
+package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.backup.controller;
 
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.backup.service.BackupService;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.model.TipoMovimiento;
