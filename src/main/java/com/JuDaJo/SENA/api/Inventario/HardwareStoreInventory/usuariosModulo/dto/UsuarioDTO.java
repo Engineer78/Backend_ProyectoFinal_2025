@@ -1,17 +1,14 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.dto;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Builder;
-
 
 @Builder
 public class UsuarioDTO {
     // Validaciones
-    @NotEmpty(message = "El nombre del usuario no puede ser nulo")
-    @Size(min =3, max =50, message="El nombre debe estar entre 3 y 50 caracteres")
+    @Email(message = "El nombre de usuario debe tener formato de correo válido")
+    @NotEmpty(message = "El nombre de usuario no puede estar vacío")
+    @Size(max = 50, message = "El nombre de usuario no debe tener más de 50 caracteres")
     private String nombre;
     @NotEmpty(message = "La contraseña del usuario no puede estar vacia")
     @Size(min=6, message = "La contraseña debe tener como minimo 6 caracteres")
@@ -19,7 +16,8 @@ public class UsuarioDTO {
             regexp = "^(?=.*[A-Z])(?=.*[!@#$%^&*()_+\\-={}\\[\\]:;\"'<>,.?/]).+$",
             message = "La contraseña debe contener al menos una letra mayúscula y un carácter especial"
     )
-    private String constrasenia;
+    private String contrasena;
+
     @NotNull( message="Debe seleccionar el rol")
     private Integer rol;
 
@@ -27,9 +25,9 @@ public class UsuarioDTO {
     public UsuarioDTO() {}
 
     //Constructor con argumentos
-    public UsuarioDTO(String nombre, String constrasenia, Integer rol) {
+    public UsuarioDTO(String nombre, String constrasena, Integer rol) {
         this.nombre = nombre;
-        this.constrasenia = constrasenia;
+        this.contrasena = constrasena;
         this.rol = rol;
     }
     //Getters And Setters
@@ -42,12 +40,12 @@ public class UsuarioDTO {
         this.nombre = nombre;
     }
 
-    public String getConstrasenia() {
-        return constrasenia;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setConstrasenia(String constrasenia) {
-        this.constrasenia = constrasenia;
+    public void setContrasena(String constrasena) {
+        this.contrasena = contrasena;
     }
 
     public Integer getRol() {
