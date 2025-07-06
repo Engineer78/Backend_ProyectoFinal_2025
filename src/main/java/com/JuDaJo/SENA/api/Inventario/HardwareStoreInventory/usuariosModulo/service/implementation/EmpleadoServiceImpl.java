@@ -1,5 +1,11 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.service.implementation;
 
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.exception.DuplicadoException;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.exception.RecursoNoEncontradoException;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.dto.MovimientoInventarioDTO;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.model.TipoMovimiento;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.service.MovimientoInventarioService;
+import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.service.RegistroMovimientoService;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.model.Rol;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.model.TipoDocumento;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.repository.RolRepository;
@@ -11,7 +17,10 @@ import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.mode
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.repository.EmpleadoRepository;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,6 +51,24 @@ public class EmpleadoServiceImpl implements EmpleadoService {
     @Autowired
     private TipoDocumentoRepository tipoDocumentoRepository;
 
+    /**
+     * Se inyecta la dependencia para el servicio de PasswordEncoder.
+     */
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    /**
+     * Se inyecta la dependencia para el movimiento de inventario.
+     */
+    @Autowired
+    private MovimientoInventarioService movimientoInventarioService;
+
+    /**
+     * Se inyecta la dependencia para el registro de movimiento.
+     */
+    @Autowired
+    private RegistroMovimientoService registroMovimientoService;
+
 
     /**
      * Busca un empleado por su ID.
@@ -62,6 +89,25 @@ public class EmpleadoServiceImpl implements EmpleadoService {
         int idRol = usuario.getRol() != null ? usuario.getRol().getIdRol() : 0;
         String nombreRol = usuario.getRol() != null ? usuario.getRol().getNombreRol() : null;
 
+        // Obtener usuario logueado desde el JWT
+        String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+        Usuario usuarioResponsable = usuarioRepository.findByNombreUsuario(nombreUsuario)
+                .orElseThrow(() -> new RecursoNoEncontradoException("Usuario autenticado no encontrado"));
+        Empleado empleadoResponsable = usuarioResponsable.getEmpleado();
+
+        // // Armar mensaje de detalle
+        String detalle = "Se consultó el empleado con ID interno " + empleado.getIdEmpleado();
+
+        MovimientoInventarioDTO movimiento = new MovimientoInventarioDTO();
+        movimiento.setTipoMovimiento(TipoMovimiento.CONSULTAR);
+        movimiento.setEntidadAfectada("Empleado");
+        movimiento.setIdEntidadAfectada(String.valueOf(empleado.getIdEmpleado()));
+        movimiento.setNombreEntidadAfectada(empleado.getNombres() + " " + empleado.getApellidoPaterno());
+        movimiento.setDetalleMovimiento(detalle);
+        movimiento.setIdEmpleadoResponsable(empleadoResponsable.getIdEmpleado());
+        movimiento.setNombreEmpleadoResponsable(empleadoResponsable.getNombres() + " " + empleadoResponsable.getApellidoPaterno());
+
+        registroMovimientoService.registrarMovimiento(movimiento);
 
         return new EmpleadoDTO(
                 empleado.getIdEmpleado(),
@@ -78,7 +124,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
                 empleado.getContactoEmergencia(),
                 empleado.getTelefonoContacto(),
                 usuario.getNombreUsuario(),
-                usuario.getContrasenia(),
+                usuario.getContrasena(),
                 nombreRol
         );
     }
@@ -86,11 +132,15 @@ public class EmpleadoServiceImpl implements EmpleadoService {
     /**
      * Crea un nuevo empleado en la base de datos.
      * @param dto Objeto EmpleadoDTO con los datos del empleado a buscar.
-     * @return
      */
     @Override
     public EmpleadoDTO crear(EmpleadoDTO dto) {
-        // Verifica si el nombre de usuario ya existe
+        // 🧐 Validación: verificar si ya existe un número de documento
+        if (empleadoRepository.findByNumeroDocumento(dto.getNumeroDocumento()).isPresent()) {
+            throw new RuntimeException("Ya existe un empleado con ese número de documento");
+        }
+
+        // 🧐 Validación: nombre de usuario duplicado (ya existente)
         if (usuarioRepository.existsByNombreUsuario(dto.getNombreUsuario())) {
             throw new RuntimeException("El nombre de usuario ya está en uso");
         }
@@ -102,7 +152,9 @@ public class EmpleadoServiceImpl implements EmpleadoService {
         // Crea el usuario
         Usuario nuevoUsuario = new Usuario();
         nuevoUsuario.setNombreUsuario(dto.getNombreUsuario());
-        nuevoUsuario.setContrasenia(dto.getContrasena());
+        // 🔐 Encriptar contraseña con BCrypt antes de guardar
+        String passwordEncriptada = passwordEncoder.encode(dto.getContrasena());
+        nuevoUsuario.setContrasena(passwordEncriptada);
         nuevoUsuario.setRol(rol);
         Usuario usuarioGuardado = usuarioRepository.save(nuevoUsuario);
 
@@ -126,6 +178,25 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
         Empleado guardado = empleadoRepository.save(empleado);
 
+        // 🔽 Aquí se registra el movimiento del inventario,
+        // Obteniendo el usuario logueado desde el token
+        String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+        Usuario usuarioResponsable = usuarioRepository.findByNombreUsuario(nombreUsuario)
+                .orElseThrow(() -> new RecursoNoEncontradoException("Usuario autenticado no encontrado"));
+        Empleado empleadoResponsable = usuarioResponsable.getEmpleado();
+
+        // Arma el DTO de trazabilidad
+        MovimientoInventarioDTO movimiento = new MovimientoInventarioDTO();
+        movimiento.setTipoMovimiento(TipoMovimiento.CREAR);
+        movimiento.setEntidadAfectada("Empleado");
+        movimiento.setIdEntidadAfectada(String.valueOf(guardado.getIdEmpleado()));
+        movimiento.setNombreEntidadAfectada(guardado.getNombres() + " " + guardado.getApellidoPaterno());
+        movimiento.setDetalleMovimiento("Se creó el empleado con documento " + guardado.getNumeroDocumento());
+        movimiento.setIdEmpleadoResponsable(empleadoResponsable.getIdEmpleado());
+        movimiento.setNombreEmpleadoResponsable(empleadoResponsable.getNombres() + " " + empleadoResponsable.getApellidoPaterno());
+
+        registroMovimientoService.registrarMovimiento(movimiento);
+
         return new EmpleadoDTO(
                 guardado.getIdEmpleado(),
                 usuarioGuardado.getIdUsuario(),
@@ -141,7 +212,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
                 guardado.getContactoEmergencia(),
                 guardado.getTelefonoContacto(),
                 usuarioGuardado.getNombreUsuario(),
-                usuarioGuardado.getContrasenia(),
+                null, // 🔐 No retornar la contraseña en la respuesta
                 rol.getNombreRol()
         );
     }
@@ -149,16 +220,35 @@ public class EmpleadoServiceImpl implements EmpleadoService {
     /**
      * Busca un empleado por número de documento.
      * @param numeroDocumento Objeto EmpleadoDTO con los datos del empleado a buscar.
-     * @return
      */
     @Override
     public EmpleadoDTO buscarEmpleadoPorDocumento(String numeroDocumento) {
         Empleado empleado = empleadoRepository.findByNumeroDocumento(numeroDocumento)
-                .orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
+                .orElseThrow(() -> new RecursoNoEncontradoException("Empleado no encontrado con documento: " + numeroDocumento));
 
         Usuario usuario = empleado.getUsuario();
         int idRol = usuario.getRol() != null ? usuario.getRol().getIdRol() : 0;
         String nombreRol = usuario.getRol() != null ? usuario.getRol().getNombreRol() : null;
+
+        // Obtener usuario logueado desde el JWT
+        String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+        Usuario usuarioResponsable = usuarioRepository.findByNombreUsuario(nombreUsuario)
+                .orElseThrow(() -> new RecursoNoEncontradoException("Usuario autenticado no encontrado"));
+        Empleado empleadoResponsable = usuarioResponsable.getEmpleado();
+
+        // // Armar mensaje de detalle
+        String detalle = "Se consultó el empleado con documento " + empleado.getNumeroDocumento();
+
+        MovimientoInventarioDTO movimiento = new MovimientoInventarioDTO();
+        movimiento.setTipoMovimiento(TipoMovimiento.CONSULTAR);
+        movimiento.setEntidadAfectada("Empleado");
+        movimiento.setIdEntidadAfectada(String.valueOf(empleado.getIdEmpleado()));
+        movimiento.setNombreEntidadAfectada(empleado.getNombres() + " " + empleado.getApellidoPaterno());
+        movimiento.setDetalleMovimiento(detalle);
+        movimiento.setIdEmpleadoResponsable(empleadoResponsable.getIdEmpleado());
+        movimiento.setNombreEmpleadoResponsable(empleadoResponsable.getNombres() + " " + empleadoResponsable.getApellidoPaterno());
+
+        registroMovimientoService.registrarMovimiento(movimiento);
 
         return new EmpleadoDTO(
                 empleado.getIdEmpleado(),
@@ -175,24 +265,49 @@ public class EmpleadoServiceImpl implements EmpleadoService {
                 empleado.getContactoEmergencia(),
                 empleado.getTelefonoContacto(),
                 usuario.getNombreUsuario(),
-                usuario.getContrasenia(),
+                usuario.getContrasena(),
                 nombreRol
         );
     }
+
     /**
      * Actualiza los datos de un empleado existente por ID.
-     * @param idEmpleado
-     * @param dto
-     * @return
+     * @param: idEmpleado
+     * @param: dto
      */
     @Override
     public EmpleadoDTO actualizarEmpleado(int idEmpleado, EmpleadoDTO dto) {
         Empleado empleado = empleadoRepository.findById(idEmpleado)
-                .orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
+                .orElseThrow(() -> new RecursoNoEncontradoException("Empleado no encontrado con ID: " + idEmpleado));
+
+        // 🧐 Verificar si ya existe otro empleado con ese número de documento
+        empleadoRepository.findByNumeroDocumento(dto.getNumeroDocumento()).ifPresent(otro -> {
+            if (otro.getIdEmpleado() != empleado.getIdEmpleado()) {
+                throw new DuplicadoException("Ya existe otro empleado con ese número de documento.");
+            }
+        });
+
+        // 🧐 Verificar si ya existe otro usuario con ese nombre de usuario
+        usuarioRepository.findAll().forEach(otroUsuario -> {
+            if (otroUsuario.getNombreUsuario().equals(dto.getNombreUsuario()) &&
+                    otroUsuario.getIdUsuario() != empleado.getUsuario().getIdUsuario()) {
+                throw new DuplicadoException("Ya existe otro usuario con ese nombre de usuario.");
+            }
+        });
+
+        // 🧐 Validar si el número de documento ya pertenece a otro empleado
+        empleadoRepository.findByNumeroDocumento(dto.getNumeroDocumento())
+                .ifPresent(otro -> {
+                    if (otro.getIdEmpleado() != idEmpleado) {
+                        throw new RuntimeException("El número de documento ya está en uso por otro empleado");
+                    }
+                });
 
         Usuario usuario = empleado.getUsuario();
         usuario.setNombreUsuario(dto.getNombreUsuario());
-        usuario.setContrasenia(dto.getContrasena());
+        // 🔐 Encriptar contraseña con BCrypt antes de guardar
+        String passwordEncriptada = passwordEncoder.encode(dto.getContrasena());
+        usuario.setContrasena(passwordEncriptada);
         usuarioRepository.save(usuario);
 
         empleado.setNumeroDocumento(dto.getNumeroDocumento());
@@ -209,6 +324,26 @@ public class EmpleadoServiceImpl implements EmpleadoService {
         int idRol = usuario.getRol() != null ? usuario.getRol().getIdRol() : 0;
         String nombreRol = usuario.getRol() != null ? usuario.getRol().getNombreRol() : null;
 
+        // Obtener el usuario autenticado actual desde el JWT
+        String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+        Usuario usuarioResponsable = usuarioRepository.findByNombreUsuario(nombreUsuario)
+                .orElseThrow(() -> new RecursoNoEncontradoException("Usuario autenticado no encontrado"));
+        Empleado empleadoResponsable = usuarioResponsable.getEmpleado();
+
+        // Armar mensaje de detalle
+        String detalle = "Se actualizó el empleado con ID interno " + actualizado.getIdEmpleado();
+
+        MovimientoInventarioDTO movimiento = new MovimientoInventarioDTO();
+        movimiento.setTipoMovimiento(TipoMovimiento.ACTUALIZAR);
+        movimiento.setEntidadAfectada("Empleado");
+        movimiento.setIdEntidadAfectada(String.valueOf(actualizado.getIdEmpleado()));
+        movimiento.setNombreEntidadAfectada(actualizado.getNombres() + " " + actualizado.getApellidoPaterno());
+        movimiento.setDetalleMovimiento(detalle);
+        movimiento.setIdEmpleadoResponsable(empleadoResponsable.getIdEmpleado());
+        movimiento.setNombreEmpleadoResponsable(empleadoResponsable.getNombres() + " " + empleadoResponsable.getApellidoPaterno());
+
+        registroMovimientoService.registrarMovimiento(movimiento);
+
         return new EmpleadoDTO(
                 actualizado.getIdEmpleado(),
                 usuario.getIdUsuario(),
@@ -224,27 +359,50 @@ public class EmpleadoServiceImpl implements EmpleadoService {
                 actualizado.getContactoEmergencia(),
                 actualizado.getTelefonoContacto(),
                 usuario.getNombreUsuario(),
-                usuario.getContrasenia(),
+                usuario.getContrasena(),
                 nombreRol
         );
     }
 
     /**
      * Actualiza los datos existente de un empleado por número de documento.
-     * @param numeroDocumento
-     * @param dto
-     * @return
+     * @param: numeroDocumento
+     * @param: dto
      */
     @Override
     public EmpleadoDTO actualizarEmpleadoPorDocumento(String numeroDocumento, EmpleadoDTO dto) {
         Empleado empleado = empleadoRepository.findByNumeroDocumento(numeroDocumento)
-                .orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
+                .orElseThrow(() -> new RecursoNoEncontradoException("Empleado no encontrado con documento: " + numeroDocumento));
+
+        // Validar si otro empleado ya tiene ese número de documento
+        empleadoRepository.findByNumeroDocumento(dto.getNumeroDocumento()).ifPresent(otro -> {
+            if (otro.getIdEmpleado() != empleado.getIdEmpleado()) {
+                throw new DuplicadoException("Ya existe otro empleado con ese número de documento.");
+            }
+        });
+
+        // Validar si otro usuario ya tiene ese nombre de usuario
+        usuarioRepository.findAll().forEach(otroUsuario -> {
+            if (otroUsuario.getNombreUsuario().equals(dto.getNombreUsuario()) &&
+                    otroUsuario.getIdUsuario() != empleado.getUsuario().getIdUsuario()) {
+                throw new DuplicadoException("Ya existe otro usuario con ese nombre.");
+            }
+        });
 
         Usuario usuario = empleado.getUsuario();
-        usuario.setNombreUsuario(dto.getNombreUsuario());
-        usuario.setContrasenia(dto.getContrasena());
+        // 🧐 validar si cambió el nombre de usuario
+        if (!usuario.getNombreUsuario().equals(dto.getNombreUsuario())) {
+            if (usuarioRepository.existsByNombreUsuario(dto.getNombreUsuario())) {
+                throw new DuplicadoException("El nombre de usuario ya está en uso por otro empleado.");
+            }
+            usuario.setNombreUsuario(dto.getNombreUsuario());
+        }
+        // 🔐 Encriptar contraseña con BCrypt antes de guardar
+        String passwordEncriptada = passwordEncoder.encode(dto.getContrasena());
+        usuario.setContrasena(passwordEncriptada);
         usuarioRepository.save(usuario);
 
+        empleado.setNumeroDocumento(dto.getNumeroDocumento());
         empleado.setNombres(dto.getNombres());
         empleado.setApellidoPaterno(dto.getApellidoPaterno());
         empleado.setApellidoMaterno(dto.getApellidoMaterno());
@@ -255,6 +413,26 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
         Empleado actualizado = empleadoRepository.save(empleado);
         Rol rol = usuario.getRol();
+
+        // Obtener el usuario autenticado actual desde el JWT
+        String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+        Usuario usuarioResponsable = usuarioRepository.findByNombreUsuario(nombreUsuario)
+                .orElseThrow(() -> new RecursoNoEncontradoException("Usuario autenticado no encontrado"));
+        Empleado empleadoResponsable = usuarioResponsable.getEmpleado();
+
+        // Armar mensaje de detalle
+        String detalle = "Se actualizó el empleado con número de documento " + actualizado.getNumeroDocumento();
+
+        MovimientoInventarioDTO movimiento = new MovimientoInventarioDTO();
+        movimiento.setTipoMovimiento(TipoMovimiento.ACTUALIZAR);
+        movimiento.setEntidadAfectada("Empleado");
+        movimiento.setIdEntidadAfectada(String.valueOf(actualizado.getIdEmpleado()));
+        movimiento.setNombreEntidadAfectada(actualizado.getNombres() + " " + actualizado.getApellidoPaterno());
+        movimiento.setDetalleMovimiento(detalle);
+        movimiento.setIdEmpleadoResponsable(empleadoResponsable.getIdEmpleado());
+        movimiento.setNombreEmpleadoResponsable(empleadoResponsable.getNombres() + " " + empleadoResponsable.getApellidoPaterno());
+
+        registroMovimientoService.registrarMovimiento(movimiento);
 
         return new EmpleadoDTO(
                 actualizado.getIdEmpleado(),
@@ -271,53 +449,87 @@ public class EmpleadoServiceImpl implements EmpleadoService {
                 actualizado.getContactoEmergencia(),
                 actualizado.getTelefonoContacto(),
                 usuario.getNombreUsuario(),
-                usuario.getContrasenia(),
+                usuario.getContrasena(),
                 rol != null ? rol.getNombreRol() : null
         );
     }
 
     /**
      * Lista todos los empleados existentes.
-     * @return
      */
     @Override
     public List<EmpleadoDTO> listarEmpleados() {
-        List<Empleado> empleados = empleadoRepository.findAll();
-        return empleados.stream().map(emp -> {
-            Usuario usuario = emp.getUsuario();
-            int idRol = usuario.getRol() != null ? usuario.getRol().getIdRol() : 0;
-            String nombreRol = usuario.getRol() != null ? usuario.getRol().getNombreRol() : null;
-
-            return new EmpleadoDTO(
-                    emp.getIdEmpleado(),
-                    usuario.getIdUsuario(),
-                    idRol,
-                    emp.getNumeroDocumento(),
-                    emp.getTipoDocumento() != null ? emp.getTipoDocumento().getIdTipoDocumento() : 0,
-                    emp.getTipoDocumento() != null ? emp.getTipoDocumento().getNombre() : null,
-                    emp.getNombres(),
-                    emp.getApellidoPaterno(),
-                    emp.getApellidoMaterno(),
-                    emp.getTelefonoMovil(),
-                    emp.getDireccionResidencia(),
-                    emp.getContactoEmergencia(),
-                    emp.getTelefonoContacto(),
-                    usuario.getNombreUsuario(),
-                    usuario.getContrasenia(),
-                    nombreRol
-            );
-        }).collect(Collectors.toList());
+        return empleadoRepository.findAll()
+                .stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
     }
 
     /**
-     * Elimina un empleado existente.
-     * @param idEmpleado
+     * Elimina un empleado existente, no sin antes capturar la información.
+     * @param: idEmpleado
      */
     @Override
     public void eliminarEmpleado(int idEmpleado) {
-        if (!empleadoRepository.existsById(idEmpleado)) {
-            throw new RuntimeException("Empleado no encontrado");
-        }
+        Empleado empleado = empleadoRepository.findById(idEmpleado)
+                .orElseThrow(() -> new RecursoNoEncontradoException("Empleado no encontrado"));
+
+        // Guardar datos antes de eliminar
+        String nombreCompleto = empleado.getNombres() + " " + empleado.getApellidoPaterno();
+        String numeroDocumento = empleado.getNumeroDocumento();
+
         empleadoRepository.deleteById(idEmpleado);
+
+        // Obtener usuario logueado desde el JWT
+        String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+        Usuario usuarioResponsable = usuarioRepository.findByNombreUsuario(nombreUsuario)
+                .orElseThrow(() -> new RecursoNoEncontradoException("Usuario autenticado no encontrado"));
+        Empleado empleadoResponsable = usuarioResponsable.getEmpleado();
+
+        // Armar detalle de movimiento
+        String detalle = "Se eliminó el empleado " + nombreCompleto + " con documento " + numeroDocumento;
+
+        MovimientoInventarioDTO movimiento = new MovimientoInventarioDTO();
+        movimiento.setTipoMovimiento(TipoMovimiento.ELIMINAR);
+        movimiento.setEntidadAfectada("Empleado");
+        movimiento.setIdEntidadAfectada(String.valueOf(idEmpleado));
+        movimiento.setNombreEntidadAfectada(nombreCompleto);
+        movimiento.setDetalleMovimiento(detalle);
+        movimiento.setIdEmpleadoResponsable(empleadoResponsable.getIdEmpleado());
+        movimiento.setNombreEmpleadoResponsable(empleadoResponsable.getNombres() + " " + empleadoResponsable.getApellidoPaterno());
+
+        registroMovimientoService.registrarMovimiento(movimiento);
     }
+
+    private EmpleadoDTO toDTO(Empleado empleado) {
+        EmpleadoDTO dto = new EmpleadoDTO();
+        dto.setIdEmpleado(empleado.getIdEmpleado());
+        dto.setNumeroDocumento(empleado.getNumeroDocumento());
+        dto.setNombres(empleado.getNombres());
+        dto.setApellidoPaterno(empleado.getApellidoPaterno());
+        dto.setApellidoMaterno(empleado.getApellidoMaterno());
+        dto.setTelefonoMovil(empleado.getTelefonoMovil());
+        dto.setDireccionResidencia(empleado.getDireccionResidencia());
+        dto.setContactoEmergencia(empleado.getContactoEmergencia());
+        dto.setTelefonoContacto(empleado.getTelefonoContacto());
+
+        // Asignación de relaciones si las tienes
+        if (empleado.getUsuario() != null) {
+            dto.setIdUsuario(empleado.getUsuario().getIdUsuario());
+            dto.setNombreUsuario(empleado.getUsuario().getNombreUsuario());
+            if (empleado.getUsuario().getRol() != null) {
+                dto.setIdRol(empleado.getUsuario().getRol().getIdRol());
+            }
+        }
+
+        if (empleado.getTipoDocumento() != null) {
+            dto.setIdTipoDocumento(empleado.getTipoDocumento().getIdTipoDocumento());
+            dto.setNombreTipoDocumento(empleado.getTipoDocumento().getNombre());
+        }
+
+
+        return dto;
+    }
+
+
 }
