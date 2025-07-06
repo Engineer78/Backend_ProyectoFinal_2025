@@ -15,7 +15,24 @@ public class ProductoConsultaDTO {
     private String nitProveedor; // NIT del proveedor
     private String imagen; // Base64 de la imagen
 
-    // Constructor basado en la entidad Producto
+    /**
+     * Constructor por defecto para la clase ProductoConsultaDTO.
+     * Inicializa una nueva instancia de ProductoConsultaDTO sin establecer ningún valor.
+     * Este constructor puede ser utilizado para crear una instancia vacía del DTO
+     * y posteriormente poblar sus atributos a través de los métodos set.
+     */
+    public ProductoConsultaDTO() {
+    }
+
+    /**
+     * Constructor que inicializa un objeto ProductoConsultaDTO utilizando una instancia de Producto.
+     * Mapea las propiedades del objeto Producto dado a los campos correspondientes de este DTO.
+     *
+     * @param producto la entidad Producto de la cual se mapearán los datos. Contiene
+     *                 detalles como ID, nombre, cantidad, valor unitario, información del proveedor,
+     *                 e imagen. Si la información del proveedor no está disponible, los campos
+     *                 relacionados con el proveedor se establecerán como null.
+     */
     public ProductoConsultaDTO(Producto producto) {
         this.idProducto = producto.getIdProducto();
         this.nombreProducto = producto.getNombreProducto();
@@ -28,7 +45,6 @@ public class ProductoConsultaDTO {
     }
 
     // Getters y Setters
-
     public Integer getIdProducto() {
         return idProducto;
     }

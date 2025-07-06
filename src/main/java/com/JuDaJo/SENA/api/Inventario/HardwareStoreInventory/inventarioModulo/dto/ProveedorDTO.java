@@ -1,5 +1,6 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.dto;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 /**
@@ -16,14 +17,32 @@ public class ProveedorDTO {
     @Size(max = 20, message = "El NIT no puede exceder los 20 caracteres")
     private String nitProveedor;
 
-    @Size(max = 15, message = "El teléfono no puede superar los 15 caracteres")
+    @Size(min = 10, max = 10, message = "El teléfono debe tener exactamente 10 dígitos")
+    @Pattern(
+            regexp = "^3\\d{9}$",
+            message = "El número de teléfono debe ser un celular válido de 10 dígitos que empiece por 3"
+    )
     private String telefonoProveedor;
 
     @Size(max = 255, message = "La dirección no puede superar los 255 caracteres")
     private String direccionProveedor;
-    // Constructor vacío
+
+    /**
+     * Constructor por defecto de la clase ProveedorDTO.
+     * Crea una nueva instancia de ProveedorDTO sin inicializar sus propiedades.
+     * Este constructor es importante para la serialización o deserialización de objetos.
+     */
     public ProveedorDTO() {}
-    // Constructor con todos los atributos
+
+    /**
+     * Constructor que inicializa una instancia de la clase ProveedorDTO con los valores proporcionados.
+     *
+     * @param idProveedor Identificador único del proveedor.
+     * @param nombreProveedor Nombre del proveedor. No puede ser nulo o vacío y tiene un límite de 100 caracteres.
+     * @param nitProveedor Número de Identificación Tributaria (NIT) del proveedor. No puede ser nulo o vacío y tiene un límite de 20 caracteres.
+     * @param telefonoProveedor Número de teléfono del proveedor. Debe contener exactamente 10 dígitos y comenzar con el número 3.
+     * @param direccionProveedor Dirección del proveedor. Tiene un límite máximo de 255 caracteres.
+     */
     public ProveedorDTO(int idProveedor, String nombreProveedor, String nitProveedor, String telefonoProveedor, String direccionProveedor) {
         this.idProveedor = idProveedor;
         this.nombreProveedor = nombreProveedor;
@@ -73,3 +92,4 @@ public class ProveedorDTO {
         this.direccionProveedor = direccionProveedor;
     }
 }
+
