@@ -10,12 +10,10 @@ import jakarta.validation.constraints.Size;
  * Este DTO se utiliza para recibir los datos necesarios para crear un nuevo producto
  * incluyendo información de la categoría y el proveedor.
  */
-
 public class ProductoCreationDTO {
 
     // Encapsulación de la clase ProductoDTO
     // Se utiliza para validar los datos del producto
-
     @NotNull(message = "El producto es obligatorio")
     @Valid
     private ProductoDTO producto;

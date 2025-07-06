@@ -11,10 +11,8 @@ import java.util.Optional;
  * Este repositorio proporciona operaciones CRUD básicas para la entidad Proveedor
  * utilizando Spring Data JPA.
  */
-
 @Repository
 public interface ProveedorRepository extends JpaRepository<Proveedor, Integer> {
-    // No se necesitan métodos personalizados por ahora, ya que JpaRepository
     // proporciona los métodos básicos (save, findById, findAll, delete, etc.).
 
     /**

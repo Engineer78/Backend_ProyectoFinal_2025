@@ -126,3 +126,4 @@ public class Categoria {
         producto.setCategoria(null); // Rompe la relación bidireccional
     }
 }
+

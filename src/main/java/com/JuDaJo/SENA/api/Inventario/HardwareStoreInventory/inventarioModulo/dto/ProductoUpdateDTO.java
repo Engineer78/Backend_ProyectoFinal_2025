@@ -1,19 +1,19 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import jakarta.persistence.Lob;
-import jakarta.validation.constraints.Min; // Esta importación también es de Jakarta
 
 public class ProductoUpdateDTO {
 
     private int idProducto;
 
     @NotNull(message = "El código del producto no puede ser nulo")
+    @Min(value = 1, message = "El código del producto debe ser mayor o igual a 1")
+    @Max(value = 99999, message = "El código del producto debe ser menor o igual a 99999")
     private Integer codigoProducto;
 
     @NotBlank(message = "El nombre del producto no puede estar en blanco")
+    @Size(max = 100, message = "El nombre del producto no puede exceder los 100 caracteres")
     private String nombreProducto;
 
     @Min(value = 0, message = "La cantidad no puede ser negativa")
@@ -31,6 +31,9 @@ public class ProductoUpdateDTO {
 
     @NotNull
     private Integer idProveedor;
+
+    @NotBlank
+    private String nombreProveedor;
 
     @NotBlank
     private String nitProveedor;
@@ -106,6 +109,14 @@ public class ProductoUpdateDTO {
         this.idProveedor = idProveedor;
     }
 
+    public String getNombreProveedor() {
+        return nombreProveedor;
+    }
+
+    public void setNombreProveedor(String nombreProveedor) {
+        this.nombreProveedor = nombreProveedor;
+    }
+
     public String getNitProveedor() {
         return nitProveedor;
     }
@@ -130,3 +141,4 @@ public class ProductoUpdateDTO {
         this.telefonoProveedor = telefonoProveedor;
     }
 }
+

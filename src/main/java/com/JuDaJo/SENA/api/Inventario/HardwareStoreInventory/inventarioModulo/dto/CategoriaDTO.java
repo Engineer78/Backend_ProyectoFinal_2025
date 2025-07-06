@@ -12,10 +12,18 @@ public class CategoriaDTO {
     @Size(max = 100, message = "El nombre de la categoría no puede exceder los 100 caracteres")
     private String nombreCategoria;
 
-    // Constructor vacío
+    /**
+     * Default constructor for the CategoriaDTO class.
+     * Initializes a new instance of the CategoriaDTO class without setting any properties.
+     */
     public CategoriaDTO() {}
 
-    // Constructor con parámetros
+    /**
+     * Constructor que inicializa el objeto CategoriaDTO con los valores especificados.
+     *
+     * @param idCategoria el identificador único de la categoría, puede ser nulo
+     * @param nombreCategoria el nombre de la categoría, no debe estar en blanco ni exceder los 100 caracteres
+     */
     public CategoriaDTO(Integer idCategoria, String nombreCategoria) {
         this.idCategoria = idCategoria;
         this.nombreCategoria = nombreCategoria;

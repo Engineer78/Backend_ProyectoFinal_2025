@@ -2,7 +2,6 @@ package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.m
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -14,26 +13,30 @@ import java.util.Objects;
  */
 @Entity
 public class Producto {
+
     /**
      * Identificador único del producto.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idProducto;
+
     /**
      * Código único del producto.
      */
     @Column(name = "codigo_producto")
     @NotNull(message = "El código del producto no puede ser nulo")
-    @Min(value = 11111, message = "El código de producto debe ser mayor o igual a 11111 ")
+    @Min(value = 1, message = "El código de producto debe ser mayor o igual a 1")
     @Max(value = 99999, message = "El código de producto debe ser menor o igual a 99999")
     private Integer codigoProducto;
+
     /**
      * Nombre del producto.
      */
     @Column(name = "nombre_producto")
     @NotBlank(message = "El nombre del producto no puede estar en blanco")
     private String nombreProducto;
+
     /**
      * Cantidad disponible del producto.
      */
@@ -41,18 +44,21 @@ public class Producto {
     @Min(value = 1, message = "La cantidad no puede ser negativa")
     @Max(value = 99999, message = "La cantidad no puede ser mayor a 99999")
     private int cantidad;
+
     /**
      * Valor unitario del producto.
      */
     @Column(name = "valor_unitario_producto")
     @Min(value = 0, message = "El valor unitario no puede ser negativo")
     private double valorUnitarioProducto;
+
     /**
      * Valor Total del producto.
      */
     @Column(name = "valor_total_producto")
     @Min(value = 0, message = "El valor total no puede ser negativa")
     private double valorTotalProducto; // Nuevo campo para el valor total del producto
+
     /**
      * Relación con la categoría a la que pertenece el producto.
      */
@@ -60,11 +66,11 @@ public class Producto {
     @JoinColumn(name = "categoria_id", nullable = false)
     @NotNull(message = "La categoría no puede ser nula")
     private Categoria categoria;
+
     /**
      * Lista de relaciones entre el producto y sus proveedores.
      * Se utiliza para modelar la relación entre un producto y los proveedores que lo suministran.
      */
-
     @OneToMany(mappedBy = "producto", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductoProveedor> productoProveedores = new ArrayList<>();
 
@@ -72,19 +78,21 @@ public class Producto {
     @JoinColumn(name = "proveedor_id", nullable = false)
     @NotNull(message = "El proveedor no puede ser nulo")
     private Proveedor proveedor;
+
     /**
      * Imagen del producto en formato Base64.
      */
     @Lob // Indica que es un campo de gran tamaño (Large Object)
     @Column(name = "imagen", columnDefinition = "LONGTEXT") // Se define como TEXT en la base de datos
     private String imagen;
+
     /**
      * Constructor vacío requerido por JPA.
      */
     public Producto() {
     }
-    //Getters y Setters
 
+    //Getters y Setters
     /**
      * Obtiene el identificador del producto.
      * @return idProducto Identificador único.
@@ -259,6 +267,7 @@ public class Producto {
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
+
     /**
      * Compara este producto con otro objeto.
      * La comparación se realiza por el ID del producto.

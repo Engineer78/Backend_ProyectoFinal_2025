@@ -3,12 +3,8 @@ package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.d
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.model.Producto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * DTO (Data Transfer Object) para la entidad Producto.
@@ -20,9 +16,14 @@ public class ProductoDTO {
     private int idProducto;
 
     @NotNull(message = "El código del producto no puede ser nulo")
+    @Min(value = 1, message = "El código del producto debe ser mayor o igual a 1")
+    @Max(value = 99999, message = "El código del producto debe ser menor o igual a 99999")
     private Integer codigoProducto;
 
+    private String codigoProductoFormateado;
+
     @NotBlank(message = "El nombre del producto no puede estar vacío")
+    @Size(max = 100, message = "El nombre del producto no puede exceder los 100 caracteres")
     private String nombreProducto;
 
     @Positive(message = "La cantidad debe ser un número positivo")
@@ -30,33 +31,38 @@ public class ProductoDTO {
 
     @PositiveOrZero(message = "El valor unitario debe ser mayor o igual a cero")
     private double valorUnitarioProducto;
-
     private double valorTotalProducto; // Nuevo campo para el valor total del producto
-
     private String nombreCategoria;
-
     private Integer idProveedor;
-
     private String nombreProveedor;
-
     private String nitProveedor;
-
     private String direccionProveedor;
-
     private String telefonoProveedor;
-
     private List<Integer> productoProveedores;
+
     /**
      * Imagen del producto en formato Base64.
      */
     private String imagen;
-    // Constructor vacío para serialización/deserialización
+
+    /**
+     * Constructor por defecto de la clase ProductoDTO.
+     * Crea una nueva instancia de ProductoDTO sin inicializar ninguna propiedad.
+     * Este constructor es necesario para la serialización/deserialización de objetos.
+     */
     public ProductoDTO() {}
 
-    // Constructor que inicializa los campos desde la entidad Producto
+    /**
+     * Constructor que crea un objeto de tipo ProductoDTO a partir de un objeto Producto.
+     * Inicializa todas las propiedades del ProductoDTO basándose en los valores del Producto.
+     *
+     * @param producto Objeto de tipo Producto del cual se obtendrán los valores a asignar
+     *                 en las propiedades de este ProductoDTO. No debe ser nulo.
+     */
     public ProductoDTO(Producto producto) {
         this.idProducto = producto.getIdProducto();
         this.codigoProducto = producto.getCodigoProducto();
+        this.codigoProductoFormateado = String.format("%05d", producto.getCodigoProducto());
         this.nombreProducto = producto.getNombreProducto();
         this.cantidad = producto.getCantidad();
         this.valorUnitarioProducto = producto.getValorUnitarioProducto();
@@ -76,8 +82,8 @@ public class ProductoDTO {
             this.direccionProveedor = producto.getProveedor().getDireccionProveedor();
         }
     }
-    // Getters y Setters para cada campo
 
+    // Getters y Setters para cada campo
     public int getIdProducto() {
         return idProducto;
     }
@@ -197,4 +203,8 @@ public class ProductoDTO {
         this.imagen = imagen;
     }
 
+    // Nuevo campo para mostrar el código formateado
+    public String getCodigoProductoFormateado() {
+        return String.format("%05d", this.codigoProducto);
+    }
 }

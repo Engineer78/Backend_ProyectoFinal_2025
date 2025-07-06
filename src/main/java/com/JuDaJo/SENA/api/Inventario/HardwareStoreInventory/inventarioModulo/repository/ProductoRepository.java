@@ -1,8 +1,6 @@
 package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.repository;
 
-import aj.org.objectweb.asm.commons.Remapper;
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.inventarioModulo.model.Producto;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,40 +9,34 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Repositorio para la entidad Producto que extiende JpaRepository.
+ * Proporciona métodos de consulta personalizados y funcionalidad estándar
+ * para la interacción con la base de datos relacionada con productos.
+ */
 @Repository
-public interface ProductoRepository extends JpaRepository<Producto, Integer>{
+public interface ProductoRepository extends JpaRepository<Producto, Integer> {
+
     /**
      * Busca un producto por su código exacto.
-     *
-     * @param codigoProducto El código del producto.
-     * @return Un Optional que contiene el producto encontrado, o un Optional vacío si no se encuentra.
      */
     Optional<Producto> findByCodigoProducto(Integer codigoProducto);
+
     /**
      * Busca un producto por su nombre exacto.
-     *
-     * @param nombreProducto El nombre del producto.
-     * @return Un Optional que contiene el producto encontrado, o un Optional vacío si no se encuentra.
      */
     Optional<Producto> findByNombreProducto(String nombreProducto);
+
     /**
-     * Busca productos utilizando filtros opcionales.
-     * Permite filtrar por código, categoría, nombre y cantidad.
-     *
-     * @param codigoProducto El código del producto (puede ser null).
-     * @param nombreCategoria El nombre de la categoría (puede ser null).
-     * @param nombreProducto Parte del nombre del producto (puede ser null).
-     * @param cantidad Cantidad mínima del producto (puede ser null).
-     * @return Una lista de productos que cumplen con los criterios de filtro.
+     * Filtros principales de búsqueda desde tabla (búsqueda básica).
      */
     @Query("SELECT p FROM Producto p " +
-            "LEFT JOIN p.productoProveedores pp " +
-            "LEFT JOIN pp.proveedor prov " +
+            "LEFT JOIN p.proveedor prov " +
             "WHERE (:codigoProducto IS NULL OR p.codigoProducto = :codigoProducto) " +
-            "AND (:nombreProducto IS NULL OR LOWER(p.nombreProducto) LIKE LOWER(CONCAT('%',:nombreProducto,'%'))) " +
-            "AND (:nombreCategoria IS NULL OR LOWER(p.categoria.nombreCategoria) LIKE LOWER(CONCAT('%',:nombreCategoria,'%'))) " +
+            "AND (:nombreProducto IS NULL OR LOWER(p.nombreProducto) LIKE LOWER(CONCAT('%', :nombreProducto, '%'))) " +
+            "AND (:nombreCategoria IS NULL OR LOWER(p.categoria.nombreCategoria) LIKE LOWER(CONCAT('%', :nombreCategoria, '%'))) " +
             "AND (:nitProveedor IS NULL OR prov.nitProveedor = :nitProveedor) " +
-            "AND (:nombreProveedor IS NULL OR LOWER(prov.nombreProveedor) LIKE LOWER(CONCAT('%',:nombreProveedor,'%'))) " +
+            "AND (:nombreProveedor IS NULL OR LOWER(prov.nombreProveedor) LIKE LOWER(CONCAT('%', :nombreProveedor, '%'))) " +
             "AND (:cantidad IS NULL OR p.cantidad = :cantidad) " +
             "AND (:valorUnitarioProducto IS NULL OR p.valorUnitarioProducto = :valorUnitarioProducto) " +
             "AND (:valorTotalProducto IS NULL OR p.valorTotalProducto = :valorTotalProducto)")
@@ -58,17 +50,12 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer>{
             @Param("valorUnitarioProducto") Double valorUnitarioProducto,
             @Param("valorTotalProducto") Double valorTotalProducto
     );
-    /**
-     * Consulta JPA que obtine los datos de proveedor junto con los de producto
-     * @param idProducto
-     * @return
-     */
-    @Query("SELECT p FROM Producto p LEFT JOIN FETCH p.proveedor WHERE p.idProducto = :idProducto")
-    Optional<Producto> findByIdWithProveedor(@Param("idProducto") Integer idProducto);
 
+    /**
+     * Consulta optimizada para el modal de búsqueda avanzada (campos string).
+     */
     @Query("SELECT p FROM Producto p " +
-            "LEFT JOIN p.productoProveedores pp " +
-            "LEFT JOIN pp.proveedor prov " +
+            "LEFT JOIN p.proveedor prov " +
             "WHERE (:nitProveedor IS NULL OR prov.nitProveedor LIKE %:nitProveedor%) " +
             "AND (:nombreProveedor IS NULL OR LOWER(prov.nombreProveedor) LIKE LOWER(CONCAT('%', :nombreProveedor, '%'))) " +
             "AND (:cantidad IS NULL OR str(p.cantidad) LIKE %:cantidad%) " +
@@ -81,4 +68,14 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer>{
             @Param("valorUnitarioProducto") String valorUnitarioProducto,
             @Param("valorTotalProducto") String valorTotalProducto
     );
+
+    /**
+     * Consulta que obtiene el proveedor junto con el producto por ID.
+     */
+    @Query("SELECT p FROM Producto p LEFT JOIN FETCH p.proveedor WHERE p.idProducto = :idProducto")
+    Optional<Producto> findByIdWithProveedor(@Param("idProducto") Integer idProducto);
+
+    @Query("SELECT p FROM Producto p LEFT JOIN FETCH p.proveedor WHERE p.codigoProducto = :codigoProducto")
+    Optional<Producto> findByCodigoWithProveedor(@Param("codigoProducto") Integer codigoProducto);
+
 }

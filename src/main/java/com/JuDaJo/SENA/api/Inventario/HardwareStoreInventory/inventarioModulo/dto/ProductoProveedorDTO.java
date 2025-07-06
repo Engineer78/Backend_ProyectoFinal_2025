@@ -19,10 +19,22 @@ public class ProductoProveedorDTO {
     @Min(value = 0, message = "El precio de compra debe ser mayor o igual a 0")
     private double precioCompra;
 
-    // Constructor vacío
+    /**
+     * Constructor por defecto de la clase ProductoProveedorDTO.
+     * Crea una nueva instancia de ProductoProveedorDTO sin inicializar ninguna propiedad.
+     * Este constructor es necesario para la serialización/deserialización de objetos.
+     */
     public ProductoProveedorDTO() {}
 
-    // Constructor con parámetros
+    /**
+     * Constructor de la clase ProductoProveedorDTO.
+     * Inicializa una nueva instancia con todos los campos de la entidad ProductoProveedor.
+     *
+     * @param idProductoProveedor Identificador único para la relación entre producto y proveedor.
+     * @param idProducto Identificador del producto asociado.
+     * @param idProveedor Identificador del proveedor asociado.
+     * @param precioCompra Precio de compra del producto asignado al proveedor.
+     */
     public ProductoProveedorDTO(int idProductoProveedor, int idProducto, int idProveedor, double precioCompra) {
         this.idProductoProveedor = idProductoProveedor;
         this.idProducto = idProducto;
