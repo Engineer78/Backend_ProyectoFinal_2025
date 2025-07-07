@@ -2,6 +2,8 @@ package com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.rep
 
 import com.JuDaJo.SENA.api.Inventario.HardwareStoreInventory.usuariosModulo.model.Rol;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -38,4 +40,14 @@ public interface RolRepository  extends JpaRepository<Rol, Integer> {
      * @return Un Optional que contiene el rol encontrado, o vacío si no existe.
      */
     List<Rol> findByNombreRolContainingIgnoreCase(String nombreRol);
+
+    /**
+     * Realiza una búsqueda flexible de roles cuyo nombre contenga el texto especificado,
+     * ignorando mayúsculas, minúsculas y espacios en blanco alrededor del nombre.
+     *
+     * @param nombre El texto a buscar en el nombre de los roles.
+     * @return Una lista de roles cuyos nombres coincidan parcialmente con el texto dado.
+     */
+    @Query("SELECT r FROM Rol r WHERE LOWER(TRIM(r.nombreRol)) LIKE LOWER(CONCAT('%', TRIM(:nombre), '%'))")
+    List<Rol> buscarPorNombreFlexible(@Param("nombre") String nombre);
 }

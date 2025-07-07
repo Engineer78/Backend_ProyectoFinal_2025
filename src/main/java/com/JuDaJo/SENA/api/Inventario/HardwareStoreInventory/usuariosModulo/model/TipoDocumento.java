@@ -6,6 +6,13 @@ import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
+/**
+ * Clase que representa el tipo de documento en el sistema.
+ * Está mapeada a la tabla "tipo_documento" en la base de datos.
+ *
+ * La clase incluye información sobre el tipo de documento, como su código y nombre,
+ * y define una relación bidireccional con la entidad Empleado.
+ */
 @Entity
 @Table(name = "tipo_documento")
 public class TipoDocumento {
