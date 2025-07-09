@@ -519,6 +519,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
             dto.setNombreUsuario(empleado.getUsuario().getNombreUsuario());
             if (empleado.getUsuario().getRol() != null) {
                 dto.setIdRol(empleado.getUsuario().getRol().getIdRol());
+                dto.setNombreRol(empleado.getUsuario().getRol().getNombreRol());
             }
         }
 
