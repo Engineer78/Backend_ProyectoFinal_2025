@@ -543,6 +543,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
             dto.setNombreTipoDocumento(empleado.getTipoDocumento().getNombre());
         }
 
+
         return dto;
     }
 
