@@ -390,18 +390,33 @@ public class EmpleadoServiceImpl implements EmpleadoService {
         });
 
         Usuario usuario = empleado.getUsuario();
-        // 🧐 validar si cambió el nombre de usuario
+
+        // Validar si cambió el nombre de usuario
         if (!usuario.getNombreUsuario().equals(dto.getNombreUsuario())) {
             if (usuarioRepository.existsByNombreUsuario(dto.getNombreUsuario())) {
                 throw new DuplicadoException("El nombre de usuario ya está en uso por otro empleado.");
             }
             usuario.setNombreUsuario(dto.getNombreUsuario());
         }
-        // 🔐 Encriptar contraseña con BCrypt antes de guardar
-        String passwordEncriptada = passwordEncoder.encode(dto.getContrasena());
-        usuario.setContrasena(passwordEncriptada);
+
+        // 🔐 Actualizar contraseña solo si fue ingresada
+        if (dto.getContrasena() != null && !dto.getContrasena().trim().isEmpty()) {
+            String passwordEncriptada = passwordEncoder.encode(dto.getContrasena());
+            usuario.setContrasena(passwordEncriptada);
+        }
+
+        // ✅ Actualizar rol
+        Rol nuevoRol = rolRepository.findById(dto.getIdRol())
+                .orElseThrow(() -> new RecursoNoEncontradoException("Rol no encontrado con ID: " + dto.getIdRol()));
+        usuario.setRol(nuevoRol);
         usuarioRepository.save(usuario);
 
+        // ✅ Actualizar tipo de documento
+        TipoDocumento tipoDocumento = tipoDocumentoRepository.findById(dto.getIdTipoDocumento())
+                .orElseThrow(() -> new RecursoNoEncontradoException("Tipo de documento no encontrado con ID: " + dto.getIdTipoDocumento()));
+        empleado.setTipoDocumento(tipoDocumento);
+
+        // Actualizar campos del empleado
         empleado.setNumeroDocumento(dto.getNumeroDocumento());
         empleado.setNombres(dto.getNombres());
         empleado.setApellidoPaterno(dto.getApellidoPaterno());
@@ -412,7 +427,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
         empleado.setTelefonoContacto(dto.getTelefonoContacto());
 
         Empleado actualizado = empleadoRepository.save(empleado);
-        Rol rol = usuario.getRol();
+        Rol rol = usuario.getRol(); // ya está actualizado
 
         // Obtener el usuario autenticado actual desde el JWT
         String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -439,8 +454,8 @@ public class EmpleadoServiceImpl implements EmpleadoService {
                 usuario.getIdUsuario(),
                 rol != null ? rol.getIdRol() : 0,
                 actualizado.getNumeroDocumento(),
-                actualizado.getTipoDocumento() != null ? actualizado.getTipoDocumento().getIdTipoDocumento() : 0,
-                actualizado.getTipoDocumento() != null ? actualizado.getTipoDocumento().getNombre() : null,
+                tipoDocumento != null ? tipoDocumento.getIdTipoDocumento() : 0,
+                tipoDocumento != null ? tipoDocumento.getNombre() : null,
                 actualizado.getNombres(),
                 actualizado.getApellidoPaterno(),
                 actualizado.getApellidoMaterno(),
