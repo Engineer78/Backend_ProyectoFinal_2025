@@ -103,7 +103,10 @@ public class RolPermisoServiceImpl implements RolPermisoService {
         RolPermiso relacion = rolPermisoRepository
                 .findAll()
                 .stream()
-                .filter(rp -> rp.getRol().getIdRol() == idRol && rp.getPermiso().getIdPermiso() == idPermiso)
+                .filter(rp ->
+                        rp.getRol().getIdRol().equals(idRol) &&
+                                rp.getPermiso().getIdPermiso().equals(idPermiso)
+                )
                 .findFirst()
                 .orElseThrow(() -> new RecursoNoEncontradoException("Relación no encontrada"));
 
